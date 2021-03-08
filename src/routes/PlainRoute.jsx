@@ -1,8 +1,10 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Redirect, Route } from 'react-router-dom';
 import { Background } from './Router.styled';
 
 const PlainRoute = ({ component: Component }, ...rest) => {
+  if (localStorage.getItem('IS_LOGGED_IN') !== null) return <Redirect to="/dashboard" />;
+
   if (Component) {
     return (
       <Route

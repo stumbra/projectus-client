@@ -38,6 +38,7 @@ const Landing = () => {
         animation: 'bounce',
         time: 5000,
       });
+      localStorage.setItem('IS_LOGGED_IN', '');
       history.push('/dashboard');
     },
     onError(err) {
