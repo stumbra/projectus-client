@@ -1,20 +1,27 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import { Background } from './Router.styled';
+import { IS_LOGGED_IN_QUERY } from './gql';
+import { useQuery } from '@apollo/client';
+import { Wrapper, Backdrop } from './Router.styled';
 
 const PlainRoute = ({ component: Component }, ...rest) => {
-  if (localStorage.getItem('IS_LOGGED_IN') !== null) return <Redirect to="/dashboard" />;
+  const { loading, data: { isLoggedIn } = {} } = useQuery(IS_LOGGED_IN_QUERY);
+
+  if (isLoggedIn) return <Redirect to="/dashboard" />;
 
   if (Component) {
     return (
-      <Route
-        {...rest}
-        render={(props) => (
-          <Background>
-            <Component {...props} />
-          </Background>
-        )}
-      />
+      !loading && (
+        <Route
+          {...rest}
+          render={(props) => (
+            <Wrapper>
+              <Component {...props} />
+              <Backdrop />
+            </Wrapper>
+          )}
+        />
+      )
     );
   }
   return null;

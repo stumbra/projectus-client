@@ -1,7 +1,13 @@
 import React from 'react';
 import { Button, Loader, Dimmer } from 'semantic-ui-react';
 import { useHistory } from 'react-router';
-import { Wrapper, Container, StatusCode, Title, Subtitle } from './ConfirmEmail.styled';
+import {
+  Wrapper,
+  Container,
+  StatusCode,
+  Title,
+  Subtitle,
+} from '../../theme/components/TokenizedComponent.styled';
 import { CONFIRM_EMAIL_MUTATION } from './gql';
 import { useMutation } from '@apollo/client';
 

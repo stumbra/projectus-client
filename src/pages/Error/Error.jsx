@@ -1,7 +1,13 @@
 import React from 'react';
 import { Button } from 'semantic-ui-react';
 import { useHistory } from 'react-router';
-import { Wrapper, Container, StatusCode, Title, Subtitle } from './Error.styled';
+import {
+  Wrapper,
+  Container,
+  StatusCode,
+  Title,
+  Subtitle,
+} from '../../theme/components/TokenizedComponent.styled';
 
 const Error = () => {
   const history = useHistory();

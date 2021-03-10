@@ -1,7 +1,13 @@
 import React from 'react';
 import { Button, Loader, Dimmer } from 'semantic-ui-react';
 import { useHistory } from 'react-router';
-import { Wrapper, Container, StatusCode, Title, Subtitle } from './ResetPassword.styled';
+import {
+  Wrapper,
+  Container,
+  StatusCode,
+  Title,
+  Subtitle,
+} from '../../theme/components/TokenizedComponent.styled';
 import { RESET_PASSWORD_MUTATION } from './gql';
 import { useMutation } from '@apollo/client';
 

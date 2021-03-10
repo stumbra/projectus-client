@@ -1,20 +1,17 @@
 import styled from 'styled-components';
-import backgroundUrl from '../assets/background.jpg';
+import background from '../assets/background.jpg';
 
-export const Background = styled.div`
-  height: 100%;
-  ::before {
-    clip-path: polygon(55% 0, 100% 0, 100% 100%, 40% 100%);
-    background-image: url(${backgroundUrl});
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 100%;
-    width: 100%;
-    z-index: -1;
-    content: '';
-    top: 0;
-    left: 0;
-    position: absolute;
-  }
+export const Wrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const Backdrop = styled.div`
+  width: 100%;
+  display: flex;
+  background-image: url(${background});
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 0% 100%);
 `;

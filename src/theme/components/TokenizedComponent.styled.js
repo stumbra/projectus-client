@@ -10,10 +10,10 @@ export const Wrapper = styled.div`
 `;
 
 export const Container = styled.div`
-  display: block;
+  margin: 5%;
 `;
 
-export const StatusCode = styled.div`
+export const StatusCode = styled.h1`
   font-size: 9rem;
   font-weight: 400;
   color: #c1c7cd;
@@ -21,7 +21,7 @@ export const StatusCode = styled.div`
   margin-bottom: 0.625rem;
 `;
 
-export const Title = styled.div`
+export const Title = styled.h2`
   font-size: 2.25rem;
   font-weight: 400;
   color: #21272a;
@@ -29,11 +29,12 @@ export const Title = styled.div`
   margin-bottom: 1rem;
 `;
 
-export const Subtitle = styled.div`
+export const Subtitle = styled.p`
   font-size: 1.5rem;
   font-weight: 400;
   color: #21272a;
   line-height: 1.95rem;
   width: 48.563rem;
   margin-bottom: 1.78rem;
+  width: 100%;
 `;

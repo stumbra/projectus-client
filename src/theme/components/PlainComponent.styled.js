@@ -2,47 +2,43 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export const Container = styled.div`
-  height: 100%;
-  clip-path: polygon(50% 0, 0 0, 0 100%, 35% 100%);
-  padding: 5rem;
+  width: 100vw;
+  margin: 5%;
+  min-height: calc(100vh - 5rem);
 `;
 
 export const PrimarySection = styled.div`
-  margin-bottom: 16px;
+  margin-bottom: 1rem;
 `;
 
-export const Heading = styled.div`
+export const Heading = styled.h1`
   font-weight: 400;
-  font-size: 36px;
-  line-height: 46.8px;
+  font-size: 2.3rem;
   color: #21272a;
-  width: 50%;
-  margin-top: 16px;
 `;
 
-export const Subheading = styled.div`
+export const Subheading = styled.h2`
   font-weight: 600;
-  font-size: 60px;
-  line-height: 78px;
+  font-size: 3.6rem;
   color: #21272a;
-  width: 45%;
 `;
 
 export const Quote = styled.p`
-  margin-top: 24px;
   color: #b8bbbe;
   font-weight: 400;
-  font-size: 18px;
-  width: 35%;
+  font-size: 1.25rem;
+  font-style: italic;
+  margin-top: 1.5rem;
 `;
 
 export const SecondarySection = styled.div`
-  width: 30%;
+  margin-top: 2.5rem;
 `;
 
-export const ButtonAndForgotWrapper = styled.div`
+export const ButtonActionWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-bottom: 1rem;
   a {
     align-items: center;
     display: flex;
@@ -53,7 +49,7 @@ export const ButtonAndForgotWrapper = styled.div`
   }
 `;
 
-export const SignupLink = styled(Link)`
+export const Hyperlink = styled(Link)`
   color: #b8bbbe;
   cursor: pointer;
   :hover {

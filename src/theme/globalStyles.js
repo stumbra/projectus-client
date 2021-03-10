@@ -2,11 +2,19 @@ import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
     body{
-        width:100%;
-        height: 100vh;
-        padding: 0;
-        margin: 0;
-        background-color: white;
+        font-family: 'IBM Plex Sans', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    code {
+        font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+    }
+
+    * { 
+        box-sizing: border-box;
+        margin: 0px;
+        padding: 0px; 
     }
 `;
 

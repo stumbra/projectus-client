@@ -1,19 +1,21 @@
 import React from 'react';
 import { Form, Button, Message, Icon, Image, Header } from 'semantic-ui-react';
 import ProjectLogo from '../../assets/logo_1.png';
-import {
-  Container,
-  Heading,
-  Subheading,
-  Quote,
-  PrimarySection,
-  SecondarySection,
-  HomeLink,
-} from './ForgotPassword.styled';
 import { useForm } from '../../utils/hooks';
 import { useMutation } from '@apollo/client';
 import { toast } from 'react-semantic-toasts';
 import { FORGOT_PASSWORD_MUTATION } from './gql';
+
+import {
+  Container,
+  PrimarySection,
+  Heading,
+  Subheading,
+  Quote,
+  SecondarySection,
+  Hyperlink,
+} from '../../theme/components/PlainComponent.styled';
+import { Link } from 'react-router-dom';
 
 const ForgotPassword = () => {
   const [error, setError] = React.useState('');
@@ -46,7 +48,7 @@ const ForgotPassword = () => {
 
   return (
     <Container>
-      <Image src={ProjectLogo} size="small" />
+      <Image src={ProjectLogo} size="medium" style={{ marginBottom: '1rem' }} as={Link} to="/" />
       <PrimarySection>
         <Heading>
           Welcome to <strong>Projectus</strong>
@@ -58,35 +60,40 @@ const ForgotPassword = () => {
         </Quote>
       </PrimarySection>
       <SecondarySection>
-        <Message
-          warning
-          header="A problem occurred with your sign in."
-          content={`${error}.`}
-          icon="lock"
-          style={{ opacity: error ? 1 : 0 }}
-          size="tiny"
-        />
-        <Header>Reset your password</Header>
-        <Form onSubmit={onSubmit} style={{ marginBottom: '16px' }} loading={loading}>
-          <Form.Field>
-            <Form.Input
-              label="E-mail"
-              placeholder="E-mail..."
-              name="email"
-              type="email"
-              value={values.email}
-              onChange={onChange}
-              error={!!error}
-              required
-            />
-          </Form.Field>
-
-          <Button type="submit" primary icon labelPosition="right">
+        {error && (
+          <Message
+            warning
+            header="A problem occurred with your sign in."
+            content={`${error}.`}
+            icon="lock"
+            size="small"
+          />
+        )}
+        <Header as="h2">Reset your password</Header>
+        <Form onSubmit={onSubmit} size="large" loading={loading}>
+          <Form.Input
+            label="E-mail"
+            placeholder="E-mail..."
+            name="email"
+            type="email"
+            value={values.email}
+            onChange={onChange}
+            error={!!error}
+            required
+          />
+          <Button
+            type="submit"
+            size="large"
+            primary
+            icon
+            labelPosition="right"
+            style={{ marginBottom: '1rem' }}
+          >
             Send request
             <Icon name="mail outline" />
           </Button>
         </Form>
-        <HomeLink to="/">Go to Homepage</HomeLink>
+        <Hyperlink to="/">Go to Homepage</Hyperlink>
       </SecondarySection>
     </Container>
   );

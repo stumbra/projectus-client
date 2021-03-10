@@ -1,21 +1,21 @@
 import React from 'react';
-import { Form, Button, Message, Icon, Image, Header, Input } from 'semantic-ui-react';
+import { Form, Button, Message, Icon, Image, Header } from 'semantic-ui-react';
 import ProjectLogo from '../../assets/logo_1.png';
-import { useHistory } from 'react-router-dom';
-import {
-  Container,
-  Heading,
-  Subheading,
-  PrimarySection,
-  SecondarySection,
-  HomeLink,
-  ButtonAndLinkWrapper,
-} from './Register.styled';
+import { Link, useHistory } from 'react-router-dom';
 import { useForm } from '../../utils/hooks';
 import { useMutation } from '@apollo/client';
 import { toast } from 'react-semantic-toasts';
 import { REGISTER_USER_MUTATION } from './gql';
 import lodash from 'lodash';
+import {
+  Container,
+  PrimarySection,
+  Heading,
+  Subheading,
+  Quote,
+  SecondarySection,
+  Hyperlink,
+} from '../../theme/components/PlainComponent.styled';
 
 const Register = () => {
   const [errors, setErrors] = React.useState({});
@@ -57,109 +57,116 @@ const Register = () => {
 
   const ErrorsContent = () => {
     return (
-      <Message error size="mini">
-        <Message.Header>A problem occurred with your sign up.</Message.Header>
-        <Message.List>
-          {errors.details
-            ? errors.details.map((error, index) => (
-                <Message.Item key={index}>{error.message}</Message.Item>
-              ))
+      <Message
+        warning
+        size="small"
+        header="A problem occurred with your sign up."
+        icon="x"
+        content={
+          errors.details
+            ? errors.details.map((error, index) => {
+                return <Message.Item key={index}>{error.message}</Message.Item>;
+              })
             : Object.keys(errors.errors).map((key, index) => {
                 const error = errors.errors[key];
                 return <Message.Item key={index}>{error.message}</Message.Item>;
-              })}
-        </Message.List>
-      </Message>
+              })
+        }
+      />
     );
   };
 
   return (
     <Container>
-      <Image src={ProjectLogo} size="small" />
+      <Image src={ProjectLogo} size="medium" style={{ marginBottom: '1rem' }} as={Link} to="/" />
       <PrimarySection>
         <Heading>
           Welcome to <strong>Projectus</strong>
         </Heading>
         <Subheading>Project Management Tool</Subheading>
+        <Quote>
+          "A Project is complete when it starts working for You, rather than You working for it." -
+          Scott Allen
+        </Quote>
       </PrimarySection>
       <SecondarySection>
         {!lodash.isEmpty(errors) && <ErrorsContent />}
-        <Header>Sign up for an account</Header>
-        <Form onSubmit={onSubmit} style={{ marginBottom: '16px' }} loading={loading}>
+        <Header as="h2">Sign up for an account</Header>
+        <Form onSubmit={onSubmit} loading={loading} size="large">
           <Form.Group widths="equal">
-            <Form.Field
+            <Form.Input
               label="Name"
               placeholder="Name..."
               name="name"
               type="text"
               value={values.name}
               onChange={onChange}
-              control={Input}
               required
             />
-            <Form.Field
+            <Form.Input
               label="Surname"
               placeholder="Surname..."
               name="surname"
               type="text"
               value={values.surname}
               onChange={onChange}
-              control={Input}
               required
             />
           </Form.Group>
           <Form.Group widths="equal">
-            <Form.Field
+            <Form.Input
               label="Username"
               placeholder="Username..."
               name="username"
               type="text"
               value={values.username.toLowerCase()}
               onChange={onChange}
-              control={Input}
               required
             />
-            <Form.Field
+            <Form.Input
               label="E-mail"
               placeholder="E-mail..."
               name="email"
               type="email"
               value={values.email.toLowerCase()}
               onChange={onChange}
-              control={Input}
               required
             />
           </Form.Group>
           <Form.Group widths="equal">
-            <Form.Field
+            <Form.Input
               label="Password"
               placeholder="Password..."
               name="password"
               type="password"
               value={values.password}
               onChange={onChange}
-              control={Input}
               required
             />
-            <Form.Field
+            <Form.Input
               label="Confirm Password"
               placeholder="Confirm Password..."
               name="confirmPassword"
               type="password"
               value={values.confirmPassword}
               onChange={onChange}
-              control={Input}
               required
             />
           </Form.Group>
-          <ButtonAndLinkWrapper>
-            <Button type="submit" primary icon labelPosition="right">
-              Create an Account
-              <Icon name="user outline" />
-            </Button>
-            <HomeLink to="/">Go to Homepage</HomeLink>
-          </ButtonAndLinkWrapper>
+
+          <Button
+            type="submit"
+            primary
+            icon
+            labelPosition="right"
+            size="large"
+            style={{ marginBottom: '1rem' }}
+          >
+            Create an Account
+            <Icon name="user outline" />
+          </Button>
         </Form>
+        <Hyperlink to="/">Go to Homepage</Hyperlink>
       </SecondarySection>
     </Container>
   );
