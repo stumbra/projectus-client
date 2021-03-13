@@ -16,6 +16,7 @@ import {
   ButtonActionWrapper,
   Hyperlink,
 } from '../../theme/components/PlainComponent.styled';
+import { motion } from 'framer-motion';
 
 const Landing = () => {
   const [error, setError] = React.useState('');
@@ -52,8 +53,8 @@ const Landing = () => {
 
   return (
     <Container>
-      <Image src={ProjectLogo} size="medium" style={{ marginBottom: '1rem' }} />
       <PrimarySection>
+        <Image src={ProjectLogo} size="medium" />
         <Heading>
           Welcome to <strong>Projectus</strong>
         </Heading>
@@ -63,52 +64,54 @@ const Landing = () => {
           Scott Allen
         </Quote>
       </PrimarySection>
-      <SecondarySection>
-        {error && (
-          <Message
-            warning
-            header="A problem occurred with your sign in."
-            content={`${error}.`}
-            icon="lock"
-            size="small"
-          />
-        )}
-        <Header as="h2">Sign in</Header>
-        <Form onSubmit={onSubmit} loading={loading} size="large">
-          <Form.Input
-            fluid
-            label="E-mail"
-            placeholder="E-mail..."
-            name="email"
-            type="email"
-            value={values.email}
-            onChange={onChange}
-            error={!!error}
-            required
-          />
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+        <SecondarySection>
+          {error && (
+            <Message
+              warning
+              header="A problem occurred with your sign in."
+              content={`${error}.`}
+              icon="lock"
+              size="small"
+            />
+          )}
+          <Header as="h2">Sign in</Header>
+          <Form onSubmit={onSubmit} loading={loading} widths="equal">
+            <Form.Input
+              fluid
+              label="E-mail"
+              placeholder="E-mail..."
+              name="email"
+              type="email"
+              value={values.email}
+              onChange={onChange}
+              error={!!error}
+              required
+            />
 
-          <Form.Input
-            fluid
-            label="Password"
-            placeholder="Password..."
-            name="password"
-            type="password"
-            value={values.password}
-            onChange={onChange}
-            error={!!error}
-            required
-          />
+            <Form.Input
+              fluid
+              label="Password"
+              placeholder="Password..."
+              name="password"
+              type="password"
+              value={values.password}
+              onChange={onChange}
+              error={!!error}
+              required
+            />
 
-          <ButtonActionWrapper>
-            <Button type="submit" primary icon labelPosition="right" size="large">
-              Sign in
-              <Icon name="right arrow" />
-            </Button>
-            <Link to="/forgot-password">Forgot password?</Link>
-          </ButtonActionWrapper>
-        </Form>
-        <Hyperlink to="/register">Don't have an account? Click here!</Hyperlink>
-      </SecondarySection>
+            <ButtonActionWrapper>
+              <Button type="submit" primary icon labelPosition="right">
+                Sign in
+                <Icon name="right arrow" />
+              </Button>
+              <Link to="/forgot-password">Forgot password?</Link>
+            </ButtonActionWrapper>
+          </Form>
+          <Hyperlink to="/register">Don't have an account? Click here!</Hyperlink>
+        </SecondarySection>
+      </motion.div>
     </Container>
   );
 };

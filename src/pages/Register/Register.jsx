@@ -16,11 +16,13 @@ import {
   SecondarySection,
   Hyperlink,
 } from '../../theme/components/PlainComponent.styled';
+import { motion } from 'framer-motion';
 
 const Register = () => {
   const [errors, setErrors] = React.useState({});
 
   const history = useHistory();
+
   const { onChange, onSubmit, values } = useForm(createUser, {
     name: '',
     surname: '',
@@ -78,8 +80,8 @@ const Register = () => {
 
   return (
     <Container>
-      <Image src={ProjectLogo} size="medium" style={{ marginBottom: '1rem' }} as={Link} to="/" />
       <PrimarySection>
+        <Image src={ProjectLogo} size="medium" as={Link} to="/" />
         <Heading>
           Welcome to <strong>Projectus</strong>
         </Heading>
@@ -89,85 +91,85 @@ const Register = () => {
           Scott Allen
         </Quote>
       </PrimarySection>
-      <SecondarySection>
-        {!lodash.isEmpty(errors) && <ErrorsContent />}
-        <Header as="h2">Sign up for an account</Header>
-        <Form onSubmit={onSubmit} loading={loading} size="large">
-          <Form.Group widths="equal">
-            <Form.Input
-              label="Name"
-              placeholder="Name..."
-              name="name"
-              type="text"
-              value={values.name}
-              onChange={onChange}
-              required
-            />
-            <Form.Input
-              label="Surname"
-              placeholder="Surname..."
-              name="surname"
-              type="text"
-              value={values.surname}
-              onChange={onChange}
-              required
-            />
-          </Form.Group>
-          <Form.Group widths="equal">
-            <Form.Input
-              label="Username"
-              placeholder="Username..."
-              name="username"
-              type="text"
-              value={values.username.toLowerCase()}
-              onChange={onChange}
-              required
-            />
-            <Form.Input
-              label="E-mail"
-              placeholder="E-mail..."
-              name="email"
-              type="email"
-              value={values.email.toLowerCase()}
-              onChange={onChange}
-              required
-            />
-          </Form.Group>
-          <Form.Group widths="equal">
-            <Form.Input
-              label="Password"
-              placeholder="Password..."
-              name="password"
-              type="password"
-              value={values.password}
-              onChange={onChange}
-              required
-            />
-            <Form.Input
-              label="Confirm Password"
-              placeholder="Confirm Password..."
-              name="confirmPassword"
-              type="password"
-              value={values.confirmPassword}
-              onChange={onChange}
-              required
-            />
-          </Form.Group>
-
-          <Button
-            type="submit"
-            primary
-            icon
-            labelPosition="right"
-            size="large"
-            style={{ marginBottom: '1rem' }}
-          >
-            Create an Account
-            <Icon name="user outline" />
-          </Button>
-        </Form>
-        <Hyperlink to="/">Go to Homepage</Hyperlink>
-      </SecondarySection>
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+        <SecondarySection>
+          {!lodash.isEmpty(errors) && <ErrorsContent />}
+          <Header as="h2">Sign up for an account</Header>
+          <Form onSubmit={onSubmit} loading={loading} widths="equal">
+            <Form.Group>
+              <Form.Input
+                label="Name"
+                placeholder="Name..."
+                name="name"
+                type="text"
+                value={values.name}
+                onChange={onChange}
+                required
+              />
+              <Form.Input
+                label="Surname"
+                placeholder="Surname..."
+                name="surname"
+                type="text"
+                value={values.surname}
+                onChange={onChange}
+                required
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Input
+                label="Username"
+                placeholder="Username..."
+                name="username"
+                type="text"
+                value={values.username.toLowerCase()}
+                onChange={onChange}
+                required
+              />
+              <Form.Input
+                label="E-mail"
+                placeholder="E-mail..."
+                name="email"
+                type="email"
+                value={values.email.toLowerCase()}
+                onChange={onChange}
+                required
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Input
+                label="Password"
+                placeholder="Password..."
+                name="password"
+                type="password"
+                value={values.password}
+                onChange={onChange}
+                required
+              />
+              <Form.Input
+                label="Confirm Password"
+                placeholder="Confirm Password..."
+                name="confirmPassword"
+                type="password"
+                value={values.confirmPassword}
+                onChange={onChange}
+                required
+              />
+            </Form.Group>
+            <Button
+              type="submit"
+              primary
+              icon
+              labelPosition="right"
+              style={{ marginBottom: '1rem' }}
+            >
+              Create an Account
+              <Icon name="user outline" />
+            </Button>
+          </Form>
+          <Hyperlink to="/">Go to Homepage</Hyperlink>
+        </SecondarySection>
+      </motion.div>
     </Container>
   );
 };

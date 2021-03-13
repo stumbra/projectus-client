@@ -16,6 +16,7 @@ import {
   Hyperlink,
 } from '../../theme/components/PlainComponent.styled';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const ForgotPassword = () => {
   const [error, setError] = React.useState('');
@@ -35,6 +36,7 @@ const ForgotPassword = () => {
         animation: 'bounce',
         time: 5000,
       });
+      values.email = '';
     },
     onError(err) {
       setError(err.graphQLErrors[0].message);
@@ -48,8 +50,8 @@ const ForgotPassword = () => {
 
   return (
     <Container>
-      <Image src={ProjectLogo} size="medium" style={{ marginBottom: '1rem' }} as={Link} to="/" />
       <PrimarySection>
+        <Image src={ProjectLogo} size="medium" as={Link} to="/" />
         <Heading>
           Welcome to <strong>Projectus</strong>
         </Heading>
@@ -59,42 +61,43 @@ const ForgotPassword = () => {
           Scott Allen
         </Quote>
       </PrimarySection>
-      <SecondarySection>
-        {error && (
-          <Message
-            warning
-            header="A problem occurred with your sign in."
-            content={`${error}.`}
-            icon="lock"
-            size="small"
-          />
-        )}
-        <Header as="h2">Reset your password</Header>
-        <Form onSubmit={onSubmit} size="large" loading={loading}>
-          <Form.Input
-            label="E-mail"
-            placeholder="E-mail..."
-            name="email"
-            type="email"
-            value={values.email}
-            onChange={onChange}
-            error={!!error}
-            required
-          />
-          <Button
-            type="submit"
-            size="large"
-            primary
-            icon
-            labelPosition="right"
-            style={{ marginBottom: '1rem' }}
-          >
-            Send request
-            <Icon name="mail outline" />
-          </Button>
-        </Form>
-        <Hyperlink to="/">Go to Homepage</Hyperlink>
-      </SecondarySection>
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+        <SecondarySection>
+          {error && (
+            <Message
+              warning
+              header="A problem occurred with your sign in."
+              content={`${error}.`}
+              icon="lock"
+              size="small"
+            />
+          )}
+          <Header as="h2">Reset your password</Header>
+          <Form onSubmit={onSubmit} widths="equal" loading={loading}>
+            <Form.Input
+              label="E-mail"
+              placeholder="E-mail..."
+              name="email"
+              type="email"
+              value={values.email}
+              onChange={onChange}
+              error={!!error}
+              required
+            />
+            <Button
+              type="submit"
+              primary
+              icon
+              labelPosition="right"
+              style={{ marginBottom: '1rem' }}
+            >
+              Send request
+              <Icon name="mail outline" />
+            </Button>
+          </Form>
+          <Hyperlink to="/">Go to Homepage</Hyperlink>
+        </SecondarySection>
+      </motion.div>
     </Container>
   );
 };
