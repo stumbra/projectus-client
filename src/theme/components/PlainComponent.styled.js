@@ -2,9 +2,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export const Container = styled.div`
-  width: 100vw;
-  margin: 5%;
-  min-height: calc(100vh - 5rem);
+  margin: 3rem;
 `;
 
 export const PrimarySection = styled.div`
