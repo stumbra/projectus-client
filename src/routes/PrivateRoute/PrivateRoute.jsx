@@ -2,12 +2,13 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { Sidebar } from '../../components';
 import { Grid, Segment, Dimmer, Loader } from 'semantic-ui-react';
-import { IS_LOGGED_IN_QUERY } from '../gql';
+import { GET_ME_QUERY } from '../gql';
 import { useQuery } from '@apollo/client';
-import { PrivateWrapper } from '../Router.styled';
+import { AuthContext } from '../../context/auth';
 
 const PrivateRoute = ({ component: Component }, ...rest) => {
-  const { loading, data: { isLoggedIn } = {} } = useQuery(IS_LOGGED_IN_QUERY, {
+  const { user, setUser } = React.useContext(AuthContext);
+  const { loading, data: { getMe } = {} } = useQuery(GET_ME_QUERY, {
     fetchPolicy: 'network-only',
   });
 
@@ -18,20 +19,43 @@ const PrivateRoute = ({ component: Component }, ...rest) => {
       </Dimmer>
     );
 
+  const { name, surname, username, email, avatar } = getMe;
+
+  if (!user && getMe)
+    setUser({
+      name,
+      surname,
+      username,
+      email,
+      avatar,
+    });
+
   if (Component) {
     return (
       <Route
         {...rest}
         render={(props) =>
-          isLoggedIn ? (
-            <PrivateWrapper padded="vertically">
-              <Sidebar />
-              <Grid.Column stretched width={14}>
-                <Segment>
+          getMe ? (
+            <Grid
+              style={{
+                height: '100%',
+                width: '100%',
+                margin: 0,
+                padding: 0,
+                backgroundColor: '#0D5286',
+              }}
+            >
+              <Grid.Column stretched style={{ height: '100%', width: '12%' }}>
+                <Segment padded raised style={{ backgroundColor: '#fafafa' }}>
+                  <Sidebar />
+                </Segment>
+              </Grid.Column>
+              <Grid.Column stretched style={{ height: '100%', width: '88%' }}>
+                <Segment padded raised style={{ backgroundColor: '#fafafa' }}>
                   <Component {...props} />
                 </Segment>
               </Grid.Column>
-            </PrivateWrapper>
+            </Grid>
           ) : (
             <Redirect to="/" />
           )

@@ -1,12 +1,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const Projects = () => {
+const Organizations = () => {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-      Projects
+      Organizations
     </motion.div>
   );
 };
 
-export default Projects;
+export default Organizations;

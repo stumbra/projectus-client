@@ -5,3 +5,15 @@ export const IS_LOGGED_IN_QUERY = gql`
     isLoggedIn
   }
 `;
+
+export const GET_ME_QUERY = gql`
+  query getMe {
+    getMe {
+      name
+      surname
+      username
+      email
+      avatar
+    }
+  }
+`;
