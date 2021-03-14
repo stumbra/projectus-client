@@ -28,7 +28,8 @@
     "prettier": "prettier --write \"{,(node_modules|dist|build|coverage)/**/}*.{js,jsx,json}\"",
     "pre-commit": "npm run eslint-max && npm run prettier && npm run build",
     "eslint": "eslint .",
-    "eslint-max": "eslint . --max-warnings=0"
+    "eslint-max": "eslint . --max-warnings=0",
+    "clean": "rm package-lock.json && rm -r node_modules && npm cache clean --force && npm install"
   },
   "eslintConfig": {
     "extends": [
@@ -58,7 +59,7 @@
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "husky": "^5.1.3",
+    "husky": "^4.3.8",
     "prettier": "^2.2.1"
   },
   "husky": {

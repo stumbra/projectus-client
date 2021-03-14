@@ -6,6 +6,7 @@ const initialState = {
 
 const AuthContext = createContext({
   user: null,
+  // eslint-disable-next-line no-unused-vars
   setUser: (_) => {},
   clearUser: () => {},
 });
