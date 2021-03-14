@@ -95,7 +95,7 @@ const Register = () => {
         <SecondarySection>
           {!lodash.isEmpty(errors) && <ErrorsContent />}
           <Header as="h2">Sign up for an account</Header>
-          <Form onSubmit={onSubmit} loading={loading} widths="equal">
+          <Form onSubmit={onSubmit} widths="equal">
             <Form.Group>
               <Form.Input
                 label="Name"
@@ -162,6 +162,7 @@ const Register = () => {
               icon
               labelPosition="right"
               style={{ marginBottom: '1rem' }}
+              loading={loading}
             >
               Create an Account
               <Icon name="user outline" />

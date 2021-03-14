@@ -10,12 +10,16 @@ import DefaultStyles from './theme/defaultStyles';
 
 import { SemanticToastContainer } from 'react-semantic-toasts';
 
+import { AuthProvider } from './context/auth';
+
 function App() {
   return (
     <ThemeProvider theme={DefaultStyles}>
       <SemanticToastContainer position="top-right" />
       <GlobalStyles />
-      <Router />
+      <AuthProvider>
+        <Router />
+      </AuthProvider>
     </ThemeProvider>
   );
 }

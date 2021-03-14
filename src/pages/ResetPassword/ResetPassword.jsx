@@ -36,10 +36,10 @@ const ResetPassword = () => {
         {!loading && status !== undefined ? (
           <React.Fragment>
             <StatusCode>{status ? 200 : 401}</StatusCode>
-            <Title>{status ? 'Success!' : 'Something went wrong.'}</Title>
+            <Title>{status ? 'Success!' : 'Something went wrong'}</Title>
             <Subtitle>
               {status
-                ? 'Your password was successfully changed. We sent you a new password to your E-mail, please check it out & try to sign in.'
+                ? 'Your password was successfully changed. We sent you a new password to your E-mail, please check it out & try to sign in'
                 : 'Your link is expired. Please contact our support!'}
             </Subtitle>
             <Button primary onClick={() => history.push('/')}>

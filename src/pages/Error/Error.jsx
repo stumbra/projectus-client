@@ -19,7 +19,7 @@ const Error = () => {
         <Title>Page not found</Title>
         <Subtitle>
           The page you are looking for might have been removed, had its name changed or is
-          temporarily unavailable.
+          temporarily unavailable
         </Subtitle>
         <Button primary onClick={() => history.push('/')}>
           Go back

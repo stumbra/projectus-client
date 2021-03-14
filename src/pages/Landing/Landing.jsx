@@ -16,9 +16,11 @@ import {
   ButtonActionWrapper,
   Hyperlink,
 } from '../../theme/components/PlainComponent.styled';
+import { AuthContext } from '../../context/auth';
 import { motion } from 'framer-motion';
 
 const Landing = () => {
+  const { setUser } = React.useContext(AuthContext);
   const [error, setError] = React.useState('');
 
   const history = useHistory();
@@ -28,8 +30,8 @@ const Landing = () => {
     password: '',
   });
 
-  const [setUser, { loading }] = useMutation(LOGIN_USER_MUTATION, {
-    update(_, { data: { login: { name, surname } } = {} }) {
+  const [login, { loading }] = useMutation(LOGIN_USER_MUTATION, {
+    update(_, { data: { login: { name, surname, username, email, avatar } } = {} }) {
       setError('');
       toast({
         type: 'success',
@@ -39,6 +41,7 @@ const Landing = () => {
         animation: 'bounce',
         time: 5000,
       });
+      setUser({ name, surname, username, email, avatar });
       history.push('/dashboard');
     },
     onError(err) {
@@ -48,7 +51,7 @@ const Landing = () => {
   });
 
   function loginUser() {
-    setUser();
+    login();
   }
 
   return (
@@ -76,7 +79,7 @@ const Landing = () => {
             />
           )}
           <Header as="h2">Sign in</Header>
-          <Form onSubmit={onSubmit} loading={loading} widths="equal">
+          <Form onSubmit={onSubmit} widths="equal">
             <Form.Input
               fluid
               label="E-mail"
@@ -102,7 +105,7 @@ const Landing = () => {
             />
 
             <ButtonActionWrapper>
-              <Button type="submit" primary icon labelPosition="right">
+              <Button type="submit" primary icon labelPosition="right" loading={loading}>
                 Sign in
                 <Icon name="right arrow" />
               </Button>

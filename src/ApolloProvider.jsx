@@ -4,7 +4,7 @@ import { InMemoryCache, createHttpLink, ApolloProvider, ApolloClient } from '@ap
 import App from './App';
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:5000/graphql',
+  uri: process.env.REACT_APP_API_URL,
   credentials: 'include',
 });
 

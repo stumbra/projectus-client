@@ -1,14 +1,15 @@
 import React from 'react';
 import { Grid, Menu, Image, Icon, Container } from 'semantic-ui-react';
 import { MenuItem, WelcomeWrapper, WelcomeText, FullnameText } from './Sidebar.styled';
-import Avatar from '../../assets/avatar.png';
 import Logo from '../../assets/logo_2.png';
 import { useHistory } from 'react-router';
 import { LOGOUT_MUTATION } from './gql';
 import { useMutation } from '@apollo/client';
 import { toast } from 'react-semantic-toasts';
+import { AuthContext } from '../../context/auth';
 
 const Sidebar = () => {
+  const { user, clearUser } = React.useContext(AuthContext);
   const history = useHistory();
 
   const [activeItem, setActiveItem] = React.useState('dashboard');
@@ -23,11 +24,12 @@ const Sidebar = () => {
       toast({
         type: 'success',
         icon: 'logout',
-        title: 'Success!',
+        title: 'You logged out',
         description: `See you later!`,
         animation: 'bounce',
         time: 5000,
       });
+      clearUser();
       history.push('/');
     },
   });
@@ -44,15 +46,16 @@ const Sidebar = () => {
       <React.Fragment>
         <Container style={{ display: 'flex', padding: '1rem', borderBottom: '1px solid #d4d4d5' }}>
           <Image
-            src={Avatar}
+            src={user?.avatar}
             size="tiny"
             circular
             style={{ padding: '0.4rem', background: 'white' }}
             bordered
           />
+
           <WelcomeWrapper>
             <WelcomeText>Welcome,</WelcomeText>
-            <FullnameText>John Doe</FullnameText>
+            <FullnameText>{`${user?.name} ${user?.surname}`}</FullnameText>
           </WelcomeWrapper>
         </Container>
         <Menu fluid vertical tabular icon="labeled">

@@ -73,7 +73,7 @@ const ForgotPassword = () => {
             />
           )}
           <Header as="h2">Reset your password</Header>
-          <Form onSubmit={onSubmit} widths="equal" loading={loading}>
+          <Form onSubmit={onSubmit} widths="equal">
             <Form.Input
               label="E-mail"
               placeholder="E-mail..."
@@ -90,6 +90,7 @@ const ForgotPassword = () => {
               icon
               labelPosition="right"
               style={{ marginBottom: '1rem' }}
+              loading={loading}
             >
               Send request
               <Icon name="mail outline" />

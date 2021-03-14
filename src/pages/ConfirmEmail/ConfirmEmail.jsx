@@ -36,10 +36,10 @@ const ConfirmEmail = () => {
         {!loading && status !== undefined ? (
           <React.Fragment>
             <StatusCode>{status ? 200 : 401}</StatusCode>
-            <Title>{status ? 'Success!' : 'Something went wrong.'}</Title>
+            <Title>{status ? 'Success!' : 'Something went wrong'}</Title>
             <Subtitle>
               {status
-                ? 'Your E-mail was successfully verified & now you can sign into Projectus by clicking the button below.'
+                ? 'Your E-mail was successfully verified & now you can sign into Projectus by clicking the button below'
                 : 'Your link is expired. Please contact our support!'}
             </Subtitle>
             <Button primary onClick={() => history.push('/')}>
