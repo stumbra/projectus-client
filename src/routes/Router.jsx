@@ -8,7 +8,6 @@ import ForgotPassword from '../pages/ForgotPassword/ForgotPassword';
 import Dashboard from '../pages/Dashboard/Dashboard';
 import Tickets from '../pages/Tickets/Tickets';
 import Projects from '../pages/Projects/Projects';
-import Organizations from '../pages/Organizations/Organizations';
 import Profile from '../pages/Profile/Profile';
 import ConfirmEmail from '../pages/ConfirmEmail/ConfirmEmail';
 import ResetPassword from '../pages/ResetPassword/ResetPassword';
@@ -29,10 +28,10 @@ function Router() {
           <PrivateRoute exact path="/dashboard" component={Dashboard} />
           <PrivateRoute exact path="/tickets" component={Tickets} />
           <PrivateRoute exact path="/projects" component={Projects} />
-          <PrivateRoute exact path="/organizations" component={Organizations} />
           <PrivateRoute exact path="/profile" component={Profile} />
           <TokenizedRoute exact path="/user/confirm/:token" component={ConfirmEmail} />
           <TokenizedRoute exact path="/user/password/reset/:token" component={ResetPassword} />
+          <Route component={Error} />
           <Route component={Error} />
         </Switch>
       </AnimatePresence>

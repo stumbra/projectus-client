@@ -5,18 +5,17 @@ import { useForm } from '../../utils/hooks';
 import { useMutation } from '@apollo/client';
 import { toast } from 'react-semantic-toasts';
 import { FORGOT_PASSWORD_MUTATION } from './gql';
-
 import {
   Container,
   PrimarySection,
   Heading,
   Subheading,
-  Quote,
   SecondarySection,
   Hyperlink,
-} from '../../theme/components/PlainComponent.styled';
+} from '../../routes/PlainRoute/PlainRoute.styled';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { Quote } from '../../components';
 
 const ForgotPassword = () => {
   const [error, setError] = React.useState('');
@@ -56,10 +55,10 @@ const ForgotPassword = () => {
           Welcome to <strong>Projectus</strong>
         </Heading>
         <Subheading>Project Management Tool</Subheading>
-        <Quote>
-          "A Project is complete when it starts working for You, rather than You working for it." -
-          Scott Allen
-        </Quote>
+        <Quote
+          text="A Project is complete when it starts working for You, rather than You working for it."
+          author="Scott Allen, politician"
+        />
       </PrimarySection>
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
         <SecondarySection>

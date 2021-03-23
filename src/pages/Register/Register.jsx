@@ -12,11 +12,11 @@ import {
   PrimarySection,
   Heading,
   Subheading,
-  Quote,
   SecondarySection,
   Hyperlink,
-} from '../../theme/components/PlainComponent.styled';
+} from '../../routes/PlainRoute/PlainRoute.styled';
 import { motion } from 'framer-motion';
+import { Quote } from '../../components';
 
 const Register = () => {
   const [errors, setErrors] = React.useState({});
@@ -26,7 +26,6 @@ const Register = () => {
   const { onChange, onSubmit, values } = useForm(createUser, {
     name: '',
     surname: '',
-    username: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -86,10 +85,10 @@ const Register = () => {
           Welcome to <strong>Projectus</strong>
         </Heading>
         <Subheading>Project Management Tool</Subheading>
-        <Quote>
-          "A Project is complete when it starts working for You, rather than You working for it." -
-          Scott Allen
-        </Quote>
+        <Quote
+          text="A Project is complete when it starts working for You, rather than You working for it."
+          author="Scott Allen, politician"
+        />
       </PrimarySection>
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
         <SecondarySection>
@@ -117,15 +116,6 @@ const Register = () => {
               />
             </Form.Group>
             <Form.Group>
-              <Form.Input
-                label="Username"
-                placeholder="Username..."
-                name="username"
-                type="text"
-                value={values.username.toLowerCase()}
-                onChange={onChange}
-                required
-              />
               <Form.Input
                 label="E-mail"
                 placeholder="E-mail..."

@@ -11,7 +11,6 @@ export const GET_ME_QUERY = gql`
     getMe {
       name
       surname
-      username
       email
       avatar
     }

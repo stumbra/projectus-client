@@ -15,4 +15,14 @@ export const Backdrop = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 0% 100%);
+  @media (max-width: 393px) {
+    display: none;
+  }
+`;
+
+export const Container = styled.div`
+  padding: 2rem 2rem 0.5rem 2rem;
+  overflow-y: scroll;
+  background-color: #fafafa;
+  height: 100%;
 `;

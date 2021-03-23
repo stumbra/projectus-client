@@ -5,7 +5,6 @@ export const LOGIN_USER_MUTATION = gql`
     login(email: $email, password: $password) {
       name
       surname
-      username
       email
       avatar
     }

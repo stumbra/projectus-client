@@ -7,7 +7,7 @@ import {
   StatusCode,
   Title,
   Subtitle,
-} from '../../theme/components/TokenizedComponent.styled';
+} from '../../routes/TokenizedRoute/TokenizedRoute.styled';
 
 const Error = () => {
   const history = useHistory();

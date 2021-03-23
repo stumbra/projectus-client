@@ -2,7 +2,11 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export const Container = styled.div`
-  margin: 3rem;
+  margin: 4rem;
+  @media (max-width: 393px) {
+    margin: 0.5rem;
+    text-align: center;
+  }
 `;
 
 export const PrimarySection = styled.div`
@@ -13,20 +17,18 @@ export const Heading = styled.h1`
   font-weight: 400;
   font-size: 2.3rem;
   color: #21272a;
+  @media (max-width: 393px) {
+    font-size: 1.8rem;
+  }
 `;
 
 export const Subheading = styled.h2`
   font-weight: 600;
   font-size: 3.6rem;
   color: #21272a;
-`;
-
-export const Quote = styled.p`
-  color: #b8bbbe;
-  font-weight: 400;
-  font-size: 1.25rem;
-  font-style: italic;
-  margin-top: 1.5rem;
+  @media (max-width: 393px) {
+    font-size: 2.5rem;
+  }
 `;
 
 export const SecondarySection = styled.div`

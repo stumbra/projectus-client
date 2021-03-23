@@ -7,7 +7,7 @@ import {
   StatusCode,
   Title,
   Subtitle,
-} from '../../theme/components/TokenizedComponent.styled';
+} from '../../routes/TokenizedRoute/TokenizedRoute.styled';
 import { CONFIRM_EMAIL_MUTATION } from './gql';
 import { useMutation } from '@apollo/client';
 

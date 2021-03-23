@@ -1,10 +1,12 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { Sidebar } from '../../components';
-import { Grid, Segment, Dimmer, Loader } from 'semantic-ui-react';
+import { Header, Sidemenu } from '../../components';
+import { Dimmer, Loader } from 'semantic-ui-react';
 import { GET_ME_QUERY } from '../gql';
 import { useQuery } from '@apollo/client';
 import { AuthContext } from '../../context/auth';
+import { SidebarProvider } from '../../context/sidebar';
+import { Container } from '../Router.styled';
 
 const PrivateRoute = ({ component: Component }, ...rest) => {
   const { user, setUser } = React.useContext(AuthContext);
@@ -19,16 +21,11 @@ const PrivateRoute = ({ component: Component }, ...rest) => {
       </Dimmer>
     );
 
-  const { name, surname, username, email, avatar } = getMe;
+  const { name, surname, email, avatar } = getMe;
 
-  if (!user && getMe)
-    setUser({
-      name,
-      surname,
-      username,
-      email,
-      avatar,
-    });
+  if (!user && getMe) {
+    setUser({ name, surname, email, avatar });
+  }
 
   if (Component) {
     return (
@@ -36,26 +33,14 @@ const PrivateRoute = ({ component: Component }, ...rest) => {
         {...rest}
         render={(props) =>
           getMe ? (
-            <Grid
-              style={{
-                height: '100%',
-                width: '100%',
-                margin: 0,
-                padding: 0,
-                backgroundColor: '#0D5286',
-              }}
-            >
-              <Grid.Column stretched style={{ height: '100%', width: '12%' }}>
-                <Segment padded raised style={{ backgroundColor: '#fafafa' }}>
-                  <Sidebar />
-                </Segment>
-              </Grid.Column>
-              <Grid.Column stretched style={{ height: '100%', width: '88%' }}>
-                <Segment padded raised style={{ backgroundColor: '#fafafa' }}>
+            <SidebarProvider>
+              <Sidemenu>
+                <Container>
+                  <Header />
                   <Component {...props} />
-                </Segment>
-              </Grid.Column>
-            </Grid>
+                </Container>
+              </Sidemenu>
+            </SidebarProvider>
           ) : (
             <Redirect to="/" />
           )

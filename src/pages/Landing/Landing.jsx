@@ -11,13 +11,13 @@ import {
   PrimarySection,
   Heading,
   Subheading,
-  Quote,
   SecondarySection,
   ButtonActionWrapper,
   Hyperlink,
-} from '../../theme/components/PlainComponent.styled';
+} from '../../routes/PlainRoute/PlainRoute.styled';
 import { AuthContext } from '../../context/auth';
 import { motion } from 'framer-motion';
+import { Quote } from '../../components';
 
 const Landing = () => {
   const { setUser } = React.useContext(AuthContext);
@@ -31,7 +31,7 @@ const Landing = () => {
   });
 
   const [login, { loading }] = useMutation(LOGIN_USER_MUTATION, {
-    update(_, { data: { login: { name, surname, username, email, avatar } } = {} }) {
+    update(_, { data: { login: { name, surname, email, avatar } } = {} }) {
       setError('');
       toast({
         type: 'success',
@@ -41,7 +41,7 @@ const Landing = () => {
         animation: 'bounce',
         time: 5000,
       });
-      setUser({ name, surname, username, email, avatar });
+      setUser({ name, surname, email, avatar });
       history.push('/dashboard');
     },
     onError(err) {
@@ -62,10 +62,10 @@ const Landing = () => {
           Welcome to <strong>Projectus</strong>
         </Heading>
         <Subheading>Project Management Tool</Subheading>
-        <Quote>
-          "A Project is complete when it starts working for You, rather than You working for it." -
-          Scott Allen
-        </Quote>
+        <Quote
+          text="A Project is complete when it starts working for You, rather than You working for it."
+          author="Scott Allen, politician"
+        />
       </PrimarySection>
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
         <SecondarySection>
