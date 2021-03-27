@@ -1,17 +1,18 @@
 import React from 'react';
-import { Wrapper, Image } from './Footer.styled';
+import { Container, Wrapper, Image } from './Footer.styled';
 import Logo from '../../assets/logo_1.png';
-
-const year = new Date().getFullYear();
+import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
+  const { t } = useTranslation('common');
+
   return (
-    <div>
+    <Container>
       <Image src={Logo} size="small" />
       <Wrapper secondary>
-        <span>Copyright &copy; {year} Projectus. All Rights Reserved</span>
+        <span>{t('footer')}</span>
       </Wrapper>
-    </div>
+    </Container>
   );
 };
 

@@ -8,14 +8,17 @@ import { useHistory } from 'react-router';
 import { toast } from 'react-semantic-toasts';
 import { LOGOUT_MUTATION } from './gql';
 import { useMutation } from '@apollo/client';
+import { useTranslation } from 'react-i18next';
 
 const Sidemenu = ({ children }) => {
   const { sidebarVisibility, close } = React.useContext(SidebarContext);
   const { user, clearUser } = React.useContext(AuthContext);
 
+  const { t } = useTranslation('common');
+
   const history = useHistory();
 
-  const [activeItem, setActiveItem] = React.useState('dashboard');
+  const [activeItem, setActiveItem] = React.useState(history.location.pathname.split('/')[1]);
 
   const handleItemClick = (e, { name }) => {
     setActiveItem(name);
@@ -27,8 +30,8 @@ const Sidemenu = ({ children }) => {
       toast({
         type: 'success',
         icon: 'logout',
-        title: `You logged out `,
-        description: `See you later!`,
+        title: t('sidebar.message.title'),
+        description: t('sidebar.message.description'),
         animation: 'bounce',
         time: 5000,
       });
@@ -65,35 +68,37 @@ const Sidemenu = ({ children }) => {
             <Icon.Group size="large">
               <Icon name="home" />
             </Icon.Group>
-            <span>Dashboard</span>
+            <span>{t('sidebar.dashboard')}</span>
           </MenuItem>
           <MenuItem name="projects" onClick={handleItemClick} active={activeItem === 'projects'}>
             <Icon.Group size="large">
               <Icon name="briefcase" />
             </Icon.Group>
-            <span>My Projects</span>
+            <span>{t('sidebar.myProjects')}</span>
           </MenuItem>
           <MenuItem name="tickets" onClick={handleItemClick} active={activeItem === 'tickets'}>
             <Icon.Group size="large">
               <Icon name="ticket" />
             </Icon.Group>
-            <span>My Tickets</span>
+            <span>{t('sidebar.myTickets')}</span>
           </MenuItem>
           <MenuItem name="profile" onClick={handleItemClick} active={activeItem === 'profile'}>
             <Icon.Group size="large">
               <Icon name="user" />
             </Icon.Group>
-            <span>My Profile</span>
+            <span>{t('sidebar.myProfile')}</span>
           </MenuItem>
           <MenuItem onClick={handleLogout}>
             <Icon.Group size="large">
-              <Icon name="logout" />
+              <Icon name="log out" />
             </Icon.Group>
-            <span>Log out</span>
+            <span>{t('sidebar.logout')}</span>
           </MenuItem>
         </InnerWrapper>
       </Sidebar>
-      <Sidebar.Pusher style={{ height: '100%' }}>{children}</Sidebar.Pusher>
+      <Sidebar.Pusher style={{ height: '100%', backgroundColor: '#fafafa' }}>
+        {children}
+      </Sidebar.Pusher>
     </Sidebar.Pushable>
   );
 };

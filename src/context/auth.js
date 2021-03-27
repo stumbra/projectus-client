@@ -26,10 +26,12 @@ const AuthProvider = (props) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
   const setUser = (userData) => {
-    dispatch({
-      type: 'SET',
-      payload: userData,
-    });
+    setTimeout(() => {
+      dispatch({
+        type: 'SET',
+        payload: userData,
+      });
+    }, 0);
   };
 
   const clearUser = () => {

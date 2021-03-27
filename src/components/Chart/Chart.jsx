@@ -1,9 +1,9 @@
 import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, PieChart, Pie, Cell } from 'recharts';
 import { useDimensions } from '../../utils/hooks';
+import { RADIAN } from '../../utils/constants';
 import { Container, ChartInfo } from './Chart.styled';
 
-const RADIAN = Math.PI / 180;
 const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }) => {
   const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
   const x = cx + radius * Math.cos(-midAngle * RADIAN);
@@ -49,7 +49,7 @@ const Chart = ({ title, data, dataKeys, type }) => {
               labelLine={false}
               label={renderCustomizedLabel}
               outerRadius={width > 700 ? 120 : 100}
-              dataKey="amount"
+              dataKey={dataKeys.y}
             >
               {data.map((index) => (
                 <Cell key={`cell-${index}`} />

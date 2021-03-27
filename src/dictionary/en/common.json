@@ -1,0 +1,118 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "priorities": {
+      "none": "None",
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High"
+    },
+    "types": {
+      "feature": "Feature",
+      "improvement": "Improvement",
+      "maintenance": "Maintenance",
+      "request": "Request",
+      "service": "Service",
+      "bug": "Bug"
+    },
+    "names": {
+      "ticket": "Ticket"
+    }
+  },
+  "dashboard": {
+    "graphs": {
+      "ticketsByPriority": "Tickets by Priority",
+      "ticketsByType": "Tickets by Type",
+      "ticketsByStatus": "Tickets by Status"
+    },
+    "events": {
+      "title": "Newest Events",
+      "created": "was created"
+    }
+  },
+  "projects": {
+    "create": "Create new Project",
+    "search": "Search by name...",
+    "headers": {
+      "name": "Project name",
+      "description": "Description",
+      "personnel": "Personnel",
+      "created": "Creation date",
+      "actions": "Actions"
+    },
+    "buttons": {
+      "view": "View",
+      "manage": "Manage",
+      "remove": "Remove"
+    },
+    "messages": {
+      "noResults": {
+        "title": "There are no results",
+        "description": "Please check your search criteria"
+      },
+      "noAssigned": {
+        "title": "It appears you don't have any projects assigned",
+        "description": "Please create or be assigned to a project"
+      }
+    }
+  },
+  "tickets": {
+    "search": "Search by name...",
+    "headers": {
+      "projectName": "Project name",
+      "ticketTitle": "Ticket title",
+      "assignees": "Assignees",
+      "type": "Type",
+      "priorityLevel": "Priority Level",
+      "created": "Creation date",
+      "actions": "Actions"
+    },
+    "noAssignees": "No assignees...",
+    "buttons": {
+      "view": "View"
+    },
+    "messages": {
+      "noResults": {
+        "title": "There are no results",
+        "description": "Please check your search criteria"
+      },
+      "noAssigned": {
+        "title": "It appears you don't have any tickets assigned",
+        "description": "Please create or be assigned to a ticket"
+      }
+    }
+  },
+  "header": {
+    "dashboard": "Dashboard",
+    "projects": "Projects",
+    "tickets": "Tickets",
+    "myProfile": "Profile"
+  },
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "myProjects": "My Projects",
+    "myTickets": "My Tickets",
+    "myProfile": "My Profile",
+    "logout": "Log out",
+    "message": {
+      "title": "You logged out",
+      "description": "See you later!"
+    }
+  },
+  "error": {
+    "title": "Page not found",
+    "description": "The page you are looking for might have been removed, had its name changed or is temporarily unavailable",
+    "button": "Go back"
+  },
+  "footer": "Copyright © 2021 Projectus. All Rights Reserved",
+  "language": {
+    "primary": "Change language",
+    "secondary": "Would you like to change the language of the application?",
+    "ternary": "Click on the language to change it:",
+    "button": "Go back"
+  },
+  "expandedText": {
+    "viewLess": "View less...",
+    "viewMore": "View more..."
+  }
+}

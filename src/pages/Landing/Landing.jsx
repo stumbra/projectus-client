@@ -31,7 +31,7 @@ const Landing = () => {
   });
 
   const [login, { loading }] = useMutation(LOGIN_USER_MUTATION, {
-    update(_, { data: { login: { name, surname, email, avatar } } = {} }) {
+    update(_, { data: { login: { id, name, surname, email, avatar } } = {} }) {
       setError('');
       toast({
         type: 'success',
@@ -41,7 +41,7 @@ const Landing = () => {
         animation: 'bounce',
         time: 5000,
       });
-      setUser({ name, surname, email, avatar });
+      setUser({ id, name, surname, email, avatar });
       history.push('/dashboard');
     },
     onError(err) {

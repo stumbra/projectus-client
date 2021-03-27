@@ -10,7 +10,6 @@ export const InnerWrapper = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-
   padding: 2rem 1rem;
 `;
 

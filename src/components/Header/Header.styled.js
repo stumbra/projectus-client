@@ -20,3 +20,9 @@ export const Route = styled.span`
 export const Button = styled(SemanticButton)`
   margin-right: 1rem !important;
 `;
+
+export const LanguageWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 1rem;
+`;

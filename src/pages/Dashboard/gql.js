@@ -13,7 +13,8 @@ export const GET_ASSIGNED_TICKETS_QUERY = gql`
           number
           title
         }
-        body
+        type
+        createdAt
       }
     }
   }

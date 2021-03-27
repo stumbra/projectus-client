@@ -17,7 +17,16 @@ import PlainRoute from './PlainRoute/PlainRoute';
 import PrivateRoute from './PrivateRoute/PrivateRoute';
 import TokenizedRoute from './TokenizedRoute/TokenizedRoute';
 
+import { useTranslation } from 'react-i18next';
+import moment from 'moment';
+import en from 'moment/locale/en-gb';
+import lt from 'moment/locale/lt';
+
 function Router() {
+  const { i18n } = useTranslation('common');
+
+  i18n.language === 'en' ? moment.updateLocale('en', en) : moment.updateLocale('lt', lt);
+
   return (
     <BrowserRouter>
       <AnimatePresence exitBeforeEnter>

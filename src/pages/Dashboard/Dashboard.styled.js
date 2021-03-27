@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
-  height: 100%;
-`;
+export const Container = styled.div``;
 
 export const InnerWrapper = styled.div`
   display: flex;

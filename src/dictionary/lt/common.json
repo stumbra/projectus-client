@@ -1,0 +1,118 @@
+{
+  "common": {
+    "loading": "Kraunasi...",
+    "priorities": {
+      "none": "Nenustatytas",
+      "low": "Žemas",
+      "medium": "Vidutinis",
+      "high": "Aukštas"
+    },
+    "types": {
+      "feature": "Naujas funkcionalumas",
+      "improvement": "Pagerinimas",
+      "maintenance": "Priežiūra",
+      "request": "Prašymas",
+      "service": "Techninė priežiūra",
+      "bug": "Klaidos taisymas"
+    },
+    "names": {
+      "ticket": "Užduotis"
+    }
+  },
+  "dashboard": {
+    "graphs": {
+      "ticketsByPriority": "Bilietai pagal prioritetą",
+      "ticketsByType": "Bilietai pagal tipą",
+      "ticketsByStatus": "Bilietai pagal statusą"
+    },
+    "events": {
+      "title": "Naujausi įvykiai",
+      "created": "sukurta"
+    }
+  },
+  "projects": {
+    "create": "Sukurti naują projektą",
+    "search": "Ieškoti pagal pavadinimą...",
+    "headers": {
+      "name": "Projekto pavadinimas",
+      "description": "Aprašymas",
+      "personnel": "Personalas",
+      "created": "Sukūrimo data",
+      "actions": "Veiksmai"
+    },
+    "buttons": {
+      "view": "Peržvelgti",
+      "manage": "Tvarkyti",
+      "remove": "Ištrinti"
+    },
+    "messages": {
+      "noResults": {
+        "title": "Nerasta jokių rezultatų",
+        "description": "Prašome peržvelgti Jūsų paieškos kriterijus"
+      },
+      "noAssigned": {
+        "title": "Jūs neturite priskirtų projektų",
+        "description": "Prašome prisijungti prie projekto arba jį sukurti"
+      }
+    }
+  },
+  "tickets": {
+    "search": "Ieškoti pagal pavadinimą....",
+    "headers": {
+      "projectName": "Projekto pavadinimas",
+      "ticketTitle": "Užduoties pavadinimas",
+      "assignees": "Priskirti asmenys",
+      "type": "Tipas",
+      "priorityLevel": "Prioriteto lygis",
+      "created": "Sukūrimo data",
+      "actions": "Veiksmai"
+    },
+    "noAssignees": "Jokių priskirtų asmenų...",
+    "buttons": {
+      "view": "Peržvelgti"
+    },
+    "messages": {
+      "noResults": {
+        "title": "Nerasta jokių rezultatų",
+        "description": "Prašome peržvelgti Jūsų paieškos kriterijus"
+      },
+      "noAssigned": {
+        "title": "Jūs neturite priskirtų užduočių",
+        "description": "Prašome prisiskirti prie užduoties arba ją sukurti"
+      }
+    }
+  },
+  "header": {
+    "dashboard": "Pagrindinis puslapis",
+    "projects": "Projektai",
+    "tickets": "Užduotys",
+    "profile": "Profilis"
+  },
+  "sidebar": {
+    "dashboard": "Pagrindinis puslapis",
+    "myProjects": "Mano projektai",
+    "myTickets": "Mano užduotys",
+    "myProfile": "Mano profilis",
+    "logout": "Atsijungti",
+    "message": {
+      "title": "Tu atsijungei",
+      "description": "Pasimatysime vėliau!"
+    }
+  },
+  "error": {
+    "title": "Puslapis nerastas",
+    "description": "Puslapis, kurio ieškojai, nerastas",
+    "button": "Grįžti atgal"
+  },
+  "footer": "© 2021 Projectus. visos teisės saugomos",
+  "language": {
+    "primary": "Pakeisti kalbą",
+    "secondary": "Ar norėtum pakeisti aplikacijos kalbą?",
+    "ternary": "Jeigu taip, paspausk ant kalbos žemiau:",
+    "button": "Grįžti atgal"
+  },
+  "expandedText": {
+    "viewLess": "Mažiau...",
+    "viewMore": "Daugiau..."
+  }
+}

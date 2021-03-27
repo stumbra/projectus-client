@@ -1,0 +1,51 @@
+import React from 'react';
+import { Container, Image, Overmax, Button } from './AvatarGroup.styled';
+import { Tooltip } from 'react-tippy';
+
+const AvatarGroup = ({ users, max }) => {
+  const [isExpanded, setExpandability] = React.useState(false);
+
+  const handleExpandability = () => {
+    setExpandability(!isExpanded);
+  };
+
+  return (
+    <Container>
+      {users.map((user, index) => {
+        if (!isExpanded) {
+          if (index + 1 <= max) {
+            return (
+              <Tooltip
+                key={index}
+                title={`${user.name} ${user.surname}`}
+                position="top"
+                trigger="mouseenter "
+              >
+                <Image size="mini" src={user.avatar} avatar />
+              </Tooltip>
+            );
+          } else if (index + 1 === users.length)
+            return (
+              <Overmax key={index} onClick={handleExpandability}>{`+${
+                users.length - max
+              }`}</Overmax>
+            );
+        } else {
+          return (
+            <Tooltip
+              key={index}
+              title={`${user.name} ${user.surname}`}
+              position="top"
+              trigger="mouseenter "
+            >
+              <Image size="mini" src={user.avatar} avatar />
+            </Tooltip>
+          );
+        }
+      })}
+      {isExpanded && <Button onClick={handleExpandability}>Show less</Button>}
+    </Container>
+  );
+};
+
+export default AvatarGroup;

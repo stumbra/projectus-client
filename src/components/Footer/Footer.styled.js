@@ -1,6 +1,10 @@
 import { Menu, Image as SemanticImage } from 'semantic-ui-react';
 import styled from 'styled-components';
 
+export const Container = styled.div`
+  background-color: #fafafa;
+`;
+
 export const Wrapper = styled(Menu)`
   display: flex;
   align-items: center;

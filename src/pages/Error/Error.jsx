@@ -8,21 +8,21 @@ import {
   Title,
   Subtitle,
 } from '../../routes/TokenizedRoute/TokenizedRoute.styled';
+import { useTranslation } from 'react-i18next';
 
 const Error = () => {
   const history = useHistory();
+
+  const { t } = useTranslation('common');
 
   return (
     <Wrapper>
       <Container>
         <StatusCode>404</StatusCode>
-        <Title>Page not found</Title>
-        <Subtitle>
-          The page you are looking for might have been removed, had its name changed or is
-          temporarily unavailable
-        </Subtitle>
+        <Title>{t('error.title')}</Title>
+        <Subtitle>{t('error.description')}</Subtitle>
         <Button primary onClick={() => history.push('/')}>
-          Go back
+          {t('error.button')}
         </Button>
       </Container>
     </Wrapper>
