@@ -7,9 +7,10 @@ import {
   Menu,
   Pagination,
   Table,
+  Modal,
 } from 'semantic-ui-react';
 import { GET_ASSIGNED_PROJECTS_QUERY, DELETE_PROJECT_MUTATION } from './gql';
-import { makeVar, useMutation, useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import moment from 'moment';
 import { ExpandedText, AvatarGroup, Empty } from '../../components';
 import {
@@ -24,15 +25,24 @@ import {
 } from './Projects.styled';
 import { AuthContext } from '../../context/auth';
 import { useTranslation } from 'react-i18next';
+import EditModal from './components/EditModal/EditModal';
 
 const ITEMS_PER_PAGE = 8;
 
 const Projects = () => {
   const { t } = useTranslation('common');
 
-  const { loading, data: { getAssignedProjects } = {} } = useQuery(GET_ASSIGNED_PROJECTS_QUERY);
+  const { loading, data: { getAssignedProjects } = {}, refetch } = useQuery(
+    GET_ASSIGNED_PROJECTS_QUERY
+  );
 
-  const projectVar = makeVar();
+  const { user } = React.useContext(AuthContext);
+
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const [isConfirmModalVisible, setConfirmModalVisibility] = React.useState(false);
+  const [isEditModalVisible, setEditModalVisibility] = React.useState(false);
+  const [selectedProject, setSelectedProject] = React.useState({});
+  const [search, setSearch] = React.useState('');
 
   const [deleteProject, { loading: deleting }] = useMutation(DELETE_PROJECT_MUTATION, {
     update(proxy) {
@@ -40,7 +50,7 @@ const Projects = () => {
       proxy.writeQuery({
         query: GET_ASSIGNED_PROJECTS_QUERY,
         data: {
-          getAssignedProjects: data.getAssignedProjects.filter((p) => p.id !== projectVar()),
+          getAssignedProjects: data.getAssignedProjects.filter((p) => p.id !== selectedProject.id),
         },
       });
     },
@@ -48,12 +58,6 @@ const Projects = () => {
       console.log(err);
     },
   });
-
-  const { user } = React.useContext(AuthContext);
-
-  const [currentPage, setCurrentPage] = React.useState(1);
-
-  const [search, setSearch] = React.useState('');
 
   if (loading || deleting)
     return (
@@ -144,7 +148,14 @@ const Projects = () => {
                         </Button>
                         {isOwner && (
                           <React.Fragment>
-                            <Button animated="vertical" color="green">
+                            <Button
+                              animated="vertical"
+                              color="green"
+                              onClick={() => {
+                                setSelectedProject(project);
+                                setEditModalVisibility(true);
+                              }}
+                            >
                               <Button.Content hidden>{t('projects.buttons.manage')}</Button.Content>
                               <Button.Content visible>
                                 <Icon name="edit" />
@@ -154,8 +165,8 @@ const Projects = () => {
                               animated="vertical"
                               color="red"
                               onClick={() => {
-                                projectVar(project.id);
-                                deleteProject({ variables: { project: project.id } });
+                                setSelectedProject(project);
+                                setConfirmModalVisibility(true);
                               }}
                             >
                               <Button.Content hidden>{t('projects.buttons.remove')}</Button.Content>
@@ -199,6 +210,53 @@ const Projects = () => {
           )}
         </Container>
       </motion.div>
+      {Object.keys(selectedProject).length !== 0 && (
+        <Modal
+          onClose={() => {
+            setSelectedProject({});
+            setConfirmModalVisibility(false);
+          }}
+          open={isConfirmModalVisible}
+          size="mini"
+        >
+          <Modal.Header>{t('projects.modal.title')}</Modal.Header>
+          <Modal.Content>
+            <p>{t('projects.modal.subtitle')}</p>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button
+              color="red"
+              onClick={() => {
+                deleteProject({ variables: { project: project.id } });
+                setConfirmModalVisibility(false);
+                setSelectedProject({});
+              }}
+            >
+              {t('projects.modal.buttons.primary')}
+            </Button>
+            <Button
+              color="grey"
+              onClick={() => {
+                setConfirmModalVisibility(false);
+                setSelectedProject({});
+              }}
+            >
+              {t('projects.modal.buttons.secondary')}
+            </Button>
+          </Modal.Actions>
+        </Modal>
+      )}
+      {Object.keys(selectedProject).length !== 0 && (
+        <EditModal
+          refetch={refetch}
+          project={selectedProject}
+          isVisible={isEditModalVisible}
+          toggleModal={() => {
+            setEditModalVisibility(!isEditModalVisible);
+            setSelectedProject({});
+          }}
+        />
+      )}
     </React.Fragment>
   );
 };

@@ -24,10 +24,13 @@ export const useDimensions = () => {
   const [height, setHeight] = useState(window.innerHeight);
 
   useEffect(() => {
-    window.addEventListener('resize', () => {
+    const resizer = window.addEventListener('resize', () => {
       setWidth(window.innerWidth);
       setHeight(window.innerHeight);
     });
+    return () => {
+      window.removeEventListener('resize', resizer);
+    };
   }, []);
 
   return {

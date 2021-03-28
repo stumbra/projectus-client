@@ -54,6 +54,40 @@
         "title": "Jūs neturite priskirtų projektų",
         "description": "Prašome prisijungti prie projekto arba jį sukurti"
       }
+    },
+    "modal": {
+      "title": "Ar tikrai norite tai atlikti?",
+      "subtitle": "Projektas bus ištrintas visam laikui!",
+      "buttons": {
+        "primary": "Ištrinti",
+        "secondary": "Atšaukti"
+      }
+    },
+    "edit": {
+      "title": "Projekto nustatymai",
+      "message": {
+        "title": "Pavyko!",
+        "subtitle": "Projekto nustatymai atnaujinti. Jeigu buvo pridėti nauji asmenys prie projekto - jiems išsiųsti pakvietimai."
+      },
+      "inputs": {
+        "title": "Pavadinimas:",
+        "description": {
+          "title": "Aprašymas:",
+          "placeholder": "Įrašykite projekto aprašymą..."
+        },
+        "owners": {
+          "title": "Savininkai:",
+          "placeholder": "Įveskite savininko el.paštą..."
+        },
+        "personnel": {
+          "title": "Personalas:",
+          "placeholder": "Įveskite žmogaus el.paštą..."
+        }
+      },
+      "buttons": {
+        "save": "Saugoti",
+        "close": "Uždaryti"
+      }
     }
   },
   "tickets": {

@@ -51,3 +51,10 @@ export const Button = styled(SemanticButton)`
     width: 50% !important;
   }
 `;
+
+export const PersonWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+`;

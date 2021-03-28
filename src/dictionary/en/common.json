@@ -54,6 +54,40 @@
         "title": "It appears you don't have any projects assigned",
         "description": "Please create or be assigned to a project"
       }
+    },
+    "modal": {
+      "title": "Are you sure?",
+      "subtitle": "The project will be deleted for ever!",
+      "buttons": {
+        "primary": "Remove",
+        "secondary": "Cancel"
+      }
+    },
+    "edit": {
+      "title": "Project settings",
+      "message": {
+        "title": "Success!",
+        "subtitle": "Project updated. If you added any more people to the project - invitation letter were sent."
+      },
+      "inputs": {
+        "title": "Title:",
+        "description": {
+          "title": "Description:",
+          "placeholder": "Enter project description..."
+        },
+        "owners": {
+          "title": "Owners:",
+          "placeholder": "Enter owner's e-mail..."
+        },
+        "personnel": {
+          "title": "Personnel:",
+          "placeholder": "Enter person's e-mail..."
+        }
+      },
+      "buttons": {
+        "save": "Save",
+        "close": "Close"
+      }
     }
   },
   "tickets": {

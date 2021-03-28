@@ -11,6 +11,7 @@ import Projects from '../pages/Projects/Projects';
 import Profile from '../pages/Profile/Profile';
 import ConfirmEmail from '../pages/ConfirmEmail/ConfirmEmail';
 import ResetPassword from '../pages/ResetPassword/ResetPassword';
+import ConfirmInvitation from '../pages/ConfirmInvitation/ConfirmInvitation';
 import Error from '../pages/Error/Error';
 
 import PlainRoute from './PlainRoute/PlainRoute';
@@ -40,6 +41,7 @@ function Router() {
           <PrivateRoute exact path="/profile" component={Profile} />
           <TokenizedRoute exact path="/user/confirm/:token" component={ConfirmEmail} />
           <TokenizedRoute exact path="/user/password/reset/:token" component={ResetPassword} />
+          <TokenizedRoute exact path="/user/invite/:token" component={ConfirmInvitation} />
           <Route component={Error} />
           <Route component={Error} />
         </Switch>
