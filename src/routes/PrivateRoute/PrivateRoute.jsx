@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Redirect, useHistory } from 'react-router-dom';
 import { Footer, Header, Sidemenu } from '../../components';
 import { Dimmer, Loader } from 'semantic-ui-react';
 import { GET_ME_QUERY } from '../gql';
@@ -10,8 +10,13 @@ import { Container, Content } from '../Router.styled';
 import { useTranslation } from 'react-i18next';
 
 const PrivateRoute = ({ component: Component }, ...rest) => {
+  const history = useHistory();
+
   const { loading, data: { getMe } = {} } = useQuery(GET_ME_QUERY, {
     fetchPolicy: 'network-only',
+    onError: () => {
+      history.push('/');
+    },
   });
 
   const { user, setUser } = React.useContext(AuthContext);

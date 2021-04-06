@@ -30,6 +30,10 @@ const Header = () => {
       title = t('header.profile');
       break;
     }
+    case 'board': {
+      title = t('header.board');
+      break;
+    }
   }
 
   return (

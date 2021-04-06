@@ -44,7 +44,6 @@ const EditModal = ({ project, isVisible, toggleModal, refetch }) => {
 
   const { onChange, onSubmit, values } = useForm(
     () => {
-      refetch();
       handleSave(() => {
         toast({
           type: 'success',
@@ -81,6 +80,9 @@ const EditModal = ({ project, isVisible, toggleModal, refetch }) => {
   const [updateProject, { loading: updateProjectLoading }] = useMutation(
     UPDATE_PROJECT_SPECS_MUTATION,
     {
+      update: () => {
+        refetch();
+      },
       onError(err) {
         console.error(err);
       },
@@ -95,6 +97,9 @@ const EditModal = ({ project, isVisible, toggleModal, refetch }) => {
   const [updatePersonnel, { loading: updatePersonnelLoading }] = useMutation(
     ADD_PERSON_TO_PROJECT_MUTATION,
     {
+      update: () => {
+        refetch();
+      },
       onError(err) {
         console.error(err);
       },
@@ -104,6 +109,9 @@ const EditModal = ({ project, isVisible, toggleModal, refetch }) => {
   const [removePerson, { loading: removePersonLoading }] = useMutation(
     REMOVE_PERSON_FROM_PROJECT_MUTATION,
     {
+      update: () => {
+        refetch();
+      },
       onError(err) {
         console.error(err);
       },

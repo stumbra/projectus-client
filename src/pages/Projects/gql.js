@@ -18,6 +18,9 @@ export const GET_ASSIGNED_PROJECTS_QUERY = gql`
         surname
         avatar
       }
+      board {
+        id
+      }
       createdAt
     }
   }

@@ -10,9 +10,7 @@ import { COLORS } from '../../utils/constants';
 import { useTranslation } from 'react-i18next';
 
 const Dashboard = () => {
-  const { loading, data: { getAssignedTickets } = [] } = useQuery(GET_ASSIGNED_TICKETS_QUERY, {
-    fetchPolicy: 'no-cache',
-  });
+  const { loading, data: { getAssignedTickets } = [] } = useQuery(GET_ASSIGNED_TICKETS_QUERY);
 
   const { i18n, t } = useTranslation('common');
 
@@ -163,22 +161,20 @@ const Dashboard = () => {
     getAssignedTickets.forEach((item) => {
       if (statusData.length < 1) {
         statusData.push({
-          [i18n.language === 'en' ? 'name' : 'pavadinimas']: item.section.title,
-          [i18n.language === 'en' ? 'amount' : 'kiekis']: 1,
+          name: item.section.title,
+          amount: 1,
           fill: COLORS[0],
         });
       } else {
         const alreadyExists = statusData.findIndex(
-          (data) =>
-            item.section.title.toLowerCase() ===
-            data[i18n.language === 'en' ? 'name' : 'pavadinimas'].toLowerCase()
+          (data) => item.section.title.toLowerCase() === data.name.toLowerCase()
         );
 
         alreadyExists > -1
-          ? (statusData[alreadyExists][i18n.language === 'en' ? 'amount' : 'kiekis'] += 1)
+          ? (statusData[alreadyExists].amount += 1)
           : statusData.push({
-              [i18n.language === 'en' ? 'name' : 'pavadinimas']: item.section.title,
-              [i18n.language === 'en' ? 'amount' : 'kiekis']: 1,
+              name: item.section.title,
+              amount: 1,
               fill: COLORS[statusData.length],
             });
       }
@@ -212,14 +208,7 @@ const Dashboard = () => {
             }}
           />
           {statusData.length > 0 && (
-            <Chart
-              title={t('dashboard.graphs.ticketsByStatus')}
-              data={statusData}
-              type="Pie"
-              dataKeys={{
-                y: i18n.language === 'en' ? 'amount' : 'kiekis',
-              }}
-            />
+            <Chart title={t('dashboard.graphs.ticketsByStatus')} data={statusData} type="Pie" />
           )}
           {eventData.length > 0 && (
             <NewestEvents title={t('dashboard.events.title')} events={eventData} />

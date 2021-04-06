@@ -67,7 +67,7 @@
       "title": "Project settings",
       "message": {
         "title": "Success!",
-        "subtitle": "Project updated. If you added any more people to the project - invitation letter were sent."
+        "subtitle": "Project updated"
       },
       "inputs": {
         "title": "Title:",
@@ -86,6 +86,27 @@
       },
       "buttons": {
         "save": "Save",
+        "close": "Close"
+      }
+    },
+    "createModal": {
+      "title": "Project creation",
+      "message": {
+        "title": "Success!",
+        "subtitle": "Project successfully created!"
+      },
+      "inputs": {
+        "title": {
+          "title": "Title:",
+          "placeholder": "Enter project title..."
+        },
+        "description": {
+          "title": "Description:",
+          "placeholder": "Enter project description..."
+        }
+      },
+      "buttons": {
+        "create": "Create",
         "close": "Close"
       }
     }
@@ -120,7 +141,8 @@
     "dashboard": "Dashboard",
     "projects": "Projects",
     "tickets": "Tickets",
-    "myProfile": "Profile"
+    "myProfile": "Profile",
+    "board": "Board"
   },
   "sidebar": {
     "dashboard": "Dashboard",

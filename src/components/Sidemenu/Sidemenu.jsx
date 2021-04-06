@@ -70,7 +70,11 @@ const Sidemenu = ({ children }) => {
             </Icon.Group>
             <span>{t('sidebar.dashboard')}</span>
           </MenuItem>
-          <MenuItem name="projects" onClick={handleItemClick} active={activeItem === 'projects'}>
+          <MenuItem
+            name="projects"
+            onClick={handleItemClick}
+            active={activeItem === 'projects' || activeItem === 'board'}
+          >
             <Icon.Group size="large">
               <Icon name="briefcase" />
             </Icon.Group>
@@ -82,7 +86,12 @@ const Sidemenu = ({ children }) => {
             </Icon.Group>
             <span>{t('sidebar.myTickets')}</span>
           </MenuItem>
-          <MenuItem name="profile" onClick={handleItemClick} active={activeItem === 'profile'}>
+          <MenuItem
+            name="profile"
+            onClick={handleItemClick}
+            active={activeItem === 'profile'}
+            disabled
+          >
             <Icon.Group size="large">
               <Icon name="user" />
             </Icon.Group>

@@ -26,11 +26,15 @@ import {
 import { AuthContext } from '../../context/auth';
 import { useTranslation } from 'react-i18next';
 import EditModal from './components/EditModal/EditModal';
+import CreateModal from './components/CreateModal/CreateModal';
+import { useHistory } from 'react-router';
 
 const ITEMS_PER_PAGE = 8;
 
 const Projects = () => {
   const { t } = useTranslation('common');
+
+  const history = useHistory();
 
   const { loading, data: { getAssignedProjects } = {}, refetch } = useQuery(
     GET_ASSIGNED_PROJECTS_QUERY
@@ -41,6 +45,7 @@ const Projects = () => {
   const [currentPage, setCurrentPage] = React.useState(1);
   const [isConfirmModalVisible, setConfirmModalVisibility] = React.useState(false);
   const [isEditModalVisible, setEditModalVisibility] = React.useState(false);
+  const [isCreateModalVisible, setCreateModalVisibility] = React.useState(false);
   const [selectedProject, setSelectedProject] = React.useState({});
   const [search, setSearch] = React.useState('');
 
@@ -55,7 +60,7 @@ const Projects = () => {
       });
     },
     onError: (err) => {
-      console.log(err);
+      console.error(err);
     },
   });
 
@@ -87,7 +92,14 @@ const Projects = () => {
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
         <Container>
           <Buttons>
-            <SemanticButton primary icon labelPosition="right">
+            <SemanticButton
+              primary
+              icon
+              labelPosition="right"
+              onClick={() => {
+                setCreateModalVisibility(true);
+              }}
+            >
               {t('projects.create')}
               <Icon name="plus" />
             </SemanticButton>
@@ -140,7 +152,13 @@ const Projects = () => {
                         {moment(project.createdAt).fromNow()}
                       </Table.Cell>
                       <ActionsWrapper textAlign="center">
-                        <Button animated="vertical" color="blue">
+                        <Button
+                          animated="vertical"
+                          color="blue"
+                          onClick={() => {
+                            history.push(`/board/${project.board.id}`);
+                          }}
+                        >
                           <Button.Content hidden>{t('projects.buttons.view')}</Button.Content>
                           <Button.Content visible>
                             <Icon name="eye" />
@@ -205,7 +223,7 @@ const Projects = () => {
           {getAssignedProjects.length === 0 && (
             <Empty
               header={t('projects.messages.noAssigned.title')}
-              subheader={t('projects.messages.noAssigned.title')}
+              subheader={t('projects.messages.noAssigned.description')}
             />
           )}
         </Container>
@@ -227,9 +245,8 @@ const Projects = () => {
             <Button
               color="red"
               onClick={() => {
-                deleteProject({ variables: { project: project.id } });
+                deleteProject({ variables: { project: selectedProject.id } });
                 setConfirmModalVisibility(false);
-                setSelectedProject({});
               }}
             >
               {t('projects.modal.buttons.primary')}
@@ -257,6 +274,12 @@ const Projects = () => {
           }}
         />
       )}
+      <CreateModal
+        isVisible={isCreateModalVisible}
+        toggleModal={() => {
+          setCreateModalVisibility(!isCreateModalVisible);
+        }}
+      />
     </React.Fragment>
   );
 };

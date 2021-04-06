@@ -8,7 +8,8 @@ import ForgotPassword from '../pages/ForgotPassword/ForgotPassword';
 import Dashboard from '../pages/Dashboard/Dashboard';
 import Tickets from '../pages/Tickets/Tickets';
 import Projects from '../pages/Projects/Projects';
-import Profile from '../pages/Profile/Profile';
+import Board from '../pages/Board/Board';
+// import Profile from '../pages/Profile/Profile';
 import ConfirmEmail from '../pages/ConfirmEmail/ConfirmEmail';
 import ResetPassword from '../pages/ResetPassword/ResetPassword';
 import ConfirmInvitation from '../pages/ConfirmInvitation/ConfirmInvitation';
@@ -38,11 +39,11 @@ function Router() {
           <PrivateRoute exact path="/dashboard" component={Dashboard} />
           <PrivateRoute exact path="/tickets" component={Tickets} />
           <PrivateRoute exact path="/projects" component={Projects} />
-          <PrivateRoute exact path="/profile" component={Profile} />
+          <PrivateRoute exact path="/board/:id" component={Board} />
+          {/* <PrivateRoute exact path="/profile" component={Profile} /> */}
           <TokenizedRoute exact path="/user/confirm/:token" component={ConfirmEmail} />
           <TokenizedRoute exact path="/user/password/reset/:token" component={ResetPassword} />
           <TokenizedRoute exact path="/user/invite/:token" component={ConfirmInvitation} />
-          <Route component={Error} />
           <Route component={Error} />
         </Switch>
       </AnimatePresence>

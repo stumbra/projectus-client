@@ -49,7 +49,7 @@ const Chart = ({ title, data, dataKeys, type }) => {
               labelLine={false}
               label={renderCustomizedLabel}
               outerRadius={width > 700 ? 120 : 100}
-              dataKey={dataKeys.y}
+              dataKey="amount"
             >
               {data.map((index) => (
                 <Cell key={`cell-${index}`} />

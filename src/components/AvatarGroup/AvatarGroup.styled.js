@@ -12,19 +12,23 @@ export const Image = styled(SemanticImage)`
   :not(:first-child) {
     margin-left: -10px !important;
   }
+  max-width: none;
+  width: ${({ size }) => (size === 'extra-tiny' ? '25px' : '35px')};
+  height: auto;
 `;
 
 export const Overmax = styled.div`
   background-color: #e0e1e2;
   max-width: none;
-  width: 35px;
+  width: ${({ size }) => (size === 'extra-tiny' ? '25px' : '35px')};
   height: auto;
   border-radius: 500rem;
   margin-left: -10px;
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
+  cursor: ${({ disabled }) => !disabled && 'cursor'};
+  font-size: ${({ size }) => size === 'extra-tiny' && '0.8rem'};
 `;
 
 export const Button = styled.div`

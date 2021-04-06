@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Image, Overmax, Button } from './AvatarGroup.styled';
 import { Tooltip } from 'react-tippy';
 
-const AvatarGroup = ({ users, max }) => {
+const AvatarGroup = ({ users, max, disabled = false, size }) => {
   const [isExpanded, setExpandability] = React.useState(false);
 
   const handleExpandability = () => {
@@ -21,14 +21,17 @@ const AvatarGroup = ({ users, max }) => {
                 position="top"
                 trigger="mouseenter "
               >
-                <Image size="mini" src={user.avatar} avatar />
+                <Image src={user.avatar} avatar size={size} />
               </Tooltip>
             );
           } else if (index + 1 === users.length)
             return (
-              <Overmax key={index} onClick={handleExpandability}>{`+${
-                users.length - max
-              }`}</Overmax>
+              <Overmax
+                key={index}
+                onClick={!disabled ? handleExpandability : undefined}
+                disabled={disabled}
+                size={size}
+              >{`+${users.length - max}`}</Overmax>
             );
         } else {
           return (
@@ -38,7 +41,7 @@ const AvatarGroup = ({ users, max }) => {
               position="top"
               trigger="mouseenter "
             >
-              <Image size="mini" src={user.avatar} avatar />
+              <Image src={user.avatar} avatar size={size} />
             </Tooltip>
           );
         }

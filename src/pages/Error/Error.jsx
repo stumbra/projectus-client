@@ -21,7 +21,7 @@ const Error = () => {
         <StatusCode>404</StatusCode>
         <Title>{t('error.title')}</Title>
         <Subtitle>{t('error.description')}</Subtitle>
-        <Button primary onClick={() => history.push('/')}>
+        <Button primary onClick={() => history.goBack()}>
           {t('error.button')}
         </Button>
       </Container>
