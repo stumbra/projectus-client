@@ -80,7 +80,11 @@ const Sidemenu = ({ children }) => {
             </Icon.Group>
             <span>{t('sidebar.myProjects')}</span>
           </MenuItem>
-          <MenuItem name="tickets" onClick={handleItemClick} active={activeItem === 'tickets'}>
+          <MenuItem
+            name="tickets"
+            onClick={handleItemClick}
+            active={activeItem === 'tickets' || activeItem === 'ticket'}
+          >
             <Icon.Group size="large">
               <Icon name="ticket" />
             </Icon.Group>

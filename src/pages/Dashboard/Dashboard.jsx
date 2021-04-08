@@ -2,8 +2,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { GET_ASSIGNED_TICKETS_QUERY } from './gql';
 import { useQuery } from '@apollo/client';
-import { Dimmer, Loader } from 'semantic-ui-react';
-import { Chart } from '../../components';
+import { Breadcrumb, Dimmer, Loader } from 'semantic-ui-react';
+import { Chart, Empty } from '../../components';
 import NewestEvents from './NewestEvents/NewestEvents';
 import { Container, InnerWrapper } from './Dashboard.styled';
 import { COLORS } from '../../utils/constants';
@@ -11,6 +11,8 @@ import { useTranslation } from 'react-i18next';
 
 const Dashboard = () => {
   const { loading, data: { getAssignedTickets } = [] } = useQuery(GET_ASSIGNED_TICKETS_QUERY);
+
+  const [switcher, setSwitcher] = React.useState('today');
 
   const { i18n, t } = useTranslation('common');
 
@@ -81,9 +83,60 @@ const Dashboard = () => {
       </Dimmer>
     );
 
+  const reorganizeTickets = () => {
+    switch (switcher) {
+      case 'today': {
+        return getAssignedTickets.filter(
+          (ticket) =>
+            new Date(ticket.deadline).setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0)
+        );
+      }
+      case 'tomorrow': {
+        return getAssignedTickets.filter((ticket) => {
+          const today = new Date();
+          const tomorrow = new Date();
+          tomorrow.setDate(today.getDate() + 1);
+          return new Date(ticket.deadline).setHours(0, 0, 0, 0) === tomorrow.setHours(0, 0, 0, 0);
+        });
+      }
+      case 'week': {
+        return getAssignedTickets.filter((ticket) => {
+          const today = new Date();
+          const first = today.getDate() - today.getDay();
+          const last = first + 6;
+
+          const firstday = new Date(today.setDate(first)).setHours(0, 0, 0, 0);
+          const lastday = new Date(today.setDate(last)).setHours(0, 0, 0, 0);
+
+          return (
+            new Date(ticket.deadline).setHours(0, 0, 0, 0) >= firstday &&
+            new Date(ticket.deadline).setHours(0, 0, 0, 0) <= lastday
+          );
+        });
+      }
+      case 'month': {
+        return getAssignedTickets.filter((ticket) => {
+          const today = new Date();
+          const firstday = new Date(today.getFullYear(), today.getMonth(), 1).setHours(0, 0, 0, 0);
+          const lastday = new Date(today.getFullYear(), today.getMonth() + 1, 0).setHours(
+            0,
+            0,
+            0,
+            0
+          );
+
+          return (
+            new Date(ticket.deadline).setHours(0, 0, 0, 0) >= firstday &&
+            new Date(ticket.deadline).setHours(0, 0, 0, 0) <= lastday
+          );
+        });
+      }
+    }
+  };
+
   if (getAssignedTickets) {
     priorityData.forEach((item) => {
-      const count = getAssignedTickets.filter((ticket) => {
+      const count = reorganizeTickets().filter((ticket) => {
         switch (ticket.priority) {
           case 'NONE': {
             return (
@@ -115,7 +168,7 @@ const Dashboard = () => {
     });
 
     typeData.forEach((item) => {
-      const count = getAssignedTickets.filter((ticket) => {
+      const count = reorganizeTickets().filter((ticket) => {
         switch (ticket.type) {
           case 'FEATURE': {
             return (
@@ -158,7 +211,7 @@ const Dashboard = () => {
       item[i18n.language === 'en' ? 'amount' : 'kiekis'] += count;
     });
 
-    getAssignedTickets.forEach((item) => {
+    reorganizeTickets().forEach((item) => {
       if (statusData.length < 1) {
         statusData.push({
           name: item.section.title,
@@ -180,7 +233,7 @@ const Dashboard = () => {
       }
     });
 
-    [...getAssignedTickets].reverse().forEach((event) => {
+    [...reorganizeTickets()].reverse().forEach((event) => {
       eventData.push(...event.history);
     });
   }
@@ -188,30 +241,80 @@ const Dashboard = () => {
   return (
     <Container>
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+        <div
+          style={{
+            justifyContent: 'center',
+            display: 'flex',
+            marginTop: '1rem',
+          }}
+        >
+          <Breadcrumb size="massive">
+            <Breadcrumb.Section
+              active={switcher === 'today'}
+              onClick={() => {
+                setSwitcher('today');
+              }}
+            >
+              Today
+            </Breadcrumb.Section>
+            <Breadcrumb.Divider />
+            <Breadcrumb.Section
+              active={switcher === 'tomorrow'}
+              onClick={() => {
+                setSwitcher('tomorrow');
+              }}
+            >
+              Tomorrow
+            </Breadcrumb.Section>
+            <Breadcrumb.Divider />
+            <Breadcrumb.Section
+              active={switcher === 'week'}
+              onClick={() => {
+                setSwitcher('week');
+              }}
+            >
+              This Week
+            </Breadcrumb.Section>
+            <Breadcrumb.Divider />
+            <Breadcrumb.Section
+              active={switcher === 'month'}
+              onClick={() => {
+                setSwitcher('month');
+              }}
+            >
+              This Month
+            </Breadcrumb.Section>
+          </Breadcrumb>
+        </div>
         <InnerWrapper>
-          <Chart
-            title={t('dashboard.graphs.ticketsByPriority')}
-            data={priorityData}
-            type="Bar"
-            dataKeys={{
-              x: i18n.language === 'en' ? 'name' : 'pavadinimas',
-              y: i18n.language === 'en' ? 'amount' : 'kiekis',
-            }}
-          />
-          <Chart
-            title={t('dashboard.graphs.ticketsByType')}
-            data={typeData}
-            type="Bar"
-            dataKeys={{
-              x: i18n.language === 'en' ? 'name' : 'pavadinimas',
-              y: i18n.language === 'en' ? 'amount' : 'kiekis',
-            }}
-          />
-          {statusData.length > 0 && (
-            <Chart title={t('dashboard.graphs.ticketsByStatus')} data={statusData} type="Pie" />
-          )}
-          {eventData.length > 0 && (
-            <NewestEvents title={t('dashboard.events.title')} events={eventData} />
+          {getAssignedTickets.length > 0 ? (
+            <React.Fragment>
+              <Chart
+                title={t('dashboard.graphs.ticketsByPriority')}
+                data={priorityData}
+                type="Bar"
+                dataKeys={{
+                  x: i18n.language === 'en' ? 'name' : 'pavadinimas',
+                  y: i18n.language === 'en' ? 'amount' : 'kiekis',
+                }}
+              />
+              <Chart
+                title={t('dashboard.graphs.ticketsByType')}
+                data={typeData}
+                type="Bar"
+                dataKeys={{
+                  x: i18n.language === 'en' ? 'name' : 'pavadinimas',
+                  y: i18n.language === 'en' ? 'amount' : 'kiekis',
+                }}
+              />
+              <Chart title={t('dashboard.graphs.ticketsByStatus')} data={statusData} type="Pie" />
+              <NewestEvents title={t('dashboard.events.title')} events={eventData} />
+            </React.Fragment>
+          ) : (
+            <Empty
+              header="No data to be displayed"
+              subheader="Create a ticket or be assigned to one"
+            />
           )}
         </InnerWrapper>
       </motion.div>

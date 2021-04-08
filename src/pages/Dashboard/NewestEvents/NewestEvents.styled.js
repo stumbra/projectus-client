@@ -26,18 +26,4 @@ export const Info = styled.span`
 export const EventWrapper = styled.div`
   margin: 1rem;
   padding: 0.5rem;
-  border-radius: 1rem;
-  border: 0.15rem solid grey;
-  transition: all 300ms linear !important;
-  span {
-    display: flex;
-    justify-content: center;
-    font-size: 1.1rem;
-    font-weight: 400;
-    text-align: center;
-  }
-  :hover {
-    cursor: pointer;
-    background-color: rgba(13, 82, 134, 0.5);
-  }
 `;

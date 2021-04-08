@@ -5,10 +5,9 @@ import { Button, Modal, Input } from 'semantic-ui-react';
 import { useForm } from '../../../../utils/hooks';
 import { CREATE_BOARD_SECTION_MUTATION } from './gql';
 import { useHistory } from 'react-router';
-import { GET_BOARD_INFORMATION_QUERY } from '../../gql';
 import { toast } from 'react-semantic-toasts';
 
-const CreateModal = ({ isVisible, toggleModal, refetch }) => {
+const SectionCreation = ({ isVisible, toggleModal, refetch }) => {
   const history = useHistory();
 
   const id = history.location.pathname.split('/')[2];
@@ -49,7 +48,7 @@ const CreateModal = ({ isVisible, toggleModal, refetch }) => {
   const disableCreate = values.title === '';
 
   return (
-    <Modal onClose={toggleModal} open={isVisible} size="tiny">
+    <Modal onClose={toggleModal} open={isVisible} size="mini">
       <Modal.Header>Section creation</Modal.Header>
       <Modal.Content>
         <Input
@@ -79,4 +78,4 @@ const CreateModal = ({ isVisible, toggleModal, refetch }) => {
   );
 };
 
-export default CreateModal;
+export default SectionCreation;

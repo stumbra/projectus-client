@@ -8,8 +8,10 @@ export const GET_ASSIGNED_TICKETS_QUERY = gql`
       section {
         title
       }
+      deadline
       history {
         ticket {
+          id
           number
           title
         }

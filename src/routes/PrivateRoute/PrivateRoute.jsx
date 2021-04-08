@@ -30,9 +30,10 @@ const PrivateRoute = ({ component: Component }, ...rest) => {
       </Dimmer>
     );
 
-  const { id, name, surname, email, avatar } = getMe;
-
-  if (!user) setUser({ id, name, surname, email, avatar });
+  if (!user && getMe) {
+    const { id, name, surname, email, avatar } = getMe;
+    setUser({ id, name, surname, email, avatar });
+  }
 
   if (Component) {
     return (

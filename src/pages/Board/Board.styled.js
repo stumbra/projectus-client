@@ -4,11 +4,12 @@ import { Header as SemanticHeader } from 'semantic-ui-react';
 export const Container = styled.div`
   height: 100%;
   display: flex;
-  overflow-x: auto;
+  overflow-y: auto;
   box-shadow: 0 1px 2px 0 rgb(34 36 38 / 15%);
   border-radius: 0.3rem;
   border: 1px solid rgba(34, 36, 38, 0.15);
   min-width: 100%;
+  flex-direction: column;
 `;
 
 export const Wrapper = styled.div`

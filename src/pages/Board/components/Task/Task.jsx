@@ -3,6 +3,7 @@ import { Draggable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 import { AvatarGroup } from '../../../../components';
 import moment from 'moment';
+import { useHistory } from 'react-router';
 
 const Container = styled.div`
   border: 1px solid lightgray;
@@ -14,18 +15,22 @@ const Container = styled.div`
 `;
 
 const Task = ({ task, index }) => {
+  const history = useHistory();
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    history.push(`/ticket/${task.id}`);
+  };
+
   return (
     <Draggable draggableId={task.id} index={index}>
       {(provided, snapshot) => (
         <Container
+          onClick={handleClick}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
           isDragging={snapshot.isDragging}
-          onContextMenu={(e) => {
-            e.preventDefault();
-            console.log('Varom');
-          }}
         >
           <span
             style={{ fontSize: '10px' }}
@@ -48,6 +53,7 @@ const Task = ({ task, index }) => {
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
+              flexWrap: 'wrap',
             }}
           >
             <span>{task.priority}</span>

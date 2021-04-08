@@ -9,6 +9,7 @@ import Dashboard from '../pages/Dashboard/Dashboard';
 import Tickets from '../pages/Tickets/Tickets';
 import Projects from '../pages/Projects/Projects';
 import Board from '../pages/Board/Board';
+import Details from '../pages/Details/Details';
 // import Profile from '../pages/Profile/Profile';
 import ConfirmEmail from '../pages/ConfirmEmail/ConfirmEmail';
 import ResetPassword from '../pages/ResetPassword/ResetPassword';
@@ -40,6 +41,7 @@ function Router() {
           <PrivateRoute exact path="/tickets" component={Tickets} />
           <PrivateRoute exact path="/projects" component={Projects} />
           <PrivateRoute exact path="/board/:id" component={Board} />
+          <PrivateRoute exact path="/ticket/:id" component={Details} />
           {/* <PrivateRoute exact path="/profile" component={Profile} /> */}
           <TokenizedRoute exact path="/user/confirm/:token" component={ConfirmEmail} />
           <TokenizedRoute exact path="/user/password/reset/:token" component={ResetPassword} />

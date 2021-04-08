@@ -22,6 +22,7 @@ import {
   NoAssignees,
 } from './Tickets.styled';
 import { useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router';
 
 const ITEMS_PER_PAGE = 8;
 
@@ -29,6 +30,8 @@ const Tickets = () => {
   const { loading, data: { getAssignedTickets } = {} } = useQuery(GET_ASSIGNED_TICKETS_QUERY, {
     fetchPolicy: 'no-cache',
   });
+
+  const history = useHistory();
 
   const { t } = useTranslation('common');
 
@@ -159,7 +162,11 @@ const Tickets = () => {
                     </Table.Cell>
                     <Table.Cell textAlign="center">{moment(ticket.createdAt).fromNow()}</Table.Cell>
                     <Table.Cell textAlign="center">
-                      <SemanticButton animated="vertical" color="blue">
+                      <SemanticButton
+                        animated="vertical"
+                        color="blue"
+                        onClick={() => history.push(`/ticket/${ticket.id}`)}
+                      >
                         <SemanticButton.Content hidden>
                           {t('tickets.buttons.view')}
                         </SemanticButton.Content>

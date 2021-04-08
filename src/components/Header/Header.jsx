@@ -34,6 +34,10 @@ const Header = () => {
       title = t('header.board');
       break;
     }
+    case 'ticket': {
+      title = 'Details';
+      break;
+    }
   }
 
   return (

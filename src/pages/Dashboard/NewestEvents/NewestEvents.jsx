@@ -3,13 +3,21 @@ import { useDimensions } from '../../../utils/hooks';
 import { Container, Inside, Info, EventWrapper } from './NewestEvents.styled';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment';
+import { useHistory } from 'react-router';
+import { Card, Feed } from 'semantic-ui-react';
 
 const NewestEvents = ({ title, events }) => {
   const { height, width } = useDimensions();
 
   const { t, i18n } = useTranslation('common');
 
+  const history = useHistory();
+
   moment.locale(i18n.language === 'en' ? 'en' : 'lt');
+
+  events.sort((lhs, rhs) => {
+    return lhs.createdAt > rhs.createdAt ? -1 : lhs.createdAt < rhs.createdAt ? 1 : 0;
+  });
 
   return (
     <Container>
@@ -18,11 +26,78 @@ const NewestEvents = ({ title, events }) => {
         {events.map((event, index) => (
           <EventWrapper key={index}>
             {event.type === 'CREATE' && (
-              <span>{`#${event.ticket.number} - ${event.ticket.title} : ${t(
-                'common.names.ticket'
-              ).toLowerCase()} ${t('dashboard.events.created')} ${moment(
-                event.createdAt
-              ).fromNow()}`}</span>
+              <Card style={{ width: '100%' }}>
+                <Card.Content>
+                  <Feed>
+                    <Feed.Event>
+                      <Feed.Content>
+                        <Feed.Date content={moment(event.createdAt).fromNow()} />
+                        <Feed.Summary>
+                          {`#${event.ticket.number} - `}
+                          <a
+                            onClick={() => {
+                              history.push(`/ticket/${event.ticket.id}`);
+                            }}
+                          >
+                            {event.ticket.title}
+                          </a>
+                          {` ${t('common.names.ticket').toLowerCase()} ${t(
+                            'dashboard.events.created'
+                          )}`}
+                        </Feed.Summary>
+                      </Feed.Content>
+                    </Feed.Event>
+                  </Feed>
+                </Card.Content>
+              </Card>
+            )}
+            {event.type === 'MESSAGE' && (
+              <Card style={{ width: '100%' }}>
+                <Card.Content>
+                  <Feed>
+                    <Feed.Event>
+                      <Feed.Content>
+                        <Feed.Date content={moment(event.createdAt).fromNow()} />
+                        <Feed.Summary>
+                          {`#${event.ticket.number} - `}
+                          <a
+                            onClick={() => {
+                              history.push(`/ticket/${event.ticket.id}`);
+                            }}
+                          >
+                            {event.ticket.title}
+                          </a>
+                          {` a new message ${t('dashboard.events.created')}`}
+                        </Feed.Summary>
+                      </Feed.Content>
+                    </Feed.Event>
+                  </Feed>
+                </Card.Content>
+              </Card>
+            )}
+            {event.type === 'UPDATED' && (
+              <Card style={{ width: '100%' }}>
+                <Card.Content>
+                  <Feed>
+                    <Feed.Event>
+                      <Feed.Content>
+                        <Feed.Date content={moment(event.createdAt).fromNow()} />
+                        <Feed.Summary>
+                          {`#${event.ticket.number} - `}
+                          <a
+                            onClick={() => {
+                              history.push(`/ticket/${event.ticket.id}`);
+                            }}
+                          >
+                            {event.ticket.title}
+                          </a>
+                          {` was updated`}
+                        </Feed.Summary>
+                      </Feed.Content>
+                    </Feed.Event>
+                  </Feed>
+                </Card.Content>
+              </Card>
             )}
           </EventWrapper>
         ))}

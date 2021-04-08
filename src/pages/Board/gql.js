@@ -31,9 +31,84 @@ export const GET_BOARD_INFORMATION_QUERY = gql`
         }
       }
       project {
+        id
         title
+        owners {
+          id
+          name
+          surname
+        }
+        personnel {
+          id
+          name
+          surname
+        }
       }
       createdAt
+    }
+  }
+`;
+
+export const REORGANIZE_SECTIONS_MUTATION = gql`
+  mutation reorganizeSections($board: ID!, $sections: [ID!]) {
+    reorganizeSections(board: $board, sections: $sections) {
+      sections {
+        id
+        title
+        tickets {
+          id
+          number
+          title
+          description
+          creator {
+            id
+            name
+            surname
+          }
+          assignees {
+            id
+            name
+            surname
+            avatar
+          }
+          priority
+          type
+          deadline
+          hours
+          createdAt
+        }
+      }
+    }
+  }
+`;
+
+export const REORGANIZE_TICKETS_MUTATION = gql`
+  mutation reorganizeTickets($section: ID!, $tickets: [ID!]) {
+    reorganizeTickets(section: $section, tickets: $tickets) {
+      id
+      title
+      tickets {
+        id
+        number
+        title
+        description
+        creator {
+          id
+          name
+          surname
+        }
+        assignees {
+          id
+          name
+          surname
+          avatar
+        }
+        priority
+        type
+        deadline
+        hours
+        createdAt
+      }
     }
   }
 `;

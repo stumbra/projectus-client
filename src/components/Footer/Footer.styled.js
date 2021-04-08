@@ -14,6 +14,7 @@ export const Wrapper = styled(Menu)`
   span {
     width: 100%;
     text-align: center;
+    margin-bottom: 1.5rem;
   }
 `;
 

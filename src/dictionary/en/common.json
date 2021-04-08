@@ -133,7 +133,7 @@
       },
       "noAssigned": {
         "title": "It appears you don't have any tickets assigned",
-        "description": "Please create or be assigned to a ticket"
+        "description": "Create a ticket or be assigned to one"
       }
     }
   },

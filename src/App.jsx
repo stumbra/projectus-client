@@ -1,6 +1,7 @@
 import 'semantic-ui-css/semantic.min.css';
 import 'react-semantic-toasts/styles/react-semantic-alert.css';
 import 'react-tippy/dist/tippy.css';
+import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
 
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
