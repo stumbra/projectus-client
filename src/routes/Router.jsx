@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 
 import Landing from '../pages/Landing/Landing';
@@ -31,7 +31,7 @@ function Router() {
   i18n.language === 'en' ? moment.updateLocale('en', en) : moment.updateLocale('lt', lt);
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <AnimatePresence exitBeforeEnter>
         <Switch location={window.location} key={window.location.pathname}>
           <PlainRoute exact path="/" component={Landing} />
@@ -49,7 +49,7 @@ function Router() {
           <Route component={Error} />
         </Switch>
       </AnimatePresence>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
