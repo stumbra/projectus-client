@@ -5,11 +5,9 @@ import { GET_TICKET_INFORMATION_QUERY, CREATE_MESSAGE_MUTATION } from './gql';
 import { useMutation, useQuery } from '@apollo/client';
 import {
   Button,
-  Card,
   Checkbox,
   Comment,
   Dimmer,
-  Feed,
   Form,
   Header,
   Loader,
@@ -17,7 +15,6 @@ import {
 } from 'semantic-ui-react';
 import moment from 'moment';
 import { AvatarGroup } from '../../components';
-import { useTranslation } from 'react-i18next';
 import EditTicket from './components/EditTicket/EditTicket';
 import { CommentsWrapper } from './Details.styled';
 
@@ -25,10 +22,6 @@ const Details = () => {
   const history = useHistory();
 
   const id = history.location.pathname.split('/')[2];
-
-  const { t, i18n } = useTranslation('common');
-
-  const [error, setError] = React.useState('');
 
   const [body, setBody] = React.useState('');
 
@@ -41,7 +34,7 @@ const Details = () => {
         ticket: id,
       },
       onError: (err) => {
-        setError(err);
+        console.error(err);
       },
       notifyOnNetworkStatusChange: true,
     }

@@ -1,6 +1,5 @@
 import React from 'react';
 import { useMutation } from '@apollo/client';
-import { useTranslation } from 'react-i18next';
 import { Button, Modal, Input } from 'semantic-ui-react';
 import { useForm } from '../../../../utils/hooks';
 import { CREATE_BOARD_SECTION_MUTATION } from './gql';
@@ -11,8 +10,6 @@ const SectionCreation = ({ isVisible, toggleModal, refetch }) => {
   const history = useHistory();
 
   const id = history.location.pathname.split('/')[2];
-
-  const { t } = useTranslation('common');
 
   const { onChange, onSubmit, values } = useForm(executeCreation, {
     title: '',
