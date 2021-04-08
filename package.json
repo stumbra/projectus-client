@@ -1,5 +1,4 @@
 {
-  "homepage": "https://stumbra.github.io/projectus-client",
   "name": "projectus-client",
   "version": "0.1.0",
   "private": true,
@@ -39,9 +38,7 @@
     "pre-commit": "npm run eslint-max && npm run prettier && npm run build",
     "eslint": "eslint .",
     "eslint-max": "eslint . --max-warnings=0",
-    "clean": "rm package-lock.json && rm -r node_modules && npm cache clean --force && npm install",
-    "deploy": "gh-pages -d build",
-    "predeploy": "npm run build"
+    "clean": "rm package-lock.json && rm -r node_modules && npm cache clean --force && npm install"
   },
   "eslintConfig": {
     "extends": [
@@ -71,7 +68,6 @@
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "gh-pages": "^3.1.0",
     "husky": "^4.3.8",
     "prettier": "^2.2.1"
   },
