@@ -6,9 +6,6 @@ import App from './App';
 const httpLink = createHttpLink({
   uri: process.env.REACT_APP_API_URL,
   credentials: 'include',
-  fetchOptions: {
-    mode: 'cors',
-  },
 });
 
 const client = new ApolloClient({
