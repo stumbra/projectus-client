@@ -73,3 +73,67 @@ export const CREATE_MESSAGE_MUTATION = gql`
     }
   }
 `;
+
+export const LOG_HOURS_MUTATION = gql`
+  mutation logHours($ticket: ID!, $hours: Int!) {
+    logHours(ticket: $ticket, hours: $hours) {
+      id
+      number
+      title
+      description
+      creator {
+        id
+        name
+        surname
+        avatar
+      }
+      assignees {
+        id
+        name
+        surname
+        avatar
+      }
+      messages {
+        id
+        body
+        creator {
+          id
+          name
+          surname
+          avatar
+        }
+        createdAt
+      }
+      history {
+        id
+        type
+        createdAt
+      }
+      section {
+        id
+        title
+        board {
+          project {
+            owners {
+              id
+              name
+              surname
+              avatar
+            }
+            personnel {
+              id
+              name
+              surname
+              avatar
+            }
+          }
+        }
+      }
+      priority
+      type
+      deadline
+      hours
+      createdAt
+    }
+  }
+`;

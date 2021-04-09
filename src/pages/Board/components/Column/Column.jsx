@@ -14,8 +14,6 @@ import {
   Header,
   EditIcon,
   ButtonsWrapper,
-  CreateButton,
-  RemoveButton,
 } from './Column.styled';
 import { useTranslation } from 'react-i18next';
 

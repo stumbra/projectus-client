@@ -1,15 +1,16 @@
 import styled from 'styled-components';
 
-export const CommentsWrapper = styled.div`
-  @media (max-width: 1380px) {
-    margin-top: 1rem;
-  }
-`;
+export const CommentsWrapper = styled.div``;
 
-export const EditBox = styled.div`
+export const MainSectionWrapper = styled.div`
   margin-top: 1rem;
   display: flex;
   align-content: center;
+  justify-content: space-between;
+  div {
+    display: flex;
+    align-items: center;
+  }
   span {
     margin-right: 0.5rem;
   }

@@ -87,8 +87,8 @@ const TicketCreation = ({ isVisible, toggleModal, personnel, refetch, section })
         ...adjustedValues,
         section,
       },
-    }).then((data) => {
-      history.push(`/ticket/${data.id}`);
+    }).then(({ data }) => {
+      history.push(`/ticket/${data.createTicket.id}`);
     });
   };
 

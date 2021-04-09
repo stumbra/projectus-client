@@ -29,7 +29,9 @@
       "title": "Naujausi įvykiai",
       "created": "sukurta.",
       "newMessage": "buvo sukurta nauja žinutė.",
-      "updated": "buvo atnaujinta."
+      "updated": "buvo atnaujinta.",
+      "deletedMessage": "viena iš žinučių buvo ištrinta.",
+      "loggedHours": "priregistruotos naujos valandos."
     },
     "switcher": {
       "today": "Šiandienos",

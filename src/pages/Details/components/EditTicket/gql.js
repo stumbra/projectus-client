@@ -48,3 +48,9 @@ export const UPDATE_TICKET_MUTATION = gql`
     }
   }
 `;
+
+export const DELETE_TICKET_MUTATION = gql`
+  mutation deleteTicket($ticket: ID!) {
+    deleteTicket(ticket: $ticket)
+  }
+`;

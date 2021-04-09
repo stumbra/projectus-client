@@ -29,7 +29,9 @@
       "title": "Newest Events",
       "created": "was created.",
       "newMessage": "has a new message.",
-      "updated": "has been updated."
+      "updated": "has been updated.",
+      "deletedMessage": "one of the messages were deleted.",
+      "loggedHours": "logged new hours."
     },
     "switcher": {
       "today": "Today",

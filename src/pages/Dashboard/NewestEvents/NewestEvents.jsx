@@ -97,6 +97,54 @@ const NewestEvents = ({ title, events }) => {
                 </Card.Content>
               </Card>
             )}
+            {event.type === 'DELETE_MESSAGE' && (
+              <Card style={{ width: '100%' }}>
+                <Card.Content>
+                  <Feed>
+                    <Feed.Event>
+                      <Feed.Content>
+                        <Feed.Date content={moment(event.createdAt).fromNow()} />
+                        <Feed.Summary>
+                          {`#${event.ticket.number} - `}
+                          <a
+                            onClick={() => {
+                              history.push(`/ticket/${event.ticket.id}`);
+                            }}
+                          >
+                            {event.ticket.title}
+                          </a>
+                          {` ${t('dashboard.events.deletedMessage')}`}
+                        </Feed.Summary>
+                      </Feed.Content>
+                    </Feed.Event>
+                  </Feed>
+                </Card.Content>
+              </Card>
+            )}
+            {event.type === 'LOG_HOURS' && (
+              <Card style={{ width: '100%' }}>
+                <Card.Content>
+                  <Feed>
+                    <Feed.Event>
+                      <Feed.Content>
+                        <Feed.Date content={moment(event.createdAt).fromNow()} />
+                        <Feed.Summary>
+                          {`#${event.ticket.number} - `}
+                          <a
+                            onClick={() => {
+                              history.push(`/ticket/${event.ticket.id}`);
+                            }}
+                          >
+                            {event.ticket.title}
+                          </a>
+                          {` ${t('dashboard.events.loggedHours')}`}
+                        </Feed.Summary>
+                      </Feed.Content>
+                    </Feed.Event>
+                  </Feed>
+                </Card.Content>
+              </Card>
+            )}
           </EventWrapper>
         ))}
       </Inside>

@@ -5,11 +5,14 @@ import { toast } from 'react-semantic-toasts';
 import SemanticDatepicker from 'react-semantic-ui-datepickers';
 import { Button, Dropdown, Form, Header, Input, Modal, TextArea } from 'semantic-ui-react';
 import generateTemplate from '../../../Board/components/TicketCreation/templates';
-import { UPDATE_TICKET_MUTATION } from './gql';
+import { UPDATE_TICKET_MUTATION, DELETE_TICKET_MUTATION } from './gql';
 import { prepareTypeForAPI, preparePriorityForAPI } from '../../../../utils/helpers';
+import { useHistory } from 'react-router';
 
 const EditTicket = ({ isVisible, toggleModal, ticket, refetch }) => {
   const { t, i18n } = useTranslation('common');
+
+  const history = useHistory();
 
   const typeOptions = [
     { key: 1, text: t('common.types.feature'), value: 1 },
@@ -76,7 +79,7 @@ const EditTicket = ({ isVisible, toggleModal, ticket, refetch }) => {
       assignees: assignees.map((assignee) => assignee.value),
     }) === JSON.stringify(values);
 
-  const [updateTicket, { loading }] = useMutation(UPDATE_TICKET_MUTATION, {
+  const [updateTicket, { loading: updateTicketLoading }] = useMutation(UPDATE_TICKET_MUTATION, {
     update: () => {
       refetch();
       toast({
@@ -114,6 +117,32 @@ const EditTicket = ({ isVisible, toggleModal, ticket, refetch }) => {
     updateTicket({
       variables: adjustedValues,
       refetchQueries: () => ['getTicket', 'getAssignedTickets'],
+    });
+  };
+
+  const [deleteTicket, { loading: deleteTicketLoading }] = useMutation(DELETE_TICKET_MUTATION, {
+    update: () => {
+      toast({
+        type: 'success',
+        icon: 'check',
+        title: 'Success!',
+        description: 'Ticket successfully deleted',
+        animation: 'bounce',
+        time: 5000,
+      });
+      history.goBack();
+    },
+    onError(err) {
+      console.error(err);
+    },
+  });
+
+  const handleDelete = () => {
+    deleteTicket({
+      variables: {
+        ticket: ticket.id,
+      },
+      refetchQueries: () => ['getBoardInformation'],
     });
   };
 
@@ -239,14 +268,27 @@ const EditTicket = ({ isVisible, toggleModal, ticket, refetch }) => {
       </Modal.Content>
       <Modal.Actions>
         <Button
+          negative
+          onClick={handleDelete}
+          floated="left"
+          loading={deleteTicketLoading}
+          disabled={deleteTicketLoading}
+        >
+          Delete
+        </Button>
+        <Button
           color="blue"
-          disabled={disableSave || loading}
-          loading={loading}
+          disabled={disableSave || updateTicketLoading || deleteTicketLoading}
+          loading={updateTicketLoading}
           onClick={handleSumbit}
         >
           Save
         </Button>
-        <Button color="grey" onClick={toggleModal} disabled={loading}>
+        <Button
+          color="grey"
+          onClick={toggleModal}
+          disabled={updateTicketLoading || deleteTicketLoading}
+        >
           Close
         </Button>
       </Modal.Actions>

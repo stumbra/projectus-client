@@ -15,7 +15,7 @@ import {
   AssigneesTag,
 } from './Task.styled';
 import { useTranslation } from 'react-i18next';
-import { localizedPriority, localizedType } from '../../../../utils/helpers';
+import { localizedPriority, localizedType, timeConvert } from '../../../../utils/helpers';
 
 const Task = ({ task, index }) => {
   const history = useHistory();
@@ -43,7 +43,7 @@ const Task = ({ task, index }) => {
           <DetailedWrapper>
             <TaskTag>{`#${task.number} - ${task.title}`}</TaskTag>
             {task.hours > 0 && (
-              <MetaTag>{`${t('board.task.loggedHours')} - ${task.hours}`}</MetaTag>
+              <MetaTag>{`${t('board.task.loggedHours')} - ${timeConvert(task.hours)}`}</MetaTag>
             )}
             {task.deadline && (
               <MetaTag>{`${t('board.task.deadline')} - ${moment(
