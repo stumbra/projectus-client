@@ -41,9 +41,7 @@ const NewestEvents = ({ title, events }) => {
                           >
                             {event.ticket.title}
                           </a>
-                          {` ${t('common.names.ticket').toLowerCase()} ${t(
-                            'dashboard.events.created'
-                          )}`}
+                          {` ${t('dashboard.events.created')}`}
                         </Feed.Summary>
                       </Feed.Content>
                     </Feed.Event>
@@ -67,7 +65,7 @@ const NewestEvents = ({ title, events }) => {
                           >
                             {event.ticket.title}
                           </a>
-                          {` a new message ${t('dashboard.events.created')}`}
+                          {` ${t('dashboard.events.newMessage')}`}
                         </Feed.Summary>
                       </Feed.Content>
                     </Feed.Event>
@@ -91,7 +89,7 @@ const NewestEvents = ({ title, events }) => {
                           >
                             {event.ticket.title}
                           </a>
-                          {` was updated`}
+                          {` ${t('dashboard.events.updated')}`}
                         </Feed.Summary>
                       </Feed.Content>
                     </Feed.Event>

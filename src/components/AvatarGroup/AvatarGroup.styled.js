@@ -13,14 +13,14 @@ export const Image = styled(SemanticImage)`
     margin-left: -10px !important;
   }
   max-width: none;
-  width: ${({ size }) => (size === 'extra-tiny' ? '25px' : '35px')};
+  width: ${({ size }) => (size === 'extra-tiny' ? '2rem' : '2.1875rem')};
   height: auto;
 `;
 
 export const Overmax = styled.div`
   background-color: #e0e1e2;
   max-width: none;
-  width: ${({ size }) => (size === 'extra-tiny' ? '25px' : '35px')};
+  width: ${({ size }) => (size === 'extra-tiny' ? '2rem' : '2.1875rem')};
   height: auto;
   border-radius: 500rem;
   margin-left: -10px;

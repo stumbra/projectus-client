@@ -5,11 +5,14 @@ import { useForm } from '../../../../utils/hooks';
 import { CREATE_BOARD_SECTION_MUTATION } from './gql';
 import { useHistory } from 'react-router';
 import { toast } from 'react-semantic-toasts';
+import { useTranslation } from 'react-i18next';
 
 const SectionCreation = ({ isVisible, toggleModal, refetch }) => {
   const history = useHistory();
 
   const id = history.location.pathname.split('/')[2];
+
+  const { t } = useTranslation('common');
 
   const { onChange, onSubmit, values } = useForm(executeCreation, {
     title: '',
@@ -21,8 +24,8 @@ const SectionCreation = ({ isVisible, toggleModal, refetch }) => {
       toast({
         type: 'success',
         icon: 'check',
-        title: 'Success!',
-        description: 'Section successfully created',
+        title: t('board.sectionCreation.modal.title'),
+        description: t('board.sectionCreation.modal.description'),
         animation: 'bounce',
         time: 5000,
       });
@@ -46,12 +49,12 @@ const SectionCreation = ({ isVisible, toggleModal, refetch }) => {
 
   return (
     <Modal onClose={toggleModal} open={isVisible} size="mini">
-      <Modal.Header>Section creation</Modal.Header>
+      <Modal.Header>{t('board.sectionCreation.title')}</Modal.Header>
       <Modal.Content>
         <Input
           fluid
-          label="Title:"
-          placeholder="Enter section title..."
+          label={`${t('board.sectionCreation.input')}:`}
+          placeholder={t('board.sectionCreation.placeholder')}
           value={values.title}
           name="title"
           type="text"
@@ -65,10 +68,10 @@ const SectionCreation = ({ isVisible, toggleModal, refetch }) => {
           disabled={loading || disableCreate}
           loading={loading}
         >
-          Create
+          {t('projects.createModal.buttons.create')}
         </Button>
         <Button color="grey" onClick={toggleModal}>
-          Close
+          {t('projects.createModal.buttons.close')}
         </Button>
       </Modal.Actions>
     </Modal>

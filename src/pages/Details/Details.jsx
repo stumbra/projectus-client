@@ -16,12 +16,27 @@ import {
 import moment from 'moment';
 import { AvatarGroup } from '../../components';
 import EditTicket from './components/EditTicket/EditTicket';
-import { CommentsWrapper } from './Details.styled';
+import {
+  CommentsWrapper,
+  EditBox,
+  Container,
+  PrimaryMetaWrapper,
+  TicketMeta,
+  SecondaryTicketMeta,
+  TypePrioDeadlineWrapper,
+  AssigneesWrapper,
+  AssigneesTitle,
+  LoggedTimeTitle,
+} from './Details.styled';
+import { useTranslation } from 'react-i18next';
+import { localizedPriority, localizedType } from '../../utils/helpers';
 
 const Details = () => {
   const history = useHistory();
 
   const id = history.location.pathname.split('/')[2];
+
+  const { t } = useTranslation('common');
 
   const [body, setBody] = React.useState('');
 
@@ -49,21 +64,15 @@ const Details = () => {
   if (getTicketLoading || createMessageLoading)
     return (
       <Dimmer active inverted>
-        <Loader size="massive">Loading...</Loader>
+        <Loader size="massive">{t('common.loading')}</Loader>
       </Dimmer>
     );
 
   return (
     <React.Fragment>
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-        <div
-          style={{
-            marginTop: '1rem',
-            display: 'flex',
-            alignContent: 'center',
-          }}
-        >
-          <span style={{ marginRight: '0.5rem' }}>Enable editability - </span>
+        <EditBox>
+          <span>{t('details.editability')} - </span>
           <Checkbox
             toggle
             checked={isVisible}
@@ -71,83 +80,54 @@ const Details = () => {
               setVisibility(!isVisible);
             }}
           />
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            width: '100%',
-            marginTop: '1rem',
-            flexWrap: 'wrap',
-            justifyContent: 'space-between',
-          }}
-        >
-          <div style={{ marginRight: '1rem' }}>
+        </EditBox>
+        <Container>
+          <PrimaryMetaWrapper>
             <div>
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'baseline',
-                }}
-              >
+              <TicketMeta>
                 <h2>
-                  <span
-                    style={{ marginLeft: '0.5rem', color: 'lightgrey' }}
-                  >{`#${getTicket.number} `}</span>
+                  <span>{`#${getTicket.number} `}</span>
                   {`${getTicket.title}`}
                 </h2>
-              </div>
+              </TicketMeta>
             </div>
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'baseline',
-                marginTop: '1rem',
-                flexWrap: 'wrap',
-              }}
-            >
+            <SecondaryTicketMeta>
               <Button active positive>
                 {getTicket.section.title}
               </Button>
-              <h5 style={{ margin: 0, marginLeft: '0.5rem' }}>
+              <h5 style={{ color: 'black' }}>
                 <a>
                   {getTicket.creator.name} {getTicket.creator.surname}
                 </a>
-                {` created this ticket ${moment(getTicket.createdAt).fromNow()}`}
+                {` ${t('details.created')} ${moment(getTicket.createdAt).fromNow()}`}
               </h5>
-              <h5
-                style={{ margin: 0, color: 'lightgrey', marginLeft: '0.5rem' }}
-              >{`${getTicket.messages.length} comments`}</h5>
-            </div>
-
-            <div
-              style={{
-                marginTop: '1rem',
-                display: 'flex',
-                alignItems: 'baseline',
-                justifyContent: 'flex-start',
-              }}
-            >
-              <h4 style={{ margin: 0, marginRight: '0.5rem' }}>{`Type - ${getTicket.type}`}</h4>
-              <h4
-                style={{ margin: 0, marginRight: '0.5rem' }}
-              >{`Priority - ${getTicket.priority}`}</h4>
+              <h5>{`${getTicket.messages.length} ${t('details.messages')}`}</h5>
+            </SecondaryTicketMeta>
+            <TypePrioDeadlineWrapper>
+              <h4>{`${t('details.meta.type')} - ${localizedType(getTicket.type, t)}`}</h4>
+              <h4>{`${t('details.meta.priority')} - ${localizedPriority(
+                getTicket.priority,
+                t
+              )}`}</h4>
               {getTicket.deadline && (
-                <h4 style={{ margin: 0, marginRight: '0.5rem' }}>{`Deadline - ${moment(
+                <h4>{`${t('details.meta.deadline')}  - ${moment(
                   getTicket.deadline
                 ).fromNow()}`}</h4>
               )}
-            </div>
-            <div style={{ marginTop: '1rem', display: 'flex', alignItems: 'baseline' }}>
-              <h4 style={{ marginRight: '1rem' }}>Assignees: </h4>
-              <AvatarGroup users={getTicket.assignees} max={3} />
-              {getTicket.hours > 0 && (
-                <h4
-                  style={{ margin: 0, marginLeft: '1rem' }}
-                >{`Logged time: ${getTicket.hours}`}</h4>
-              )}
-            </div>
+            </TypePrioDeadlineWrapper>
+            {getTicket.assignees.length > 0 && (
+              <AssigneesWrapper>
+                <AssigneesTitle>{`${t('details.assignees')}`}: </AssigneesTitle>
+                <AvatarGroup users={getTicket.assignees} max={3} />
+                {getTicket.hours > 0 && (
+                  <LoggedTimeTitle>{`${t('details.loggedTime')}: ${
+                    getTicket.hours
+                  }`}</LoggedTimeTitle>
+                )}
+              </AssigneesWrapper>
+            )}
             <div style={{ marginTop: '1rem' }}>
-              <Header>Description</Header>
+              <Header>{t('details.description')}</Header>
               <Form style={{ width: '90%' }}>
                 <TextArea
                   style={{ minHeight: 200, overflowY: 'auto' }}
@@ -156,11 +136,11 @@ const Details = () => {
                 />
               </Form>
             </div>
-          </div>
+          </PrimaryMetaWrapper>
           <CommentsWrapper>
             <Comment.Group style={{ minWidth: '500px' }}>
-              <Header as="h3" dividing>
-                Comments
+              <Header as="h3" dividing style={{ textTransform: 'capitalize' }}>
+                {t('details.messages')}
               </Header>
               {getTicket.messages.map((message) => (
                 <Comment key={message.id}>
@@ -178,11 +158,11 @@ const Details = () => {
               <Form reply>
                 <Form.TextArea
                   value={body}
-                  placeholder="Type in the comment..."
+                  placeholder={t('details.placeholder')}
                   onChange={(event) => setBody(event.target.value)}
                 />
                 <Button
-                  content="Add Message"
+                  content={t('details.addMessage')}
                   labelPosition="left"
                   icon="edit"
                   primary
@@ -201,7 +181,7 @@ const Details = () => {
               </Form>
             </Comment.Group>
           </CommentsWrapper>
-        </div>
+        </Container>
       </motion.div>
       <EditTicket
         refetch={refetch}

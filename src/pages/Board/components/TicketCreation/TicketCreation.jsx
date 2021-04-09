@@ -1,28 +1,36 @@
 import React from 'react';
-import { Button, Dropdown, Form, Header, Input, Modal, TextArea } from 'semantic-ui-react';
+import { Button, Dropdown, Header, Input, Modal, TextArea } from 'semantic-ui-react';
 import SemanticDatepicker from 'react-semantic-ui-datepickers';
 import { TICKET_CREATION_MUTATION } from './gql';
 import { useMutation } from '@apollo/client';
 import { toast } from 'react-semantic-toasts';
 import generateTemplate from './templates';
-
-const typeOptions = [
-  { key: 1, text: 'Feature', value: 1 },
-  { key: 2, text: 'Improvement', value: 2 },
-  { key: 3, text: 'Maintenance', value: 3 },
-  { key: 4, text: 'Request', value: 4 },
-  { key: 5, text: 'Service', value: 5 },
-  { key: 6, text: 'Bug', value: 6 },
-];
-
-const priorityOptions = [
-  { key: 1, text: 'None', value: 1 },
-  { key: 2, text: 'Low', value: 2 },
-  { key: 3, text: 'Medium', value: 3 },
-  { key: 4, text: 'High', value: 4 },
-];
+import { Form, Section } from './TicketCreation.styled';
+import { useTranslation } from 'react-i18next';
+import { preparePriorityForAPI, prepareTypeForAPI } from '../../../../utils/helpers';
+import { useHistory } from 'react-router';
 
 const TicketCreation = ({ isVisible, toggleModal, personnel, refetch, section }) => {
+  const { t, i18n } = useTranslation('common');
+
+  const history = useHistory();
+
+  const typeOptions = [
+    { key: 1, text: t('common.types.feature'), value: 1 },
+    { key: 2, text: t('common.types.improvement'), value: 2 },
+    { key: 3, text: t('common.types.maintenance'), value: 3 },
+    { key: 4, text: t('common.types.request'), value: 4 },
+    { key: 5, text: t('common.types.service'), value: 5 },
+    { key: 6, text: t('common.types.bug'), value: 6 },
+  ];
+
+  const priorityOptions = [
+    { key: 1, text: t('common.priorities.none'), value: 1 },
+    { key: 2, text: t('common.priorities.low'), value: 2 },
+    { key: 3, text: t('common.priorities.medium'), value: 3 },
+    { key: 4, text: t('common.priorities.high'), value: 4 },
+  ];
+
   const [values, setValues] = React.useState({
     title: '',
     type: null,
@@ -49,8 +57,8 @@ const TicketCreation = ({ isVisible, toggleModal, personnel, refetch, section })
       toast({
         type: 'success',
         icon: 'check',
-        title: 'Success!',
-        description: 'Ticket successfully created',
+        title: t('board.ticketCreation.modal.title'),
+        description: t('board.ticketCreation.modal.description'),
         animation: 'bounce',
         time: 5000,
       });
@@ -65,6 +73,15 @@ const TicketCreation = ({ isVisible, toggleModal, personnel, refetch, section })
       // eslint-disable-next-line no-unused-vars
       Object.entries(values).filter(([_, value]) => value != null)
     );
+
+    adjustedValues.type =
+      i18n.language === 'lt' ? prepareTypeForAPI(adjustedValues.type) : adjustedValues.type;
+
+    adjustedValues.priority =
+      i18n.language === 'lt'
+        ? preparePriorityForAPI(adjustedValues.priority)
+        : adjustedValues.priority;
+
     createTicket({
       variables: {
         ...adjustedValues,
@@ -79,13 +96,13 @@ const TicketCreation = ({ isVisible, toggleModal, personnel, refetch, section })
 
   return (
     <Modal onClose={toggleModal} open={isVisible} size="tiny">
-      <Modal.Header>Ticket creation</Modal.Header>
+      <Modal.Header>{t('board.ticketCreation.title')}</Modal.Header>
       <Modal.Content>
-        <Form style={{ margin: '0 35px' }}>
+        <Form>
           <Input
             fluid
-            label="Title *"
-            placeholder="Type ticket title..."
+            label={`${t('board.ticketCreation.form.title.label')}*`}
+            placeholder={t('board.ticketCreation.form.title.placeholder')}
             name="title"
             type="text"
             value={values.title}
@@ -95,21 +112,21 @@ const TicketCreation = ({ isVisible, toggleModal, personnel, refetch, section })
               });
             }}
           />
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '26px' }}>
+          <Section>
             <div>
-              <Header size="tiny">Ticket type *</Header>
+              <Header size="tiny">{`${t('board.ticketCreation.form.type.label')}*`}</Header>
               <Dropdown
                 name="type"
                 clearable
                 options={typeOptions}
                 selection
-                placeholder="Choose the type..."
+                placeholder={t('board.ticketCreation.form.type.placeholder')}
                 onChange={(_, data) =>
                   setValues((prevValues) => {
                     return {
                       ...prevValues,
                       description: data.value
-                        ? generateTemplate(data.options[data.value - 1].text.toUpperCase())
+                        ? generateTemplate(data.options[data.value - 1].text.toUpperCase(), t, i18n)
                         : '',
                       type: data.value
                         ? data.options[data.value - 1].text.toUpperCase()
@@ -120,13 +137,13 @@ const TicketCreation = ({ isVisible, toggleModal, personnel, refetch, section })
               />
             </div>
             <div>
-              <Header size="tiny">Ticket priority *</Header>
+              <Header size="tiny">{`${t('board.ticketCreation.form.priority.label')}*`}</Header>
               <Dropdown
                 name="priority"
                 clearable
                 options={priorityOptions}
                 selection
-                placeholder="Choose the priority..."
+                placeholder={t('board.ticketCreation.form.priority.placeholder')}
                 onChange={(_, data) =>
                   setValues((prevValues) => {
                     return {
@@ -139,17 +156,17 @@ const TicketCreation = ({ isVisible, toggleModal, personnel, refetch, section })
                 }
               />
             </div>
-          </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '26px' }}>
+          </Section>
+          <Section>
             <div>
-              <Header size="tiny">Assignees</Header>
+              <Header size="tiny">{t('board.ticketCreation.form.assignees.label')}</Header>
               <Dropdown
                 name="assignees"
                 clearable
                 multiple
                 options={personnel}
                 selection
-                placeholder="Choose the assignees..."
+                placeholder={t('board.ticketCreation.form.assignees.placeholder')}
                 style={{ maxWidth: '196px' }}
                 onChange={(_, data) => {
                   setValues((prevValues) => {
@@ -162,7 +179,7 @@ const TicketCreation = ({ isVisible, toggleModal, personnel, refetch, section })
               />
             </div>
             <div>
-              <Header size="tiny">Deadline</Header>
+              <Header size="tiny">{t('board.ticketCreation.form.deadline.label')}</Header>
               <SemanticDatepicker
                 name="deadline"
                 onChange={(_, data) => {
@@ -175,11 +192,11 @@ const TicketCreation = ({ isVisible, toggleModal, personnel, refetch, section })
                 }}
               />
             </div>
-          </div>
-          <Header size="tiny">Description</Header>
+          </Section>
+          <Header size="tiny">{t('board.ticketCreation.form.description.label')}</Header>
           <TextArea
             name="description"
-            placeholder="Type ticket description..."
+            placeholder={t('board.ticketCreation.form.description.placeholder')}
             value={values.description}
             style={{ minHeight: 200 }}
             onChange={(event) => {
@@ -192,7 +209,7 @@ const TicketCreation = ({ isVisible, toggleModal, personnel, refetch, section })
       </Modal.Content>
       <Modal.Actions>
         <Button color="blue" onClick={handleSubmit} disabled={disableSubmit} loading={loading}>
-          Create
+          {t('projects.createModal.buttons.create')}
         </Button>
         <Button
           disabled={loading}
@@ -202,7 +219,7 @@ const TicketCreation = ({ isVisible, toggleModal, personnel, refetch, section })
             toggleModal();
           }}
         >
-          Close
+          {t('projects.createModal.buttons.close')}
         </Button>
       </Modal.Actions>
     </Modal>

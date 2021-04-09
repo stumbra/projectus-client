@@ -1,39 +1,47 @@
 import { useMutation } from '@apollo/client';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { toast } from 'react-semantic-toasts';
 import SemanticDatepicker from 'react-semantic-ui-datepickers';
 import { Button, Dropdown, Form, Header, Input, Modal, TextArea } from 'semantic-ui-react';
 import generateTemplate from '../../../Board/components/TicketCreation/templates';
 import { UPDATE_TICKET_MUTATION } from './gql';
-
-const typeOptions = [
-  { key: 1, text: 'Feature', value: 1 },
-  { key: 2, text: 'Improvement', value: 2 },
-  { key: 3, text: 'Maintenance', value: 3 },
-  { key: 4, text: 'Request', value: 4 },
-  { key: 5, text: 'Service', value: 5 },
-  { key: 6, text: 'Bug', value: 6 },
-];
-
-const priorityOptions = [
-  { key: 1, text: 'None', value: 1 },
-  { key: 2, text: 'Low', value: 2 },
-  { key: 3, text: 'Medium', value: 3 },
-  { key: 4, text: 'High', value: 4 },
-];
+import { prepareTypeForAPI, preparePriorityForAPI } from '../../../../utils/helpers';
 
 const EditTicket = ({ isVisible, toggleModal, ticket, refetch }) => {
+  const { t, i18n } = useTranslation('common');
+
+  const typeOptions = [
+    { key: 1, text: t('common.types.feature'), value: 1 },
+    { key: 2, text: t('common.types.improvement'), value: 2 },
+    { key: 3, text: t('common.types.maintenance'), value: 3 },
+    { key: 4, text: t('common.types.request'), value: 4 },
+    { key: 5, text: t('common.types.service'), value: 5 },
+    { key: 6, text: t('common.types.bug'), value: 6 },
+  ];
+
+  const priorityOptions = [
+    { key: 1, text: t('common.priorities.none'), value: 1 },
+    { key: 2, text: t('common.priorities.low'), value: 2 },
+    { key: 3, text: t('common.priorities.medium'), value: 3 },
+    { key: 4, text: t('common.priorities.high'), value: 4 },
+  ];
+
   const assignees = ticket.assignees.map((person, index) => {
     return { key: index + 1, text: `${person.name} ${person.surname}`, value: person.id };
   });
 
   const [values, setValues] = React.useState({
     title: ticket.title,
-    type: typeOptions.find(
-      (item) => item.text.toLowerCase().trim() === ticket.type.toLowerCase().trim()
+    type: typeOptions.find((item) =>
+      i18n.language === 'en'
+        ? item.text.toUpperCase()
+        : prepareTypeForAPI(item.text.toUpperCase()) === ticket.type.toUpperCase()
     ).key,
-    priority: priorityOptions.find(
-      (item) => item.text.toLowerCase().trim() === ticket.priority.toLowerCase().trim()
+    priority: priorityOptions.find((item) =>
+      i18n.language === 'en'
+        ? item.text.toUpperCase()
+        : preparePriorityForAPI(item.text.toUpperCase()) === ticket.priority.toUpperCase()
     ).key,
     deadline: ticket.deadline && new Date(ticket.deadline),
     description: ticket.description,
@@ -53,11 +61,15 @@ const EditTicket = ({ isVisible, toggleModal, ticket, refetch }) => {
     !values.priority ||
     JSON.stringify({
       title: ticket.title,
-      type: typeOptions.find(
-        (item) => item.text.toLowerCase().trim() === ticket.type.toLowerCase().trim()
+      type: typeOptions.find((item) =>
+        i18n.language === 'en'
+          ? item.text.toUpperCase()
+          : prepareTypeForAPI(item.text.toUpperCase()) === ticket.type.toUpperCase()
       ).key,
-      priority: priorityOptions.find(
-        (item) => item.text.toLowerCase().trim() === ticket.priority.toLowerCase().trim()
+      priority: priorityOptions.find((item) =>
+        i18n.language === 'en'
+          ? item.text.toUpperCase()
+          : preparePriorityForAPI(item.text.toUpperCase()) === ticket.priority.toUpperCase()
       ).key,
       deadline: ticket.deadline && new Date(ticket.deadline),
       description: ticket.description,
@@ -89,8 +101,14 @@ const EditTicket = ({ isVisible, toggleModal, ticket, refetch }) => {
     adjustedValues['title'] = values.title;
     adjustedValues['description'] = values.description;
     adjustedValues['deadline'] = new Date(values.deadline).toISOString();
-    adjustedValues['type'] = typeOptions[values.type - 1].text.toUpperCase();
-    adjustedValues['priority'] = priorityOptions[values.priority - 1].text.toUpperCase();
+    adjustedValues['type'] =
+      i18n.language === 'lt'
+        ? prepareTypeForAPI(typeOptions[values.type - 1].text.toUpperCase(), t)
+        : typeOptions[values.type - 1].text.toUpperCase();
+    adjustedValues['priority'] =
+      i18n.language === 'lt'
+        ? preparePriorityForAPI(priorityOptions[values.priority - 1].text.toUpperCase(), t)
+        : priorityOptions[values.priority - 1].text.toUpperCase();
     adjustedValues['assignees'] = values.assignees;
 
     updateTicket({
@@ -132,7 +150,7 @@ const EditTicket = ({ isVisible, toggleModal, ticket, refetch }) => {
                     return {
                       ...prevValues,
                       description: data.value
-                        ? generateTemplate(data.options[data.value - 1].text.toUpperCase())
+                        ? generateTemplate(data.options[data.value - 1].text.toUpperCase(), t, i18n)
                         : '',
                       type: data.value,
                     };

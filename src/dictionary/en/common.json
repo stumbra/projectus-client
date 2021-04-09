@@ -27,7 +27,15 @@
     },
     "events": {
       "title": "Newest Events",
-      "created": "was created"
+      "created": "was created.",
+      "newMessage": "has a new message.",
+      "updated": "has been updated."
+    },
+    "switcher": {
+      "today": "Today",
+      "tomorrow": "Tomorrow",
+      "thisWeek": "This week",
+      "thisMonth": "This month"
     }
   },
   "projects": {
@@ -170,5 +178,84 @@
   "expandedText": {
     "viewLess": "View less...",
     "viewMore": "View more..."
+  },
+  "board": {
+    "main": {
+      "button": "Create a section",
+      "edit": "Enable editability",
+      "empty": {
+        "title": "No sections where found",
+        "subtitle": "Please create a section by clicking the button on the top right"
+      }
+    },
+    "task": {
+      "createdBy": "Created  by",
+      "loggedHours": "Logged hours",
+      "deadline": "Deadline",
+      "priorityLevel": "Priority",
+      "type": "Type",
+      "assignees": "Assignees"
+    },
+    "column": {
+      "ticket": "Ticket",
+      "section": "Section",
+      "or": "Or"
+    },
+    "sectionCreation": {
+      "title": "Section creation",
+      "placeholder": "Enter section title...",
+      "input": "Title",
+      "modal": {
+        "title": "Success!",
+        "description": "Section successfully created"
+      }
+    },
+    "ticketCreation": {
+      "modal": {
+        "title": "Success!",
+        "description": "Ticket successfully created"
+      },
+      "title": "Ticket creation",
+      "form": {
+        "title": {
+          "label": "Title",
+          "placeholder": "Type ticket title..."
+        },
+        "type": {
+          "label": "Ticket type",
+          "placeholder": "Choose the type..."
+        },
+        "priority": {
+          "label": "Ticket priority",
+          "placeholder": "Choose the priority..."
+        },
+        "assignees": {
+          "label": "Assignees",
+          "placeholder": "Choose the assignees..."
+        },
+        "deadline": {
+          "label": "Deadline"
+        },
+        "description": {
+          "label": "Description",
+          "placeholder": "Type ticket description..."
+        }
+      }
+    }
+  },
+  "details": {
+    "messages": "messages",
+    "assignees": "Assignees",
+    "loggedTime": "Logged time",
+    "editability": "Enable editability",
+    "created": "created this ticket",
+    "meta": {
+      "type": "Type",
+      "priority": "Priority level",
+      "deadline": "Deadline"
+    },
+    "description": "Description",
+    "placeholder": "Write the message..",
+    "addMessage": "Post message"
   }
 }

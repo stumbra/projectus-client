@@ -10,11 +10,11 @@ import {
 } from './gql';
 import Error from '../Error/Error';
 import { useTranslation } from 'react-i18next';
-import { Container, Header } from './Board.styled';
 import SectionCreation from './components/SectionCreation/SectionCreation';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import Column from './components/Column/Column';
 import { Empty } from '../../components';
+import { Container, Header, PrimarySection, BoardWrapper, CheckboxWrapper } from './Board.styled';
 
 const Board = () => {
   const history = useHistory();
@@ -143,16 +143,10 @@ const Board = () => {
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
         {!error ? (
           <React.Fragment>
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                margin: '1rem',
-                alignContent: 'baseline',
-                alignItems: 'baseline',
-              }}
-            >
-              <Header size="medium">{`${getBoardInformation.project.title} Board`}</Header>
+            <PrimarySection>
+              <Header size="medium">{`${getBoardInformation.project.title} ${t(
+                'header.board'
+              ).toLowerCase()}`}</Header>
               <Button
                 primary
                 icon
@@ -162,29 +156,15 @@ const Board = () => {
                 }}
                 style={{ height: 'fit-content' }}
               >
-                Create a Section
+                {t('board.main.button')}
                 <Icon name="plus" />
               </Button>
-            </div>
+            </PrimarySection>
             {getBoardInformation.sections.length > 0 ? (
-              <div
-                style={{
-                  display: 'flex',
-                  height: '65vh',
-                  alignItems: 'baseline',
-                  margin: '1rem',
-                  backgroundColor: 'lightgrey',
-                }}
-              >
+              <BoardWrapper>
                 <Container>
-                  <div
-                    style={{
-                      margin: '0.5rem 1rem',
-                      display: 'flex',
-                      alignContent: 'center',
-                    }}
-                  >
-                    <span style={{ marginRight: '0.5rem' }}>Enable editability - </span>
+                  <CheckboxWrapper>
+                    <span>{`${t('board.main.edit')} -`}</span>
                     <Checkbox
                       toggle
                       checked={isEditable}
@@ -192,7 +172,7 @@ const Board = () => {
                         setEditability(checked);
                       }}
                     />
-                  </div>
+                  </CheckboxWrapper>
                   <DragDropContext onDragEnd={handleOnDragEnd}>
                     <Droppable droppableId="all-columns" direction="horizontal" type="column">
                       {(provided) => (
@@ -218,11 +198,11 @@ const Board = () => {
                     </Droppable>
                   </DragDropContext>
                 </Container>
-              </div>
+              </BoardWrapper>
             ) : (
               <Empty
-                header="No sections where found"
-                subheader="Please create a section by clicking the button on the top right"
+                header={t('board.main.empty.title')}
+                subheader={t('board.main.empty.subtitle')}
               />
             )}
           </React.Fragment>

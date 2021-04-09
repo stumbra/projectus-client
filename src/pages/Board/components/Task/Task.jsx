@@ -1,21 +1,26 @@
 import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
-import styled from 'styled-components';
 import { AvatarGroup } from '../../../../components';
 import moment from 'moment';
 import { useHistory } from 'react-router';
-
-const Container = styled.div`
-  border: 1px solid lightgray;
-  border-radius: 2px;
-  padding: 8px;
-  margin-bottom: 8px;
-  transition: background-color 0.2s ease;
-  background-color: ${({ isDragging }) => (isDragging ? 'lightgreen' : 'white')};
-`;
+import {
+  Container,
+  UserTag,
+  DetailedWrapper,
+  TaskTag,
+  MetaTag,
+  InnerWrapper,
+  PriorityTag,
+  TypeTag,
+  AssigneesTag,
+} from './Task.styled';
+import { useTranslation } from 'react-i18next';
+import { localizedPriority, localizedType } from '../../../../utils/helpers';
 
 const Task = ({ task, index }) => {
   const history = useHistory();
+
+  const { t } = useTranslation('common');
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -32,34 +37,33 @@ const Task = ({ task, index }) => {
           ref={provided.innerRef}
           isDragging={snapshot.isDragging}
         >
-          <span
-            style={{ fontSize: '10px' }}
-          >{`Created by ${task.creator.name} ${task.creator.surname}`}</span>
-          <div style={{ margin: '0.5rem 0', display: 'flex', flexDirection: 'column' }}>
-            <span style={{ marginBottom: '0.5rem' }}>{`#${task.number} - ${task.title}`}</span>
+          <UserTag>{`${t('board.task.createdBy')} ${task.creator.name} ${
+            task.creator.surname
+          }`}</UserTag>
+          <DetailedWrapper>
+            <TaskTag>{`#${task.number} - ${task.title}`}</TaskTag>
             {task.hours > 0 && (
-              <span style={{ fontSize: '12px', marginBottom: '0.25rem' }}>
-                {`Logged hours - ${task.hours}`}
-              </span>
+              <MetaTag>{`${t('board.task.loggedHours')} - ${task.hours}`}</MetaTag>
             )}
             {task.deadline && (
-              <span style={{ fontSize: '12px', marginBottom: '0.25rem' }}>
-                {`Deadline - ${moment(task.deadline).fromNow()}`}
-              </span>
+              <MetaTag>{`${t('board.task.deadline')} - ${moment(
+                task.deadline
+              ).fromNow()}`}</MetaTag>
             )}
-          </div>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              flexWrap: 'wrap',
-            }}
-          >
-            <span>{task.priority}</span>
-            <span>{task.type}</span>
-            <AvatarGroup size="extra-tiny" disabled max={1} users={task.assignees} />
-          </div>
+          </DetailedWrapper>
+          <InnerWrapper>
+            <PriorityTag>{`${t('board.task.priorityLevel')} - ${localizedPriority(
+              task.priority,
+              t
+            )}`}</PriorityTag>
+            <TypeTag>{`${t('board.task.type')} - ${localizedType(task.type, t)}`}</TypeTag>
+            {task.assignees.length > 0 && (
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <AssigneesTag>{`${t('board.task.assignees')} -`}</AssigneesTag>
+                <AvatarGroup size="extra-tiny" disabled max={1} users={task.assignees} />
+              </div>
+            )}
+          </InnerWrapper>
         </Container>
       )}
     </Draggable>

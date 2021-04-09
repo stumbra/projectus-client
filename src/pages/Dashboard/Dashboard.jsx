@@ -255,7 +255,7 @@ const Dashboard = () => {
                 setSwitcher('today');
               }}
             >
-              Today
+              {t('dashboard.switcher.today')}
             </Breadcrumb.Section>
             <Breadcrumb.Divider />
             <Breadcrumb.Section
@@ -264,7 +264,7 @@ const Dashboard = () => {
                 setSwitcher('tomorrow');
               }}
             >
-              Tomorrow
+              {t('dashboard.switcher.tomorrow')}
             </Breadcrumb.Section>
             <Breadcrumb.Divider />
             <Breadcrumb.Section
@@ -273,7 +273,7 @@ const Dashboard = () => {
                 setSwitcher('week');
               }}
             >
-              This Week
+              {t('dashboard.switcher.thisWeek')}
             </Breadcrumb.Section>
             <Breadcrumb.Divider />
             <Breadcrumb.Section
@@ -282,7 +282,7 @@ const Dashboard = () => {
                 setSwitcher('month');
               }}
             >
-              This Month
+              {t('dashboard.switcher.thisMonth')}
             </Breadcrumb.Section>
           </Breadcrumb>
         </div>

@@ -27,7 +27,15 @@
     },
     "events": {
       "title": "Naujausi įvykiai",
-      "created": "sukurta"
+      "created": "sukurta.",
+      "newMessage": "buvo sukurta nauja žinutė.",
+      "updated": "buvo atnaujinta."
+    },
+    "switcher": {
+      "today": "Šiandienos",
+      "tomorrow": "Rytojaus",
+      "thisWeek": "Šios savaitės",
+      "thisMonth": "Šio mėnesio"
     }
   },
   "projects": {
@@ -160,7 +168,7 @@
     "description": "Puslapis, kurio ieškojai, nerastas",
     "button": "Grįžti atgal"
   },
-  "footer": "© 2021 Projectus. visos teisės saugomos",
+  "footer": "© 2021 Projectus. Visos teisės saugomos",
   "language": {
     "primary": "Pakeisti kalbą",
     "secondary": "Ar norėtum pakeisti aplikacijos kalbą?",
@@ -170,5 +178,84 @@
   "expandedText": {
     "viewLess": "Mažiau...",
     "viewMore": "Daugiau..."
+  },
+  "board": {
+    "main": {
+      "button": "Sukurti stulpelį",
+      "edit": "Įgalinti redagavimą",
+      "empty": {
+        "title": "Jokių stulpelių nerasta",
+        "subtitle": "Prašome sukurti naują stulpelį paspaudus mygtuką viršutiniame dešiniajame kampe"
+      }
+    },
+    "task": {
+      "createdBy": "Sukūrė",
+      "loggedHours": "Registruotos valandos",
+      "deadline": "Paskutinis terminas",
+      "priorityLevel": "Prioritetas",
+      "type": "Užduoties tipas",
+      "assignees": "Priskirti asmenys"
+    },
+    "column": {
+      "ticket": "Užduotis",
+      "section": "Stulpelis",
+      "or": ""
+    },
+    "sectionCreation": {
+      "title": "Stulpelio sukūrimas",
+      "placeholder": "Įveskite stulpelio pavadinimą...",
+      "input": "Pavadinimas",
+      "modal": {
+        "title": "Pavyko!",
+        "description": "Stulpelis sėkmingai sukurtas"
+      }
+    },
+    "ticketCreation": {
+      "modal": {
+        "title": "Pavyko!",
+        "description": "Užduotis sėkmingai sukurta"
+      },
+      "title": "Užduoties kūrimas",
+      "form": {
+        "title": {
+          "label": "Pavadinimas",
+          "placeholder": "Įveskite užduoties pavadinimą..."
+        },
+        "type": {
+          "label": "Užduoties tipas",
+          "placeholder": "Pasirinkite tipą..."
+        },
+        "priority": {
+          "label": "Užduoties prioritetas",
+          "placeholder": "Pasirinkite prioritetą..."
+        },
+        "assignees": {
+          "label": "Paskiriemieji asmenys",
+          "placeholder": "Pasirinkite asmenis..."
+        },
+        "deadline": {
+          "label": "Paskutinis terminas"
+        },
+        "description": {
+          "label": "Aprašymas",
+          "placeholder": "Įveskite užduoties aprašymą..."
+        }
+      }
+    }
+  },
+  "details": {
+    "messages": "žinutės",
+    "assignees": "Priskirti asmenys",
+    "loggedTime": "Praleistas laikas",
+    "editability": "Įgalinti redagavimą",
+    "created": "sukūrė šią užduotį",
+    "meta": {
+      "type": "Tipas",
+      "priority": "Prioritetas",
+      "deadline": "Paskutinis terminas"
+    },
+    "description": "Aprašymas",
+    "placeholder": "Parašykite žinutės turinį...",
+    "addMessage": "Rašyti žinutę"
   }
 }

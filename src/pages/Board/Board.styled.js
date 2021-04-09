@@ -26,17 +26,25 @@ export const Header = styled(SemanticHeader)`
   margin-top: 1rem !important;
 `;
 
-export const Title = styled.span`
-  font-size: 1.8rem;
-  font-weight: 400;
-  color: #21272a;
-  margin-bottom: 1rem;
+export const PrimarySection = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem;
+  align-items: baseline;
 `;
 
-export const Subtitle = styled.span`
-  font-size: 1.4rem;
-  font-weight: 400;
-  color: #21272a;
-  width: 48.563rem;
-  width: 100%;
+export const BoardWrapper = styled.div`
+  display: flex;
+  align-items: baseline;
+  margin: 1rem;
+  background-color: lightgray;
+`;
+
+export const CheckboxWrapper = styled.div`
+  margin: 0.5rem 1rem;
+  display: flex;
+  align-content: center;
+  span {
+    margin-right: 0.5rem;
+  }
 `;
