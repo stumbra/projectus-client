@@ -53,7 +53,7 @@ const SectionCreation = ({ isVisible, toggleModal, refetch }) => {
       <Modal.Content>
         <Input
           fluid
-          label={`${t('board.sectionCreation.input')}:`}
+          label={`${t('board.sectionCreation.input')}`}
           placeholder={t('board.sectionCreation.placeholder')}
           value={values.title}
           name="title"

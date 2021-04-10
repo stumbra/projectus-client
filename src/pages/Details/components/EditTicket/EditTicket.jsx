@@ -8,6 +8,7 @@ import generateTemplate from '../../../Board/components/TicketCreation/templates
 import { UPDATE_TICKET_MUTATION, DELETE_TICKET_MUTATION } from './gql';
 import { prepareTypeForAPI, preparePriorityForAPI } from '../../../../utils/helpers';
 import { useHistory } from 'react-router';
+import { Section, SecondInput } from './EditTicket.styled';
 
 const EditTicket = ({ isVisible, toggleModal, ticket, refetch }) => {
   const { t, i18n } = useTranslation('common');
@@ -85,8 +86,8 @@ const EditTicket = ({ isVisible, toggleModal, ticket, refetch }) => {
       toast({
         type: 'success',
         icon: 'check',
-        title: 'Success!',
-        description: 'Ticket successfully created',
+        title: t('details.editTicket.create.title'),
+        description: t('details.editTicket.create.description'),
         animation: 'bounce',
         time: 5000,
       });
@@ -125,8 +126,8 @@ const EditTicket = ({ isVisible, toggleModal, ticket, refetch }) => {
       toast({
         type: 'success',
         icon: 'check',
-        title: 'Success!',
-        description: 'Ticket successfully deleted',
+        title: t('details.editTicket.delete.title'),
+        description: t('details.editTicket.delete.description'),
         animation: 'bounce',
         time: 5000,
       });
@@ -148,32 +149,35 @@ const EditTicket = ({ isVisible, toggleModal, ticket, refetch }) => {
 
   return (
     <Modal onClose={toggleModal} open={isVisible} size="tiny">
-      <Modal.Header>Edit Ticket</Modal.Header>
+      <Modal.Header>{t('details.editTicket.title')}</Modal.Header>
       <Modal.Content>
         <Form style={{ margin: '0 35px' }}>
           <Input
+            style={{ marginBottom: '1rem' }}
             fluid
-            label="Title"
+            label={t('details.editTicket.inputs.title.label')}
             name="title"
             type="text"
             value={values.title}
-            placeholder="Type ticket title..."
+            placeholder={t('details.editTicket.inputs.title.placeholder')}
             onChange={(event) => {
               setValues((prevValues) => {
                 return { ...prevValues, title: event.target.value };
               });
             }}
           />
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '26px' }}>
+          <Section>
             <div>
-              <Header size="tiny">Ticket type</Header>
+              <Header size="tiny" style={{ margin: 0, marginBottom: '0.25rem' }}>
+                {t('details.editTicket.inputs.type.label')}
+              </Header>
               <Dropdown
                 name="type"
                 clearable
                 options={typeOptions}
                 selection
                 value={values.type}
-                placeholder="Choose the type..."
+                placeholder={t('details.editTicket.inputs.type.placeholder')}
                 onChange={(_, data) =>
                   setValues((prevValues) => {
                     return {
@@ -187,14 +191,16 @@ const EditTicket = ({ isVisible, toggleModal, ticket, refetch }) => {
                 }
               />
             </div>
-            <div>
-              <Header size="tiny">Ticket priority</Header>
+            <SecondInput>
+              <Header size="tiny" style={{ margin: 0, marginBottom: '0.25rem' }}>
+                {t('details.editTicket.inputs.priority.label')}
+              </Header>
               <Dropdown
                 name="priority"
                 clearable
                 options={priorityOptions}
                 selection
-                placeholder="Choose the priority..."
+                placeholder={t('details.editTicket.inputs.priority.placeholder')}
                 value={values.priority}
                 onChange={(_, data) =>
                   setValues((prevValues) => {
@@ -205,18 +211,13 @@ const EditTicket = ({ isVisible, toggleModal, ticket, refetch }) => {
                   })
                 }
               />
-            </div>
-          </div>
-
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              marginTop: '26px',
-            }}
-          >
+            </SecondInput>
+          </Section>
+          <Section>
             <div>
-              <Header size="tiny">Assignees</Header>
+              <Header size="tiny" style={{ margin: 0, marginBottom: '0.25rem' }}>
+                {t('details.editTicket.inputs.assignees.label')}
+              </Header>
               <Dropdown
                 name="assignees"
                 clearable
@@ -224,7 +225,7 @@ const EditTicket = ({ isVisible, toggleModal, ticket, refetch }) => {
                 options={personnel}
                 value={values.assignees}
                 selection
-                placeholder="Choose the assignees..."
+                placeholder={t('details.editTicket.inputs.assignees.placeholder')}
                 style={{ maxWidth: '196px' }}
                 onChange={(_, data) => {
                   setValues((prevValues) => {
@@ -236,8 +237,10 @@ const EditTicket = ({ isVisible, toggleModal, ticket, refetch }) => {
                 }}
               />
             </div>
-            <div>
-              <Header size="tiny">Deadline</Header>
+            <SecondInput>
+              <Header size="tiny" style={{ margin: 0, marginBottom: '0.25rem' }}>
+                {t('details.editTicket.inputs.deadline.label')}
+              </Header>
               <SemanticDatepicker
                 name="deadline"
                 value={values.deadline}
@@ -250,12 +253,14 @@ const EditTicket = ({ isVisible, toggleModal, ticket, refetch }) => {
                   });
                 }}
               />
-            </div>
-          </div>
-          <Header size="tiny">Description</Header>
+            </SecondInput>
+          </Section>
+          <Header size="tiny" style={{ margin: 0, marginBottom: '0.25rem' }}>
+            {t('details.editTicket.inputs.description.label')}
+          </Header>
           <TextArea
             name="description"
-            placeholder="Type ticket description..."
+            placeholder={t('details.editTicket.inputs.description.placeholder')}
             value={values.description}
             style={{ minHeight: 200 }}
             onChange={(event) => {
@@ -274,7 +279,7 @@ const EditTicket = ({ isVisible, toggleModal, ticket, refetch }) => {
           loading={deleteTicketLoading}
           disabled={deleteTicketLoading}
         >
-          Delete
+          {t('details.editTicket.buttons.delete')}
         </Button>
         <Button
           color="blue"
@@ -282,14 +287,14 @@ const EditTicket = ({ isVisible, toggleModal, ticket, refetch }) => {
           loading={updateTicketLoading}
           onClick={handleSumbit}
         >
-          Save
+          {t('details.editTicket.buttons.save')}
         </Button>
         <Button
           color="grey"
           onClick={toggleModal}
           disabled={updateTicketLoading || deleteTicketLoading}
         >
-          Close
+          {t('details.editTicket.buttons.close')}
         </Button>
       </Modal.Actions>
     </Modal>

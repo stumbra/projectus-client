@@ -24,6 +24,10 @@ export const Wrapper = styled.div`
 export const Header = styled(SemanticHeader)`
   text-align: center;
   margin-top: 1rem !important;
+  @media (max-width: 450px) {
+    margin: 0 !important;
+    margin-bottom: 1rem !important;
+  }
 `;
 
 export const PrimarySection = styled.div`
@@ -31,13 +35,18 @@ export const PrimarySection = styled.div`
   justify-content: space-between;
   margin: 1rem;
   align-items: baseline;
+  @media (max-width: 450px) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 export const BoardWrapper = styled.div`
   display: flex;
   align-items: baseline;
-  margin: 1rem;
-  background-color: lightgray;
+  background-color: #f5f5f5;
+  width: 100%;
 `;
 
 export const CheckboxWrapper = styled.div`

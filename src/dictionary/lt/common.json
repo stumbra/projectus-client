@@ -80,17 +80,17 @@
         "subtitle": "Projekto nustatymai atnaujinti"
       },
       "inputs": {
-        "title": "Pavadinimas:",
+        "title": "Pavadinimas",
         "description": {
-          "title": "Aprašymas:",
+          "title": "Aprašymas",
           "placeholder": "Įveskite projekto aprašymą..."
         },
         "owners": {
-          "title": "Savininkai:",
+          "title": "Savininkai",
           "placeholder": "Įveskite savininko el.paštą..."
         },
         "personnel": {
-          "title": "Personalas:",
+          "title": "Personalas",
           "placeholder": "Įveskite žmogaus el.paštą..."
         }
       },
@@ -107,7 +107,7 @@
       },
       "inputs": {
         "title": {
-          "title": "Pavadinimas:",
+          "title": "Pavadinimas",
           "placeholder": "Įveskite projekto pavadinimą..."
         },
         "description": {
@@ -176,7 +176,8 @@
     "projects": "Projektai",
     "tickets": "Užduotys",
     "profile": "Profilis",
-    "board": "Užduočių lenta"
+    "board": "Užduočių lenta",
+    "details": "Išsami informacija"
   },
   "sidebar": {
     "dashboard": "Pagrindinis puslapis",
@@ -282,6 +283,47 @@
     },
     "description": "Aprašymas",
     "placeholder": "Parašykite žinutės turinį...",
-    "addMessage": "Rašyti žinutę"
+    "addMessage": "Rašyti žinutę",
+    "editTicket": {
+      "create": {
+        "title": "Pavyko!",
+        "description": "Užduotis sėkmingai sukurta"
+      },
+      "delete": {
+        "title": "Pavyko!",
+        "description": "Užduotis sėkmingai sunaikinta"
+      },
+      "title": "Redaguoti užduotį",
+      "inputs": {
+        "title": {
+          "label": "Pavadinimas",
+          "placeholder": "Įveskite pavadinimą..."
+        },
+        "type": {
+          "label": "Užduoties tipas",
+          "placeholder": "Pasirinkite tipą..."
+        },
+        "priority": {
+          "label": "Užduoties prioritetas",
+          "placeholder": "Pasirinkite prioritetą..."
+        },
+        "assignees": {
+          "label": "Paskiriemieji asmenys",
+          "placeholder": "Pasirinkite asmenis..."
+        },
+        "deadline": {
+          "label": "Paskutinis terminas"
+        },
+        "description": {
+          "label": "Aprašymas",
+          "placeholder": "Įveskite užduoties aprašymą..."
+        }
+      },
+      "buttons": {
+        "delete": "Ištrinti",
+        "save": "Saugoti",
+        "close": "Uždaryti"
+      }
+    }
   }
 }

@@ -200,7 +200,7 @@ const CreateModal = ({ isVisible, toggleModal }) => {
           <div style={{ display: 'flex', flexDirection: 'column', marginTop: '14px' }}>
             <Input
               fluid
-              label={`${t('projects.createModal.github.inputs.owner.label')}:`}
+              label={`${t('projects.createModal.github.inputs.owner.label')}`}
               placeholder={t('projects.createModal.github.inputs.owner.placeholder')}
               style={{ marginBottom: '1rem' }}
               value={values.owner}
@@ -210,7 +210,7 @@ const CreateModal = ({ isVisible, toggleModal }) => {
             />
             <Input
               fluid
-              label={`${t('projects.createModal.github.inputs.repo.label')}:`}
+              label={`${t('projects.createModal.github.inputs.repo.label')}`}
               placeholder={t('projects.createModal.github.inputs.owner.placeholder')}
               value={values.repo}
               name="repo"

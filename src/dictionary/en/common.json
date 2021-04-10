@@ -80,17 +80,17 @@
         "subtitle": "Project updated"
       },
       "inputs": {
-        "title": "Title:",
+        "title": "Title",
         "description": {
-          "title": "Description:",
+          "title": "Description",
           "placeholder": "Enter project description..."
         },
         "owners": {
-          "title": "Owners:",
+          "title": "Owners",
           "placeholder": "Enter owner's e-mail..."
         },
         "personnel": {
-          "title": "Personnel:",
+          "title": "Personnel",
           "placeholder": "Enter person's e-mail..."
         }
       },
@@ -107,11 +107,11 @@
       },
       "inputs": {
         "title": {
-          "title": "Title:",
+          "title": "Title",
           "placeholder": "Enter project title..."
         },
         "description": {
-          "title": "Description:",
+          "title": "Description",
           "placeholder": "Enter project description..."
         }
       },
@@ -131,6 +131,16 @@
         "disconnected": {
           "title": "Disconnected",
           "description": "Project successfully disconnected from Github"
+        },
+        "inputs": {
+          "owner": {
+            "label": "Owner",
+            "placeholder": "Type the repository owner name.."
+          },
+          "repo": {
+            "label": "Repo",
+            "placeholder": "Type the repository name..."
+          }
         }
       }
     }
@@ -166,7 +176,8 @@
     "projects": "Projects",
     "tickets": "Tickets",
     "myProfile": "Profile",
-    "board": "Board"
+    "board": "Board",
+    "details": "Details"
   },
   "sidebar": {
     "dashboard": "Dashboard",
@@ -271,7 +282,48 @@
       "deadline": "Deadline"
     },
     "description": "Description",
-    "placeholder": "Write the message..",
-    "addMessage": "Post message"
+    "placeholder": "Write the message...",
+    "addMessage": "Post message",
+    "editTicket": {
+      "create": {
+        "title": "Success!",
+        "description": "Ticket successfully created"
+      },
+      "delete": {
+        "title": "Success!",
+        "description": "Ticket successfully deleted"
+      },
+      "title": "Edit Ticket",
+      "inputs": {
+        "title": {
+          "label": "Title",
+          "placeholder": "Type the title..."
+        },
+        "type": {
+          "label": "Type",
+          "placeholder": "Choose the type..."
+        },
+        "priority": {
+          "label": "Priority",
+          "placeholder": "Choose the priority..."
+        },
+        "assignees": {
+          "label": "Assignees",
+          "placeholder": "Choose the assignees..."
+        },
+        "deadline": {
+          "label": "Deadline"
+        },
+        "description": {
+          "label": "Description",
+          "placeholder": "Type ticket description..."
+        }
+      },
+      "buttons": {
+        "delete": "Delete",
+        "save": "Save",
+        "close": "Close"
+      }
+    }
   }
 }

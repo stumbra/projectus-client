@@ -5,7 +5,7 @@ import { TICKET_CREATION_MUTATION } from './gql';
 import { useMutation } from '@apollo/client';
 import { toast } from 'react-semantic-toasts';
 import generateTemplate from './templates';
-import { Form, Section } from './TicketCreation.styled';
+import { Form, Section, SecondInput } from './TicketCreation.styled';
 import { useTranslation } from 'react-i18next';
 import { preparePriorityForAPI, prepareTypeForAPI } from '../../../../utils/helpers';
 import { useHistory } from 'react-router';
@@ -98,8 +98,9 @@ const TicketCreation = ({ isVisible, toggleModal, personnel, refetch, section })
     <Modal onClose={toggleModal} open={isVisible} size="tiny">
       <Modal.Header>{t('board.ticketCreation.title')}</Modal.Header>
       <Modal.Content>
-        <Form>
+        <Form style={{ margin: '0 35px' }}>
           <Input
+            style={{ marginBottom: '1rem' }}
             fluid
             label={`${t('board.ticketCreation.form.title.label')}*`}
             placeholder={t('board.ticketCreation.form.title.placeholder')}
@@ -114,7 +115,9 @@ const TicketCreation = ({ isVisible, toggleModal, personnel, refetch, section })
           />
           <Section>
             <div>
-              <Header size="tiny">{`${t('board.ticketCreation.form.type.label')}*`}</Header>
+              <Header style={{ margin: 0, marginBottom: '0.25rem' }} size="tiny">{`${t(
+                'board.ticketCreation.form.type.label'
+              )}*`}</Header>
               <Dropdown
                 name="type"
                 clearable
@@ -136,8 +139,10 @@ const TicketCreation = ({ isVisible, toggleModal, personnel, refetch, section })
                 }
               />
             </div>
-            <div>
-              <Header size="tiny">{`${t('board.ticketCreation.form.priority.label')}*`}</Header>
+            <SecondInput>
+              <Header style={{ margin: 0, marginBottom: '0.25rem' }} size="tiny">{`${t(
+                'board.ticketCreation.form.priority.label'
+              )}*`}</Header>
               <Dropdown
                 name="priority"
                 clearable
@@ -155,11 +160,13 @@ const TicketCreation = ({ isVisible, toggleModal, personnel, refetch, section })
                   })
                 }
               />
-            </div>
+            </SecondInput>
           </Section>
           <Section>
             <div>
-              <Header size="tiny">{t('board.ticketCreation.form.assignees.label')}</Header>
+              <Header style={{ margin: 0, marginBottom: '0.25rem' }} size="tiny">
+                {t('board.ticketCreation.form.assignees.label')}
+              </Header>
               <Dropdown
                 name="assignees"
                 clearable
@@ -178,8 +185,10 @@ const TicketCreation = ({ isVisible, toggleModal, personnel, refetch, section })
                 }}
               />
             </div>
-            <div>
-              <Header size="tiny">{t('board.ticketCreation.form.deadline.label')}</Header>
+            <SecondInput>
+              <Header style={{ margin: 0, marginBottom: '0.25rem' }} size="tiny">
+                {t('board.ticketCreation.form.deadline.label')}
+              </Header>
               <SemanticDatepicker
                 name="deadline"
                 onChange={(_, data) => {
@@ -191,9 +200,11 @@ const TicketCreation = ({ isVisible, toggleModal, personnel, refetch, section })
                   });
                 }}
               />
-            </div>
+            </SecondInput>
           </Section>
-          <Header size="tiny">{t('board.ticketCreation.form.description.label')}</Header>
+          <Header style={{ margin: 0, marginBottom: '0.25rem' }} size="tiny">
+            {t('board.ticketCreation.form.description.label')}
+          </Header>
           <TextArea
             name="description"
             placeholder={t('board.ticketCreation.form.description.placeholder')}

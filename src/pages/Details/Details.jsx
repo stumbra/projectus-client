@@ -10,6 +10,7 @@ import {
   Dimmer,
   Form,
   Header,
+  Icon,
   Input,
   Loader,
   TextArea,
@@ -19,10 +20,7 @@ import { AvatarGroup } from '../../components';
 import EditTicket from './components/EditTicket/EditTicket';
 import Comment from './components/Comment/Comment';
 import {
-  CommentsWrapper,
   MainSectionWrapper,
-  Container,
-  PrimaryMetaWrapper,
   TicketMeta,
   SecondaryTicketMeta,
   TypePrioDeadlineWrapper,
@@ -124,115 +122,107 @@ const Details = () => {
             />
           </div>
           <Input
-            action={{
-              color: 'teal',
-              labelPosition: 'left',
-              icon: 'hourglass',
-              content: 'Log hours',
-              onClick: handleLogHours,
-              disabled: !hours || logHoursLoading,
-              loading: logHoursLoading,
-            }}
-            actionPosition="left"
-            placeholder="e.g. 1h 45m"
+            icon={
+              <Icon
+                name="hourglass"
+                inverted
+                circular
+                link
+                color="orange"
+                disabled={!hours || logHoursLoading}
+                onClick={handleLogHours}
+                loading={logHoursLoading}
+              />
+            }
             value={hours}
+            placeholder="Log hours, e.g. 1h 45m..."
             onChange={(e) => {
               setHours(e.target.value);
             }}
           />
         </MainSectionWrapper>
-
-        <Container>
-          <PrimaryMetaWrapper>
-            <div>
-              <TicketMeta>
-                <h2>
-                  <span>{`#${getTicket.number} `}</span>
-                  {`${getTicket.title}`}
-                </h2>
-              </TicketMeta>
-            </div>
-            <SecondaryTicketMeta>
-              <Button active positive>
-                {getTicket.section.title}
-              </Button>
-              <h5 style={{ color: 'black' }}>
-                <a>
-                  {getTicket.creator.name} {getTicket.creator.surname}
-                </a>
-                {` ${t('details.created')} ${moment(getTicket.createdAt).fromNow()}`}
-              </h5>
-              <h5>{`${getTicket.messages.length} ${t('details.messages')}`}</h5>
-            </SecondaryTicketMeta>
-            <TypePrioDeadlineWrapper>
-              <h4>{`${t('details.meta.type')} - ${localizedType(getTicket.type, t)}`}</h4>
-              <h4>{`${t('details.meta.priority')} - ${localizedPriority(
-                getTicket.priority,
-                t
-              )}`}</h4>
-              {getTicket.deadline && (
-                <h4>{`${t('details.meta.deadline')}  - ${moment(
-                  getTicket.deadline
-                ).fromNow()}`}</h4>
-              )}
-            </TypePrioDeadlineWrapper>
-            {getTicket.assignees.length > 0 && (
-              <AssigneesWrapper>
-                <AssigneesTitle>{`${t('details.assignees')}`}: </AssigneesTitle>
-                <AvatarGroup users={getTicket.assignees} max={3} />
-                {getTicket.hours > 0 && (
-                  <LoggedTimeTitle>{`${t('details.loggedTime')}: ${timeConvert(
-                    getTicket.hours
-                  )}`}</LoggedTimeTitle>
-                )}
-              </AssigneesWrapper>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <TicketMeta>
+            <h2>
+              <span>{`#${getTicket.number} `}</span>
+              {`${getTicket.title}`}
+            </h2>
+          </TicketMeta>
+        </div>
+        <SecondaryTicketMeta>
+          <Button active positive>
+            {getTicket.section.title}
+          </Button>
+          <h5 style={{ color: 'black' }}>
+            <a>
+              {getTicket.creator.name} {getTicket.creator.surname}
+            </a>
+            {` ${t('details.created')} ${moment(getTicket.createdAt).fromNow()}`}
+          </h5>
+          <h5>{`${getTicket.messages.length} ${t('details.messages')}`}</h5>
+        </SecondaryTicketMeta>
+        <TypePrioDeadlineWrapper>
+          <h4>{`${t('details.meta.type')} - ${localizedType(getTicket.type, t)}`}</h4>
+          <h4>{`${t('details.meta.priority')} - ${localizedPriority(getTicket.priority, t)}`}</h4>
+          {getTicket.deadline && (
+            <h4>{`${t('details.meta.deadline')}  - ${moment(getTicket.deadline).fromNow()}`}</h4>
+          )}
+        </TypePrioDeadlineWrapper>
+        {getTicket.assignees.length > 0 && (
+          <AssigneesWrapper>
+            <AssigneesTitle>{`${t('details.assignees')}`}: </AssigneesTitle>
+            <AvatarGroup users={getTicket.assignees} max={3} />
+            {getTicket.hours > 0 && (
+              <LoggedTimeTitle>{`${t('details.loggedTime')}: ${timeConvert(
+                getTicket.hours
+              )}`}</LoggedTimeTitle>
             )}
-            <div style={{ marginTop: '1rem' }}>
-              <Header>{t('details.description')}</Header>
-              <Form style={{ width: '90%' }}>
-                <TextArea
-                  style={{ minHeight: 200, overflowY: 'auto' }}
-                  value={getTicket.description}
-                  disabled
-                />
-              </Form>
-            </div>
-          </PrimaryMetaWrapper>
-          <CommentsWrapper>
-            <SemanticComment.Group style={{ minWidth: '500px' }}>
-              <Header as="h3" dividing style={{ textTransform: 'capitalize' }}>
-                {t('details.messages')}
-              </Header>
-              {getTicket.messages.map((message) => (
-                <Comment key={message.id} message={message} refetch={refetch} />
-              ))}
-              <Form reply>
-                <Form.TextArea
-                  value={body}
-                  placeholder={t('details.placeholder')}
-                  onChange={(event) => setBody(event.target.value)}
-                />
-                <Button
-                  content={t('details.addMessage')}
-                  labelPosition="left"
-                  icon="edit"
-                  primary
-                  disabled={!body}
-                  onClick={() => {
-                    createMessage({
-                      variables: {
-                        ticket: getTicket.id,
-                        body,
-                      },
-                      refetchQueries: () => ['getTicket', 'getAssignedTickets'],
-                    });
-                    setBody('');
-                  }}
-                />
-              </Form>
-            </SemanticComment.Group>
-          </CommentsWrapper>
-        </Container>
+          </AssigneesWrapper>
+        )}
+
+        <SemanticComment.Group style={{ margin: 'auto' }}>
+          <Header dividing>{t('details.description')}</Header>
+          <Form>
+            <TextArea
+              style={{ minHeight: 200, overflowY: 'auto' }}
+              value={getTicket.description}
+              disabled
+            />
+          </Form>
+        </SemanticComment.Group>
+
+        <SemanticComment.Group style={{ margin: 'auto' }}>
+          <Header as="h3" dividing style={{ textTransform: 'capitalize', marginTop: '1rem' }}>
+            {t('details.messages')}
+          </Header>
+          {getTicket.messages.map((message) => (
+            <Comment key={message.id} message={message} refetch={refetch} />
+          ))}
+          <Form reply>
+            <Form.TextArea
+              value={body}
+              placeholder={t('details.placeholder')}
+              onChange={(event) => setBody(event.target.value)}
+            />
+            <Button
+              content={t('details.addMessage')}
+              labelPosition="left"
+              icon="edit"
+              primary
+              disabled={!body}
+              onClick={() => {
+                createMessage({
+                  variables: {
+                    ticket: getTicket.id,
+                    body,
+                  },
+                  refetchQueries: () => ['getTicket', 'getAssignedTickets'],
+                });
+                setBody('');
+              }}
+            />
+          </Form>
+        </SemanticComment.Group>
       </motion.div>
       <EditTicket
         refetch={refetch}

@@ -6,7 +6,8 @@ export const Container = styled.div`
   padding: 0.5rem;
   margin-bottom: 0.5rem;
   transition: background-color 0.2s ease;
-  background-color: ${({ isDragging }) => (isDragging ? 'lightgreen' : 'white')};
+  background-color: ${({ isDragging }) => (isDragging ? 'rgb(32,133,208)' : 'white')};
+  color: ${({ isDragging }) => (isDragging ? 'white' : 'black')};
 `;
 
 export const UserTag = styled.span`

@@ -35,7 +35,7 @@ const Header = () => {
       break;
     }
     case 'ticket': {
-      title = 'Details';
+      title = t('header.details');
       break;
     }
   }

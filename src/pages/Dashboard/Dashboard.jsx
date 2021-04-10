@@ -246,6 +246,7 @@ const Dashboard = () => {
             justifyContent: 'center',
             display: 'flex',
             marginTop: '1rem',
+            textAlign: 'center',
           }}
         >
           <Breadcrumb size="massive">
