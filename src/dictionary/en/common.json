@@ -118,6 +118,20 @@
       "buttons": {
         "create": "Create",
         "close": "Close"
+      },
+      "github": {
+        "title": "Connect with Github",
+        "connect": "Connect",
+        "disconnect": "Disconnect",
+        "span": "Currently supporting only public repositories",
+        "connected": {
+          "title": "Success!",
+          "description": "Project successfully connected with Github"
+        },
+        "disconnected": {
+          "title": "Disconnected",
+          "description": "Project successfully disconnected from Github"
+        }
       }
     }
   },

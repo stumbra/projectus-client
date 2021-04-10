@@ -141,7 +141,10 @@ const Projects = () => {
                   const isOwner = project.owners.find((person) => person.id === user?.id);
                   return (
                     <Table.Row key={project.id}>
-                      <Table.Cell textAlign="center">{project.title}</Table.Cell>
+                      <Table.Cell textAlign="center">
+                        {`${project.title} `}
+                        {project.githubReleasesURL && <Icon name="github" />}
+                      </Table.Cell>
                       <ResponsiveCell>
                         <ExpandedText text={project.description} />
                       </ResponsiveCell>

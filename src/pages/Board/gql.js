@@ -43,6 +43,7 @@ export const GET_BOARD_INFORMATION_QUERY = gql`
           name
           surname
         }
+        githubReleasesURL
       }
       createdAt
     }

@@ -8,6 +8,7 @@ import {
   REORGANIZE_SECTIONS_MUTATION,
   REORGANIZE_TICKETS_MUTATION,
 } from './gql';
+import { CREATE_BOARD_SECTION_MUTATION } from './components/SectionCreation/gql';
 import Error from '../Error/Error';
 import { useTranslation } from 'react-i18next';
 import SectionCreation from './components/SectionCreation/SectionCreation';
@@ -29,6 +30,14 @@ const Board = () => {
 
   const [isEditable, setEditability] = React.useState(false);
 
+  const [refetching, setRefetching] = React.useState(false);
+
+  const [createSection] = useMutation(CREATE_BOARD_SECTION_MUTATION, {
+    onError: (err) => {
+      console.error(err);
+    },
+  });
+
   const {
     loading: getBoardInformationLoading,
     data: { getBoardInformation } = [],
@@ -39,6 +48,28 @@ const Board = () => {
     },
     onError: (err) => {
       setError(err);
+    },
+    onCompleted: () => {
+      setRefetching(true);
+      if (getBoardInformation.project.githubReleasesURL) {
+        fetch(`${getBoardInformation.project.githubReleasesURL}/latest`)
+          .then((response) => response.json())
+          .then((data) => {
+            const alreadyExists = getBoardInformation.sections.find(
+              (section) => section.title === data.tag_name
+            );
+            if (!alreadyExists) {
+              createSection({
+                variables: {
+                  board: getBoardInformation.id,
+                  title: data.tag_name,
+                },
+              }).then(() => {
+                setRefetching(false);
+              });
+            } else setRefetching(false);
+          });
+      } else setRefetching(false);
     },
     notifyOnNetworkStatusChange: true,
   });
@@ -67,7 +98,12 @@ const Board = () => {
     }
   );
 
-  if (getBoardInformationLoading || reorganizeSectionsLoading || reorganizeTicketsLoading)
+  if (
+    getBoardInformationLoading ||
+    reorganizeSectionsLoading ||
+    reorganizeTicketsLoading ||
+    refetching
+  )
     return (
       <Dimmer active inverted>
         <Loader size="massive">{t('common.loading')}</Loader>

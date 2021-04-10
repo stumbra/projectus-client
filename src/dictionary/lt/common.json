@@ -118,6 +118,30 @@
       "buttons": {
         "create": "Sukurti",
         "close": "Uždaryti"
+      },
+      "github": {
+        "title": "Sujungti su Github",
+        "connect": "Sujungti",
+        "disconnect": "Atjungti",
+        "span": "Šiuo metu palaikome tik viešas repozitorijas",
+        "connected": {
+          "title": "Pavyko!",
+          "description": "Projektas sėkmingai sujungtas su Github"
+        },
+        "disconnected": {
+          "title": "Atjungta",
+          "description": "Sėkmingai atjungtas Github nuo projekto"
+        },
+        "inputs": {
+          "owner": {
+            "label": "Savininkas",
+            "placeholder": "Įveskite repozitorijos savininko vardą..."
+          },
+          "repo": {
+            "label": "Repo",
+            "placeholder": "Įveskite repozitorijos pavadinimą..."
+          }
+        }
       }
     }
   },

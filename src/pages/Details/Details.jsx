@@ -90,7 +90,7 @@ const Details = () => {
     );
 
   const handleLogHours = () => {
-    const time = hours.split(' ');
+    const time = hours.toLowerCase().split(' ');
 
     let sum = 0;
 
@@ -105,6 +105,7 @@ const Details = () => {
         ticket: getTicket.id,
         hours: sum,
       },
+      refetchQueries: () => ['getAssignedTickets'],
     });
   };
 
@@ -223,7 +224,7 @@ const Details = () => {
                         ticket: getTicket.id,
                         body,
                       },
-                      refetchQueries: () => ['getTicket'],
+                      refetchQueries: () => ['getTicket', 'getAssignedTickets'],
                     });
                     setBody('');
                   }}

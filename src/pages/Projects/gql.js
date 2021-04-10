@@ -22,6 +22,7 @@ export const GET_ASSIGNED_PROJECTS_QUERY = gql`
         id
       }
       createdAt
+      githubReleasesURL
     }
   }
 `;
