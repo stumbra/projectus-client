@@ -114,6 +114,7 @@ const Create = ({
         ...adjustedValues,
         section,
       },
+      refetchQueries: () => ['getBoardInformation'],
     }).then(({ data }) => {
       history.push(`/ticket/${data.createTicket.id}`);
     });

@@ -84,6 +84,7 @@ const Board = (): React.ReactElement => {
       }
     },
     notifyOnNetworkStatusChange: true,
+    fetchPolicy: 'cache-and-network',
   });
 
   const [
