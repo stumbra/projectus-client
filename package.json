@@ -3,30 +3,27 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@apollo/client": "^3.3.11",
+    "@apollo/client": "^3.3.14",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-    "framer-motion": "^3.10.2",
+    "framer-motion": "^4.1.3",
     "graphql": "^15.5.0",
-    "i18next": "^20.1.0",
-    "lodash": "^4.17.21",
-    "moment": "^2.29.1",
-    "react": "^17.0.1",
+    "i18next": "^20.2.1",
+    "moment": "^2.24.0",
+    "react": "^17.0.2",
     "react-beautiful-dnd": "^13.1.0",
-    "react-dom": "^17.0.1",
+    "react-dom": "^17.0.2",
     "react-i18next": "^11.8.12",
-    "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-semantic-toasts": "^0.6.5",
     "react-semantic-ui-datepickers": "^2.13.0",
-    "react-table": "^7.6.3",
     "react-tippy": "^1.4.0",
-    "recharts": "^2.0.8",
+    "recharts": "^2.0.9",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^2.0.3",
-    "styled-components": "^5.2.1"
+    "styled-components": "^5.2.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -34,10 +31,10 @@
     "test": "react-scripts test",
     "test:cov": "react-scripts test --coverage",
     "eject": "react-scripts eject",
-    "prettier": "prettier --write \"{,(node_modules|dist|build|coverage)/**/}*.{js,jsx,json}\"",
+    "prettier": "prettier --write \"{,!(node_modules|dist|build|coverage)/**/}*.{js,jsx,ts,tsx,json}\"",
     "pre-commit": "npm run eslint-max && npm run prettier && npm run build",
-    "eslint": "eslint .",
-    "eslint-max": "eslint . --max-warnings=0",
+    "eslint": "eslint '*/**/*.{js,ts,tsx}'",
+    "eslint-max": "eslint '*/**/*.{js,ts,tsx}' --max-warnings=0",
     "clean": "rm package-lock.json && rm -r node_modules && npm cache clean --force && npm install"
   },
   "eslintConfig": {
@@ -59,21 +56,18 @@
     ]
   },
   "devDependencies": {
-    "babel-eslint": "^10.1.0",
-    "eslint": "^7.21.0",
-    "eslint-config-airbnb": "^18.2.1",
-    "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-prettier": "^3.3.1",
-    "eslint-plugin-react": "^7.22.0",
-    "eslint-plugin-react-hooks": "^4.2.0",
-    "husky": "^4.3.8",
-    "prettier": "^2.2.1"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run pre-commit && git add -A"
-    }
+    "@types/jest": "^26.0.15",
+    "@types/node": "^12.0.0",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@types/recharts": "^1.8.19",
+    "@typescript-eslint/eslint-plugin": "^4.21.0",
+    "@typescript-eslint/parser": "^4.21.0",
+    "husky": "^4.2.5",
+    "prettier": "^2.2.1",
+    "styled-system": "^5.1.5",
+    "tslint": "^6.1.3",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^4.2.4"
   }
 }
