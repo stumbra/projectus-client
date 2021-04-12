@@ -11,7 +11,10 @@ import { EventType } from 'src/types/types';
 
 const Dashboard = (): React.ReactElement => {
   const { loading, data: { getAssignedTickets } = [] } = useQuery(
-    GET_ASSIGNED_TICKETS_QUERY
+    GET_ASSIGNED_TICKETS_QUERY,
+    {
+      fetchPolicy: 'cache-and-network',
+    }
   );
 
   const [switcher, setSwitcher] = React.useState('today');

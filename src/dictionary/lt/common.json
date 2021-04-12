@@ -276,7 +276,7 @@
         "title": "Klaida!",
         "description": "Įvestas netinkamas laiko formatas"
       },
-      "placeholder": "Registruoti valandas, pvz. 1h 45m"
+      "placeholder": "Pvz. 1h 45m"
     },
     "messages": "žinutės",
     "assignees": "Priskirti asmenys",

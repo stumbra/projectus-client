@@ -6,6 +6,7 @@ export const Container = styled.div`
   border: 1px solid lightgray;
   border-radius: 2px;
   min-width: 13.75rem;
+  max-width: 13.75rem;
   background-color: white;
   display: flex;
   flex-direction: column;
