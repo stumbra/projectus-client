@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useMutation } from '@apollo/client';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -15,13 +16,6 @@ import { toast } from 'react-semantic-toasts';
 import { CREATE_PROJECT_MUTATION, CONNECT_WITH_GITHUB_MUTATION } from './gql';
 import { GET_ASSIGNED_PROJECTS_QUERY } from 'src/pages/Projects/gql';
 import { ProjectType } from 'src/types/types';
-
-type FormType = {
-  title: string;
-  description: string;
-  owner: string;
-  repo: string;
-};
 
 type CreateProps = {
   isVisible: boolean;
