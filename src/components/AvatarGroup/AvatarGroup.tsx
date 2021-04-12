@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Image, Overmax, Button } from './AvatarGroup.styled';
 import { Tooltip } from 'react-tippy';
 import { PersonType } from 'src/types/types';
+import { useTranslation } from 'react-i18next';
 
 type AvatarGroupType = {
   users: PersonType[];
@@ -21,6 +22,8 @@ const AvatarGroup = ({
   const handleExpandability = () => {
     setExpandability(!isExpanded);
   };
+
+  const { t } = useTranslation('common');
 
   return (
     <Container>
@@ -61,7 +64,11 @@ const AvatarGroup = ({
         }
         return null;
       })}
-      {isExpanded && <Button onClick={handleExpandability}>Show less</Button>}
+      {isExpanded && (
+        <Button onClick={handleExpandability}>
+          {t('avatarGroup.showLess')}
+        </Button>
+      )}
     </Container>
   );
 };

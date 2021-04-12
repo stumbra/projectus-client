@@ -271,6 +271,13 @@
     }
   },
   "details": {
+    "logHours": {
+      "modal": {
+        "title": "Klaida!",
+        "description": "Įvestas netinkamas laiko formatas"
+      },
+      "placeholder": "Registruoti valandas, pvz. 1h 45m"
+    },
     "messages": "žinutės",
     "assignees": "Priskirti asmenys",
     "loggedTime": "Praleistas laikas",
@@ -325,5 +332,8 @@
         "close": "Uždaryti"
       }
     }
+  },
+  "avatarGroup": {
+    "showLess": "Rodyti mažiau"
   }
 }

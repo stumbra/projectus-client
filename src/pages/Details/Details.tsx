@@ -85,8 +85,8 @@ const Details = (): React.ReactElement => {
         toast({
           type: 'error',
           icon: 'close',
-          title: 'Wrong!',
-          description: 'You supplied wrong format of hours',
+          title: t('details.logHours.modal.title'),
+          description: t('details.logHours.modal.description'),
           animation: 'bounce',
           time: 5000,
         });
@@ -119,13 +119,24 @@ const Details = (): React.ReactElement => {
       sum += ((time[1].split('m')[0] as unknown) as number) * 1;
     }
 
-    logHours({
-      variables: {
-        ticket: getTicket.id,
-        hours: sum,
-      },
-      refetchQueries: () => ['getAssignedTickets'],
-    });
+    if (sum === 0) {
+      toast({
+        type: 'error',
+        icon: 'close',
+        title: t('details.logHours.modal.title'),
+        description: t('details.logHours.modal.description'),
+        animation: 'bounce',
+        time: 5000,
+      });
+    } else {
+      logHours({
+        variables: {
+          ticket: getTicket.id,
+          hours: sum,
+        },
+        refetchQueries: () => ['getAssignedTickets'],
+      });
+    }
   };
 
   return (
@@ -160,7 +171,7 @@ const Details = (): React.ReactElement => {
               />
             }
             value={hours}
-            placeholder="Log hours, e.g. 1h 45m..."
+            placeholder={t('details.logHours.placeholder')}
             onChange={(e) => {
               setHours(e.target.value);
             }}

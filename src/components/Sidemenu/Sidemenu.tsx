@@ -69,10 +69,12 @@ const Sidemenu = ({ children }: RouteProps): React.ReactElement => {
             <Image src={Logo} size="tiny" />
             <Title as="h2">Projectus</Title>
           </Heading>
-          <Profile>
-            <Image size="mini" src={user.avatar} avatar circular />
-            <span>{`${user.name} ${user.surname}`}</span>
-          </Profile>
+          {user && (
+            <Profile>
+              <Image size="mini" src={user.avatar} avatar circular />
+              <span>{`${user.name} ${user.surname}`}</span>
+            </Profile>
+          )}
           <MenuItem
             name="dashboard"
             onClick={handleItemClick}

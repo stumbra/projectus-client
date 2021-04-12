@@ -271,6 +271,13 @@
     }
   },
   "details": {
+    "logHours": {
+      "modal": {
+        "title": "Wrong!",
+        "description": "You supplied wrong format of hours"
+      },
+      "placeholder": "Log hours, e.g. 1h 45m"
+    },
     "messages": "messages",
     "assignees": "Assignees",
     "loggedTime": "Logged time",
@@ -325,5 +332,8 @@
         "close": "Close"
       }
     }
+  },
+  "avatarGroup": {
+    "showLess": "Show less"
   }
 }

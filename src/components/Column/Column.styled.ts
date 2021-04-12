@@ -50,6 +50,9 @@ export const HeadingWrapper = styled.div`
 
 export const Header = styled.div`
   margin-right: 0.5rem;
+  border: ${({ contentEditable }) => contentEditable && '1px solid #0C5184'};
+  border-radius: 0.3125rem;
+  padding: 0.1rem;
 `;
 
 export const EditIcon = styled(Icon)`

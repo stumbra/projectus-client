@@ -42,14 +42,20 @@ const Create = ({
     | undefined
   >(undefined);
 
-  const { onChange, onSubmit, values } = useForm(executeCreation, {
+  const {
+    onChange,
+    onSubmit,
+    values,
+  }: {
+    onChange: (e) => void;
+    onSubmit: (e) => void;
+    values: any;
+  } = useForm(executeCreation, {
     title: '',
     description: '',
     owner: '',
     repo: '',
   });
-
-  let { title, description, owner, repo } = values as FormType;
 
   const [
     connectWithGithub,
@@ -82,10 +88,10 @@ const Create = ({
         animation: 'bounce',
         time: 5000,
       });
-      title = '';
-      description = '';
-      owner = '';
-      repo = '';
+      values.title = '';
+      values.description = '';
+      values.owner = '';
+      values.repo = '';
       setConnected(false);
       setGithubRepo(undefined);
       toggleModal();
@@ -94,8 +100,8 @@ const Create = ({
       console.error(err);
     },
     variables: {
-      title,
-      description,
+      title: values.title,
+      description: values.description,
     },
   });
 
@@ -113,7 +119,7 @@ const Create = ({
     });
   }
 
-  const disableCreate = title === '' || description === '';
+  const disableCreate = values.title === '' || values.description === '';
 
   const [githubConnectionLoading, setGithubConnectionLoading] = React.useState(
     false
@@ -123,10 +129,12 @@ const Create = ({
 
   const handleGithubConnection = () => {
     setGithubConnectionLoading(true);
-    fetch(`https://api.github.com/repos/${owner}/${repo}/releases`)
+    fetch(
+      `https://api.github.com/repos/${values.owner}/${values.repo}/releases`
+    )
       .then((response) => response.json())
       .then((data) => {
-        const url = `https://api.github.com/repos/${owner}/${repo}/releases`;
+        const url = `https://api.github.com/repos/${values.owner}/${values.repo}/releases`;
         const versions = data.map((release) => release.tag_name);
         const sortedVersion = versions
           .map((a) =>
@@ -168,8 +176,8 @@ const Create = ({
     setGithubRepo(undefined);
     setConnected(false);
 
-    owner = '';
-    repo = '';
+    values.owner = '';
+    values.repo = '';
     toast({
       type: 'warning',
       icon: 'github',
@@ -189,7 +197,7 @@ const Create = ({
             fluid
             label={t('projects.createModal.inputs.title.title')}
             placeholder={t('projects.createModal.inputs.title.placeholder')}
-            value={title}
+            value={values.title}
             name="title"
             type="text"
             onChange={onChange}
@@ -198,7 +206,7 @@ const Create = ({
             {t('projects.createModal.inputs.description.title')}
           </Header>
           <TextArea
-            value={description}
+            value={values.description}
             name="description"
             onChange={onChange}
             placeholder={t(
@@ -222,7 +230,9 @@ const Create = ({
                 style={{ marginLeft: 'auto' }}
                 positive
                 onClick={handleGithubConnection}
-                disabled={githubConnectionLoading || !owner || !repo}
+                disabled={
+                  githubConnectionLoading || !values.owner || !values.repo
+                }
                 loading={githubConnectionLoading}
               >
                 {t('projects.createModal.github.connect')}
@@ -233,7 +243,9 @@ const Create = ({
                 style={{ marginLeft: 'auto' }}
                 negative
                 onClick={handleGithubDisconnect}
-                disabled={githubConnectionLoading || !owner || !repo}
+                disabled={
+                  githubConnectionLoading || !values.owner || !values.repo
+                }
                 loading={githubConnectionLoading}
               >
                 {t('projects.createModal.github.disconnect')}
@@ -254,7 +266,7 @@ const Create = ({
                 'projects.createModal.github.inputs.owner.placeholder'
               )}
               style={{ marginBottom: '1rem' }}
-              value={owner}
+              value={values.owner}
               name="owner"
               onChange={onChange}
               type="text"
@@ -265,7 +277,7 @@ const Create = ({
               placeholder={t(
                 'projects.createModal.github.inputs.owner.placeholder'
               )}
-              value={repo}
+              value={values.repo}
               name="repo"
               onChange={onChange}
               type="text"

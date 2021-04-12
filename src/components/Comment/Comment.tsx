@@ -5,6 +5,7 @@ import { AuthContext } from 'src/context/auth';
 import { useMutation } from '@apollo/client';
 import { UPDATE_MESSAGE_MUTATION, DELETE_MESSAGE_MUTATION } from './gql';
 import { MessageType } from 'src/types/types';
+import { EditableComment } from './Comment.styled';
 
 type CommentType = {
   message: MessageType;
@@ -79,7 +80,7 @@ const Comment = ({ message, refetch }: CommentType): React.ReactElement => {
             </React.Fragment>
           )}
         </SemanticComment.Metadata>
-        <SemanticComment.Text
+        <EditableComment
           style={{ minWidth: 460, maxWidth: 460 }}
           suppressContentEditableWarning
           contentEditable={user.id === message.creator.id && isEditable}
@@ -88,7 +89,7 @@ const Comment = ({ message, refetch }: CommentType): React.ReactElement => {
           }}
         >
           {message.body}
-        </SemanticComment.Text>
+        </EditableComment>
       </SemanticComment.Content>
     </SemanticComment>
   );

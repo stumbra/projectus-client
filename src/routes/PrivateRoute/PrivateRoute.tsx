@@ -34,7 +34,7 @@ const PrivateRoute = ({
     );
   }
 
-  if (user.id === '-1' && getMe) {
+  if (user?.id === '-1' && getMe) {
     const { id, name, surname, email, avatar } = getMe;
     setUser({ id, name, surname, email, avatar });
   }
