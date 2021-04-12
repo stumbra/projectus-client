@@ -32,6 +32,7 @@ const Sidemenu = ({ children }: RouteProps): React.ReactElement => {
   const handleItemClick = (e, { name }) => {
     setActiveItem(name);
     history.push(`/${name}`);
+    close();
   };
 
   const [logout] = useMutation(LOGOUT_MUTATION, {
