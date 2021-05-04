@@ -54,7 +54,7 @@ const ForgotPassword = (): React.ReactElement => {
   }
 
   return (
-    <Container>
+    <Container data-testid="forgot.password.container">
       <PrimarySection>
         <Image src={ProjectLogo} size="medium" as={Link} to="/" />
         <Heading>

@@ -26,6 +26,7 @@ type ColumnType = {
   isEditable: boolean;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   personnel: { key: number; text: string; value: any }[];
+  isTest?: boolean;
 };
 
 const Column = ({
@@ -35,6 +36,7 @@ const Column = ({
   refetch,
   isEditable,
   personnel,
+  isTest = false,
 }: ColumnType): React.ReactElement => {
   const [title, setTitle] = React.useState(column.title);
   const [isTicketCreationVisible, setTicketCreationVisibility] = React.useState(
@@ -82,90 +84,93 @@ const Column = ({
 
   return (
     <React.Fragment>
-      <Draggable draggableId={column.id} index={index}>
-        {(provided) => (
-          <Container {...provided.draggableProps} ref={provided.innerRef}>
-            <TitleWrapper {...provided.dragHandleProps}>
-              <HeadingWrapper>
-                <Header
-                  suppressContentEditableWarning
-                  contentEditable={isEditable}
-                  onInput={(e) => {
-                    setTitle(e.target.textContent);
-                  }}
-                  onBlur={(e) => {
-                    setTitle(column.title);
-                    e.target.textContent = column.title;
-                  }}
-                >
-                  {column.title}
-                </Header>
-                {isEditable && (
-                  <EditIcon
-                    disabled={!title}
-                    name="pencil"
-                    size="small"
-                    onClick={handleIconPress}
-                  />
+      {!isTest && (
+        <Draggable draggableId={column.id} index={index}>
+          {(provided) => (
+            <Container {...provided.draggableProps} ref={provided.innerRef}>
+              <TitleWrapper {...provided.dragHandleProps}>
+                <HeadingWrapper>
+                  <Header
+                    suppressContentEditableWarning
+                    contentEditable={isEditable}
+                    onInput={(e) => {
+                      setTitle(e.target.textContent);
+                    }}
+                    onBlur={(e) => {
+                      setTitle(column.title);
+                      e.target.textContent = column.title;
+                    }}
+                  >
+                    {column.title}
+                  </Header>
+                  {isEditable && (
+                    <EditIcon
+                      disabled={!title}
+                      name="pencil"
+                      size="small"
+                      onClick={handleIconPress}
+                    />
+                  )}
+                </HeadingWrapper>
+                <Counter>
+                  <span>{tasks.length}</span>
+                </Counter>
+              </TitleWrapper>
+              <Droppable droppableId={column.id} type="task">
+                {(provided, snapshot) => (
+                  <TaskList
+                    ref={provided.innerRef}
+                    {...provided.droppableProps}
+                    isDraggingOver={snapshot.isDraggingOver}
+                  >
+                    {tasks.map((task, index) => (
+                      <Task key={task.id} task={task} index={index} />
+                    ))}
+                    {provided.placeholder}
+                  </TaskList>
                 )}
-              </HeadingWrapper>
-              <Counter>
-                <span>{tasks.length}</span>
-              </Counter>
-            </TitleWrapper>
-            <Droppable droppableId={column.id} type="task">
-              {(provided, snapshot) => (
-                <TaskList
-                  ref={provided.innerRef}
-                  {...provided.droppableProps}
-                  isDraggingOver={snapshot.isDraggingOver}
-                >
-                  {tasks.map((task, index) => (
-                    <Task key={task.id} task={task} index={index} />
-                  ))}
-                  {provided.placeholder}
-                </TaskList>
-              )}
-            </Droppable>
-            <ButtonsWrapper>
-              <Button.Group>
-                <Button
-                  positive
-                  animated="fade"
-                  onClick={() => setTicketCreationVisibility(true)}
-                >
-                  <Button.Content hidden>
-                    {t('board.column.ticket')}
-                  </Button.Content>
-                  <Button.Content visible>
-                    <Icon name="add" />
-                  </Button.Content>
-                </Button>
-                {isEditable && (
-                  <React.Fragment>
-                    <Button.Or text={t('board.column.or') as string} />
-                    <Button
-                      negative
-                      animated="fade"
-                      onClick={() => {
-                        deleteSection();
-                      }}
-                    >
-                      <Button.Content hidden>
-                        {t('board.column.section')}
-                      </Button.Content>
-                      <Button.Content visible>
-                        <Icon name="trash" />
-                      </Button.Content>
-                    </Button>
-                  </React.Fragment>
-                )}
-              </Button.Group>
-            </ButtonsWrapper>
-          </Container>
-        )}
-      </Draggable>
+              </Droppable>
+              <ButtonsWrapper>
+                <Button.Group>
+                  <Button
+                    positive
+                    animated="fade"
+                    onClick={() => setTicketCreationVisibility(true)}
+                  >
+                    <Button.Content hidden>
+                      {t('board.column.ticket')}
+                    </Button.Content>
+                    <Button.Content visible>
+                      <Icon name="add" />
+                    </Button.Content>
+                  </Button>
+                  {isEditable && (
+                    <React.Fragment>
+                      <Button.Or text={t('board.column.or') as string} />
+                      <Button
+                        negative
+                        animated="fade"
+                        onClick={() => {
+                          deleteSection();
+                        }}
+                      >
+                        <Button.Content hidden>
+                          {t('board.column.section')}
+                        </Button.Content>
+                        <Button.Content visible>
+                          <Icon name="trash" />
+                        </Button.Content>
+                      </Button>
+                    </React.Fragment>
+                  )}
+                </Button.Group>
+              </ButtonsWrapper>
+            </Container>
+          )}
+        </Draggable>
+      )}
       <CreateTicketModal
+        isTest
         personnel={personnel}
         isVisible={isTicketCreationVisible}
         toggleModal={() => {
@@ -173,6 +178,7 @@ const Column = ({
         }}
         refetch={refetch}
         section={column.id}
+        testId="column.create.ticket.modal"
       />
     </React.Fragment>
   );

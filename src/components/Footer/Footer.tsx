@@ -7,7 +7,7 @@ const Footer = (): React.ReactElement => {
   const { t } = useTranslation('common');
 
   return (
-    <Container>
+    <Container data-testid="footer">
       <Image src={Logo} size="small" />
       <Wrapper secondary>
         <span>{t('footer')}</span>

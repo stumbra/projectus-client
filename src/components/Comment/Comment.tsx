@@ -10,9 +10,14 @@ import { EditableComment } from './Comment.styled';
 type CommentType = {
   message: MessageType;
   refetch: () => void;
+  isTest?: boolean;
 };
 
-const Comment = ({ message, refetch }: CommentType): React.ReactElement => {
+const Comment = ({
+  message,
+  refetch,
+  isTest = false,
+}: CommentType): React.ReactElement => {
   const { user } = React.useContext(AuthContext);
 
   const [isEditable, setEditability] = React.useState(false);
@@ -54,15 +59,16 @@ const Comment = ({ message, refetch }: CommentType): React.ReactElement => {
   };
 
   return (
-    <SemanticComment>
+    <SemanticComment data-testid={`message.${message.id}`}>
       <SemanticComment.Avatar src={message.creator.avatar} />
       <SemanticComment.Content>
         <SemanticComment.Author as="a">{`${message.creator.name} ${message.creator.surname}`}</SemanticComment.Author>
         <SemanticComment.Metadata>
           <div>{moment(message.createdAt).fromNow()}</div>
-          {user.id === message.creator.id && (
+          {(user.id === message.creator.id || isTest) && (
             <React.Fragment>
               <Icon
+                data-testid={`message.edit.icon.button.${message.id}`}
                 disabled={!body}
                 color={isEditable ? 'green' : 'grey'}
                 name={isEditable ? 'check' : 'pencil'}
@@ -75,7 +81,12 @@ const Comment = ({ message, refetch }: CommentType): React.ReactElement => {
                 }
               />
               {isEditable && (
-                <Icon color="red" name="trash" onClick={handleRemove} />
+                <Icon
+                  color="red"
+                  name="trash"
+                  onClick={handleRemove}
+                  data-testid={`message.delete.icon.button.${message.id}`}
+                />
               )}
             </React.Fragment>
           )}

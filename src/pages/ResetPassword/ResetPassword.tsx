@@ -32,7 +32,7 @@ const ResetPassword = (): React.ReactElement => {
 
   return (
     <Wrapper>
-      <Container>
+      <Container data-testid="reset.password.container">
         {!loading && status !== undefined ? (
           <React.Fragment>
             <StatusCode>{status ? 200 : 401}</StatusCode>

@@ -34,24 +34,32 @@ const ConfirmInvitation = (): React.ReactElement => {
   }, []);
 
   return (
-    <Wrapper>
+    <Wrapper data-testid="confirm.invitation.wrapper">
       <Container>
         {!loading && status !== undefined ? (
           <React.Fragment>
             <StatusCode>{status ? 200 : 401}</StatusCode>
             <Title>{status ? 'Success!' : 'Something went wrong'}</Title>
             <Subtitle>
-              {status
-                ? 'You have been successfully added to the project'
-                : 'Your link is expired. Please contact our support!'}
+              <React.Fragment>
+                {status
+                  ? 'You have been successfully added to the project'
+                  : 'Your link is expired. Please contact our support!'}
+              </React.Fragment>
             </Subtitle>
-            <Button primary onClick={() => history.push('/')}>
-              {status ? 'Continue' : 'Go back'}
+            <Button
+              primary
+              onClick={() => history.push('/')}
+              data-testid="confirm.invitation.button"
+            >
+              <React.Fragment>{status ? 'Continue' : 'Go back'}</React.Fragment>
             </Button>
           </React.Fragment>
         ) : (
           <Dimmer active inverted>
-            <Loader size="massive">Loading...</Loader>
+            <Loader size="massive">
+              <React.Fragment>Loading...</React.Fragment>
+            </Loader>
           </Dimmer>
         )}
       </Container>

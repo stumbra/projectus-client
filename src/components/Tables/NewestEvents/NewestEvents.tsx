@@ -33,13 +33,16 @@ const NewestEvents = ({
   });
 
   return (
-    <Container>
+    <Container data-testid="newest.events.container">
       <Inside height={height / 3} width={width > 600 ? width / 3 : width / 1.5}>
         <Info>{title}</Info>
         {events.map((event, index) => (
           <EventWrapper key={index}>
             {event.type === 'CREATE' && (
-              <Card style={{ width: '100%' }}>
+              <Card
+                style={{ width: '100%' }}
+                data-testid="newest.events.create.card"
+              >
                 <Card.Content>
                   <Feed>
                     <Feed.Event>
@@ -65,7 +68,10 @@ const NewestEvents = ({
               </Card>
             )}
             {event.type === 'MESSAGE' && (
-              <Card style={{ width: '100%' }}>
+              <Card
+                style={{ width: '100%' }}
+                data-testid="newest.events.message.card"
+              >
                 <Card.Content>
                   <Feed>
                     <Feed.Event>
@@ -91,7 +97,10 @@ const NewestEvents = ({
               </Card>
             )}
             {event.type === 'UPDATED' && (
-              <Card style={{ width: '100%' }}>
+              <Card
+                style={{ width: '100%' }}
+                data-testid="newest.events.updated.card"
+              >
                 <Card.Content>
                   <Feed>
                     <Feed.Event>
@@ -117,7 +126,10 @@ const NewestEvents = ({
               </Card>
             )}
             {event.type === 'DELETE_MESSAGE' && (
-              <Card style={{ width: '100%' }}>
+              <Card
+                style={{ width: '100%' }}
+                data-testid="newest.events.delete.message.card"
+              >
                 <Card.Content>
                   <Feed>
                     <Feed.Event>
@@ -143,7 +155,10 @@ const NewestEvents = ({
               </Card>
             )}
             {event.type === 'LOG_HOURS' && (
-              <Card style={{ width: '100%' }}>
+              <Card
+                style={{ width: '100%' }}
+                data-testid="newest.events.log.hours.card"
+              >
                 <Card.Content>
                   <Feed>
                     <Feed.Event>

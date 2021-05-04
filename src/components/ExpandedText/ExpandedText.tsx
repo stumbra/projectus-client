@@ -9,16 +9,16 @@ type ExpandedTextProps = {
 const ExpandedText = ({ text }: ExpandedTextProps): React.ReactElement => {
   const [isExpanded, setExpandability] = React.useState(false);
 
-  const handleExpandability = () => {
-    setExpandability(!isExpanded);
-  };
+  const handleExpandability = () => setExpandability(!isExpanded);
 
   const { t } = useTranslation('common');
 
   return (
     <React.Fragment>
-      <Text isExpanded={isExpanded}>{text}</Text>
-      <Button onClick={handleExpandability}>
+      <Text isExpanded={isExpanded} data-testid="expanded.text.title">
+        {text}
+      </Text>
+      <Button onClick={handleExpandability} data-testid="expanded.text.button">
         {isExpanded ? t('expandedText.viewLess') : t('expandedText.viewMore')}
       </Button>
     </React.Fragment>

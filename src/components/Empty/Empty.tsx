@@ -8,7 +8,7 @@ type EmptyProps = {
 
 const Empty = ({ header, subheader }: EmptyProps): React.ReactElement => {
   return (
-    <Container>
+    <Container data-testid="empty.container">
       <Header>{header}</Header>
       <Subheader>{subheader}</Subheader>
     </Container>

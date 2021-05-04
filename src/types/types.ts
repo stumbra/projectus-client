@@ -10,7 +10,7 @@ export type PersonType = {
   name?: string;
   surname?: string;
   avatar?: string;
-  status?: string;
+  confirmed?: boolean;
   email?: string;
 };
 

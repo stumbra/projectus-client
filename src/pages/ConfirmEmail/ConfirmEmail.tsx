@@ -31,7 +31,7 @@ const ConfirmEmail = (): React.ReactElement => {
   }, []);
 
   return (
-    <Wrapper>
+    <Wrapper data-testid="confirm.email.wrapper">
       <Container>
         {!loading && status !== undefined ? (
           <React.Fragment>
@@ -42,7 +42,11 @@ const ConfirmEmail = (): React.ReactElement => {
                 ? 'Your E-mail was successfully verified & now you can sign into Projectus by clicking the button below'
                 : 'Your link is expired. Please contact our support!'}
             </Subtitle>
-            <Button primary onClick={() => history.push('/')}>
+            <Button
+              primary
+              onClick={() => history.push('/')}
+              data-testid="confirm.email.button"
+            >
               {status ? 'Sign in' : 'Go to Homepage'}
             </Button>
           </React.Fragment>

@@ -27,6 +27,7 @@ type CreateProps = {
   personnel: { key: number; text: string; value: any }[];
   refetch: () => void;
   section: string;
+  isTest?: boolean;
 };
 
 const Create = ({
@@ -35,6 +36,7 @@ const Create = ({
   personnel,
   refetch,
   section,
+  isTest = false,
 }: CreateProps): React.ReactElement => {
   const { t, i18n } = useTranslation('common');
 
@@ -124,7 +126,9 @@ const Create = ({
 
   return (
     <Modal onClose={toggleModal} open={isVisible} size="tiny">
-      <Modal.Header>{t('board.ticketCreation.title')}</Modal.Header>
+      <Modal.Header data-testid="create.ticket.modal.header">
+        <React.Fragment>{t('board.ticketCreation.title')}</React.Fragment>
+      </Modal.Header>
       <Modal.Content>
         <Form style={{ margin: '0 35px' }}>
           <Input
@@ -146,56 +150,68 @@ const Create = ({
               <Header
                 style={{ margin: 0, marginBottom: '0.25rem' }}
                 size="tiny"
-              >{`${t('board.ticketCreation.form.type.label')}*`}</Header>
-              <Dropdown
-                name="type"
-                clearable
-                options={typeOptions}
-                selection
-                placeholder={t('board.ticketCreation.form.type.placeholder')}
-                onChange={(_, data: any) =>
-                  setValues((prevValues) => {
-                    return {
-                      ...prevValues,
-                      description: data.value
-                        ? generateTemplate(
-                            data.options[data.value - 1].text.toUpperCase(),
-                            t,
-                            i18n
-                          )
-                        : '',
-                      type: data.value
-                        ? data.options[data.value - 1].text.toUpperCase()
-                        : data.value,
-                    };
-                  })
-                }
-              />
+              >
+                <React.Fragment>{`${t(
+                  'board.ticketCreation.form.type.label'
+                )}*`}</React.Fragment>
+              </Header>
+              {!isTest && (
+                <Dropdown
+                  name="type"
+                  clearable
+                  options={typeOptions}
+                  selection
+                  placeholder={t('board.ticketCreation.form.type.placeholder')}
+                  onChange={(_, data: any) =>
+                    setValues((prevValues) => {
+                      return {
+                        ...prevValues,
+                        description: data.value
+                          ? generateTemplate(
+                              data.options[data.value - 1].text.toUpperCase(),
+                              t,
+                              i18n
+                            )
+                          : '',
+                        type: data.value
+                          ? data.options[data.value - 1].text.toUpperCase()
+                          : data.value,
+                      };
+                    })
+                  }
+                />
+              )}
             </div>
             <SecondInput>
               <Header
                 style={{ margin: 0, marginBottom: '0.25rem' }}
                 size="tiny"
-              >{`${t('board.ticketCreation.form.priority.label')}*`}</Header>
-              <Dropdown
-                name="priority"
-                clearable
-                options={priorityOptions}
-                selection
-                placeholder={t(
-                  'board.ticketCreation.form.priority.placeholder'
-                )}
-                onChange={(_, data: any) =>
-                  setValues((prevValues) => {
-                    return {
-                      ...prevValues,
-                      priority: data.value
-                        ? data.options[data.value - 1].text.toUpperCase()
-                        : data.value,
-                    };
-                  })
-                }
-              />
+              >
+                <React.Fragment>{`${t(
+                  'board.ticketCreation.form.priority.label'
+                )}*`}</React.Fragment>
+              </Header>
+              {!isTest && (
+                <Dropdown
+                  name="priority"
+                  clearable
+                  options={priorityOptions}
+                  selection
+                  placeholder={t(
+                    'board.ticketCreation.form.priority.placeholder'
+                  )}
+                  onChange={(_, data: any) =>
+                    setValues((prevValues) => {
+                      return {
+                        ...prevValues,
+                        priority: data.value
+                          ? data.options[data.value - 1].text.toUpperCase()
+                          : data.value,
+                      };
+                    })
+                  }
+                />
+              )}
             </SecondInput>
           </Section>
           <Section>
@@ -204,34 +220,40 @@ const Create = ({
                 style={{ margin: 0, marginBottom: '0.25rem' }}
                 size="tiny"
               >
-                {t('board.ticketCreation.form.assignees.label')}
+                <React.Fragment>
+                  {t('board.ticketCreation.form.assignees.label')}
+                </React.Fragment>
               </Header>
-              <Dropdown
-                name="assignees"
-                clearable
-                multiple
-                options={personnel}
-                selection
-                placeholder={t(
-                  'board.ticketCreation.form.assignees.placeholder'
-                )}
-                style={{ maxWidth: '196px' }}
-                onChange={(_, data: any) => {
-                  setValues((prevValues) => {
-                    return {
-                      ...prevValues,
-                      assignees: data.value,
-                    };
-                  });
-                }}
-              />
+              {!isTest && (
+                <Dropdown
+                  name="assignees"
+                  clearable
+                  multiple
+                  options={personnel}
+                  selection
+                  placeholder={t(
+                    'board.ticketCreation.form.assignees.placeholder'
+                  )}
+                  style={{ maxWidth: '196px' }}
+                  onChange={(_, data: any) => {
+                    setValues((prevValues) => {
+                      return {
+                        ...prevValues,
+                        assignees: data.value,
+                      };
+                    });
+                  }}
+                />
+              )}
             </div>
             <SecondInput>
               <Header
                 style={{ margin: 0, marginBottom: '0.25rem' }}
                 size="tiny"
               >
-                {t('board.ticketCreation.form.deadline.label')}
+                <React.Fragment>
+                  {t('board.ticketCreation.form.deadline.label')}
+                </React.Fragment>
               </Header>
               <SemanticDatepicker
                 name="deadline"
@@ -248,7 +270,9 @@ const Create = ({
             </SecondInput>
           </Section>
           <Header style={{ margin: 0, marginBottom: '0.25rem' }} size="tiny">
-            {t('board.ticketCreation.form.description.label')}
+            <React.Fragment>
+              {t('board.ticketCreation.form.description.label')}
+            </React.Fragment>
           </Header>
           <TextArea
             name="description"
@@ -270,7 +294,9 @@ const Create = ({
           disabled={disableSubmit}
           loading={loading}
         >
-          {t('projects.createModal.buttons.create')}
+          <React.Fragment>
+            {t('projects.createModal.buttons.create')}
+          </React.Fragment>
         </Button>
         <Button
           disabled={loading}
@@ -279,8 +305,11 @@ const Create = ({
             resetValues();
             toggleModal();
           }}
+          data-testid="create.ticket.modal.close"
         >
-          {t('projects.createModal.buttons.close')}
+          <React.Fragment>
+            {t('projects.createModal.buttons.close')}
+          </React.Fragment>
         </Button>
       </Modal.Actions>
     </Modal>

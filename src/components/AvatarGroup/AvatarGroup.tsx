@@ -26,7 +26,7 @@ const AvatarGroup = ({
   const { t } = useTranslation('common');
 
   return (
-    <Container>
+    <Container data-testid="avatar.group">
       {users.map((user, index) => {
         if (!isExpanded) {
           if (index + 1 <= max) {
@@ -43,6 +43,7 @@ const AvatarGroup = ({
           } else if (index + 1 === users.length) {
             return (
               <Overmax
+                data-testid={`avatar.group.overmax.${index}`}
                 key={index}
                 onClick={!disabled ? handleExpandability : undefined}
                 disabled={disabled}

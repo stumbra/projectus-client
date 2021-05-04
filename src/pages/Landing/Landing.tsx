@@ -62,7 +62,7 @@ const Landing = (): React.ReactElement => {
   const { email, password } = values as FormType;
 
   return (
-    <Container>
+    <Container data-testid="landing.container">
       <PrimarySection>
         <Image src={ProjectLogo} size="medium" />
         <Heading>

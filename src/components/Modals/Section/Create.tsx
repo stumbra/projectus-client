@@ -64,7 +64,9 @@ const Create = ({
 
   return (
     <Modal onClose={toggleModal} open={isVisible} size="mini">
-      <Modal.Header>{t('board.sectionCreation.title')}</Modal.Header>
+      <Modal.Header data-testid="create.section.modal.header">
+        <React.Fragment>{t('board.sectionCreation.title')}</React.Fragment>
+      </Modal.Header>
       <Modal.Content>
         <Input
           fluid
@@ -78,15 +80,20 @@ const Create = ({
       </Modal.Content>
       <Modal.Actions>
         <Button
+          data-testid="create.section.modal.submit"
           color="blue"
           onClick={onSubmit}
           disabled={loading || disableCreate}
           loading={loading}
         >
-          {t('projects.createModal.buttons.create')}
+          <React.Fragment>
+            {t('projects.createModal.buttons.create')}
+          </React.Fragment>
         </Button>
         <Button color="grey" onClick={toggleModal}>
-          {t('projects.createModal.buttons.close')}
+          <React.Fragment>
+            {t('projects.createModal.buttons.close')}
+          </React.Fragment>
         </Button>
       </Modal.Actions>
     </Modal>

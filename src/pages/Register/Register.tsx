@@ -97,7 +97,7 @@ const Register = (): React.ReactElement => {
   };
 
   return (
-    <Container>
+    <Container data-testid="register.container">
       <PrimarySection>
         <Image src={ProjectLogo} size="medium" as={Link} to="/" />
         <Heading>

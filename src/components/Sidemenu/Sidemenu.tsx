@@ -65,7 +65,7 @@ const Sidemenu = ({ children }: RouteProps): React.ReactElement => {
         vertical
         visible={visible}
       >
-        <InnerWrapper>
+        <InnerWrapper data-testid="sidemenu.inner.wrapper">
           <Heading>
             <Image src={Logo} size="tiny" />
             <Title as="h2">Projectus</Title>

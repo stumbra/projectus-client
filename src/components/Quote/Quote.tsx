@@ -8,7 +8,7 @@ type QuoteProps = {
 
 const Quote = ({ text, author }: QuoteProps): React.ReactElement => {
   return (
-    <Blockquote>
+    <Blockquote data-testid="quote.blockquote">
       <Paragraph>{text}</Paragraph>
       <Small>{author}</Small>
     </Blockquote>

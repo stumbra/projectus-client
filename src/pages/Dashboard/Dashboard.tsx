@@ -14,6 +14,9 @@ const Dashboard = (): React.ReactElement => {
     GET_ASSIGNED_TICKETS_QUERY,
     {
       fetchPolicy: 'cache-and-network',
+      onError: (err) => {
+        console.log(err);
+      },
     }
   );
 
@@ -102,7 +105,9 @@ const Dashboard = (): React.ReactElement => {
   if (loading) {
     return (
       <Dimmer active inverted>
-        <Loader size="massive">{t('common.loading')}</Loader>
+        <Loader size="massive">
+          <React.Fragment>{t('common.loading')}</React.Fragment>
+        </Loader>
       </Dimmer>
     );
   }
@@ -319,34 +324,43 @@ const Dashboard = (): React.ReactElement => {
                 setSwitcher('today');
               }}
             >
-              {t('dashboard.switcher.today')}
+              <React.Fragment> {t('dashboard.switcher.today')}</React.Fragment>
             </Breadcrumb.Section>
             <Breadcrumb.Divider />
             <Breadcrumb.Section
+              data-testid="dashboard.switcher.section.tomorrow"
               active={switcher === 'tomorrow'}
               onClick={() => {
                 setSwitcher('tomorrow');
               }}
             >
-              {t('dashboard.switcher.tomorrow')}
+              <React.Fragment>
+                {t('dashboard.switcher.tomorrow')}
+              </React.Fragment>
             </Breadcrumb.Section>
             <Breadcrumb.Divider />
             <Breadcrumb.Section
+              data-testid="dashboard.switcher.section.thisWeek"
               active={switcher === 'week'}
               onClick={() => {
                 setSwitcher('week');
               }}
             >
-              {t('dashboard.switcher.thisWeek')}
+              <React.Fragment>
+                {t('dashboard.switcher.thisWeek')}
+              </React.Fragment>
             </Breadcrumb.Section>
             <Breadcrumb.Divider />
             <Breadcrumb.Section
+              data-testid="dashboard.switcher.section.thisMonth"
               active={switcher === 'month'}
               onClick={() => {
                 setSwitcher('month');
               }}
             >
-              {t('dashboard.switcher.thisMonth')}
+              <React.Fragment>
+                {t('dashboard.switcher.thisMonth')}
+              </React.Fragment>
             </Breadcrumb.Section>
           </Breadcrumb>
         </div>

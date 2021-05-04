@@ -184,7 +184,9 @@ const Create = ({
 
   return (
     <Modal onClose={toggleModal} open={isVisible} size="mini">
-      <Modal.Header>{t('projects.createModal.title')}</Modal.Header>
+      <Modal.Header data-testid="create.project.modal.header">
+        <React.Fragment>{t('projects.createModal.title')}</React.Fragment>
+      </Modal.Header>
       <Modal.Content>
         <Form>
           <Input
@@ -197,7 +199,9 @@ const Create = ({
             onChange={onChange}
           />
           <Header size="tiny">
-            {t('projects.createModal.inputs.description.title')}
+            <React.Fragment>
+              {t('projects.createModal.inputs.description.title')}
+            </React.Fragment>
           </Header>
           <TextArea
             value={values.description}
@@ -215,7 +219,9 @@ const Create = ({
             }}
           >
             <Header size="tiny" style={{ margin: 0, marginRight: '0.1rem' }}>
-              {t('projects.createModal.github.title')}
+              <React.Fragment>
+                {t('projects.createModal.github.title')}
+              </React.Fragment>
             </Header>
             <Icon name="github" size="large" />
             {!connected ? (
@@ -298,7 +304,11 @@ const Create = ({
         >
           {t('projects.createModal.buttons.create')}
         </Button>
-        <Button color="grey" onClick={toggleModal}>
+        <Button
+          color="grey"
+          onClick={toggleModal}
+          data-testid="create.project.modal.close"
+        >
           {t('projects.createModal.buttons.close')}
         </Button>
       </Modal.Actions>

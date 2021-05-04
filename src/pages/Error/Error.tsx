@@ -16,12 +16,16 @@ const Error = (): React.ReactElement => {
   const { t } = useTranslation('common');
 
   return (
-    <Wrapper>
+    <Wrapper data-testid="error.wrapper">
       <Container>
         <StatusCode>404</StatusCode>
         <Title>{t('error.title')}</Title>
         <Subtitle>{t('error.description')}</Subtitle>
-        <Button primary onClick={() => history.goBack()}>
+        <Button
+          data-testid="error.button"
+          primary
+          onClick={() => history.goBack()}
+        >
           {t('error.button')}
         </Button>
       </Container>

@@ -146,7 +146,7 @@ const Details = (): React.ReactElement => {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
       >
-        <MainSectionWrapper>
+        <MainSectionWrapper data-testid="details.main.section.wrapper">
           <div>
             <span>{t('details.editability')} - </span>
             <Checkbox

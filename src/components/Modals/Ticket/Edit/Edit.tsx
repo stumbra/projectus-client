@@ -35,6 +35,7 @@ type EditProps = {
   toggleModal: () => void;
   ticket: TicketType;
   refetch: () => void;
+  isTest?: boolean;
 };
 
 const Edit = ({
@@ -42,6 +43,7 @@ const Edit = ({
   toggleModal,
   ticket,
   refetch,
+  isTest = false,
 }: EditProps): React.ReactElement => {
   const { t, i18n } = useTranslation('common');
 
@@ -76,7 +78,7 @@ const Edit = ({
     type: ensure(
       typeOptions.find((item) =>
         i18n.language === 'en'
-          ? item?.text?.toUpperCase()
+          ? item.text.toString().toUpperCase()
           : prepareTypeForAPI(item?.text?.toUpperCase()) ===
             ticket?.type?.toUpperCase()
       )
@@ -84,7 +86,7 @@ const Edit = ({
     priority: ensure(
       priorityOptions.find((item) =>
         i18n.language === 'en'
-          ? item.text.toUpperCase()
+          ? item.text.toString().toUpperCase()
           : preparePriorityForAPI(item.text.toUpperCase()) ===
             ticket.priority.toUpperCase()
       )
@@ -114,7 +116,7 @@ const Edit = ({
       type: ensure(
         typeOptions.find((item) =>
           i18n.language === 'en'
-            ? item.text.toUpperCase()
+            ? item.text.toString().toUpperCase()
             : prepareTypeForAPI(item.text.toUpperCase()) ===
               ticket.type.toUpperCase()
         )
@@ -122,7 +124,7 @@ const Edit = ({
       priority: ensure(
         priorityOptions.find((item) =>
           i18n.language === 'en'
-            ? item.text.toUpperCase()
+            ? item.text.toString().toUpperCase()
             : preparePriorityForAPI(item.text.toUpperCase()) ===
               ticket.priority.toUpperCase()
         )
@@ -211,7 +213,9 @@ const Edit = ({
 
   return (
     <Modal onClose={toggleModal} open={isVisible} size="tiny">
-      <Modal.Header>{t('details.editTicket.title')}</Modal.Header>
+      <Modal.Header data-testid="edit.ticket.modal.header">
+        <React.Fragment>{t('details.editTicket.title')}</React.Fragment>
+      </Modal.Header>
       <Modal.Content>
         <Form style={{ margin: '0 35px' }}>
           <Input
@@ -234,57 +238,65 @@ const Edit = ({
                 size="tiny"
                 style={{ margin: 0, marginBottom: '0.25rem' }}
               >
-                {t('details.editTicket.inputs.type.label')}
+                <React.Fragment>
+                  {t('details.editTicket.inputs.type.label')}
+                </React.Fragment>
               </Header>
-              <Dropdown
-                name="type"
-                clearable
-                options={typeOptions}
-                selection
-                value={values.type}
-                placeholder={t('details.editTicket.inputs.type.placeholder')}
-                onChange={(_, data: any) =>
-                  setValues((prevValues) => {
-                    return {
-                      ...prevValues,
-                      description: data.value
-                        ? generateTemplate(
-                            data.options[data.value - 1].text.toUpperCase(),
-                            t,
-                            i18n
-                          )
-                        : '',
-                      type: data.value,
-                    };
-                  })
-                }
-              />
+              {!isTest && (
+                <Dropdown
+                  name="type"
+                  clearable
+                  options={typeOptions}
+                  selection
+                  value={values.type}
+                  placeholder={t('details.editTicket.inputs.type.placeholder')}
+                  onChange={(_, data: any) =>
+                    setValues((prevValues) => {
+                      return {
+                        ...prevValues,
+                        description: data.value
+                          ? generateTemplate(
+                              data.options[data.value - 1].text.toUpperCase(),
+                              t,
+                              i18n
+                            )
+                          : '',
+                        type: data.value,
+                      };
+                    })
+                  }
+                />
+              )}
             </div>
             <SecondInput>
               <Header
                 size="tiny"
                 style={{ margin: 0, marginBottom: '0.25rem' }}
               >
-                {t('details.editTicket.inputs.priority.label')}
+                <React.Fragment>
+                  {t('details.editTicket.inputs.priority.label')}
+                </React.Fragment>
               </Header>
-              <Dropdown
-                name="priority"
-                clearable
-                options={priorityOptions}
-                selection
-                placeholder={t(
-                  'details.editTicket.inputs.priority.placeholder'
-                )}
-                value={values.priority}
-                onChange={(_, data) =>
-                  setValues((prevValues) => {
-                    return {
-                      ...prevValues,
-                      priority: data.value,
-                    };
-                  })
-                }
-              />
+              {!isTest && (
+                <Dropdown
+                  name="priority"
+                  clearable
+                  options={priorityOptions}
+                  selection
+                  placeholder={t(
+                    'details.editTicket.inputs.priority.placeholder'
+                  )}
+                  value={values.priority}
+                  onChange={(_, data) =>
+                    setValues((prevValues) => {
+                      return {
+                        ...prevValues,
+                        priority: data.value,
+                      };
+                    })
+                  }
+                />
+              )}
             </SecondInput>
           </Section>
           <Section>
@@ -293,35 +305,41 @@ const Edit = ({
                 size="tiny"
                 style={{ margin: 0, marginBottom: '0.25rem' }}
               >
-                {t('details.editTicket.inputs.assignees.label')}
+                <React.Fragment>
+                  {t('details.editTicket.inputs.assignees.label')}
+                </React.Fragment>
               </Header>
-              <Dropdown
-                name="assignees"
-                clearable
-                multiple
-                options={personnel}
-                value={values.assignees}
-                selection
-                placeholder={t(
-                  'details.editTicket.inputs.assignees.placeholder'
-                )}
-                style={{ maxWidth: '196px' }}
-                onChange={(_, data) => {
-                  setValues((prevValues) => {
-                    return {
-                      ...prevValues,
-                      assignees: data.value,
-                    };
-                  });
-                }}
-              />
+              {!isTest && (
+                <Dropdown
+                  name="assignees"
+                  clearable
+                  multiple
+                  options={personnel}
+                  value={values.assignees}
+                  selection
+                  placeholder={t(
+                    'details.editTicket.inputs.assignees.placeholder'
+                  )}
+                  style={{ maxWidth: '196px' }}
+                  onChange={(_, data) => {
+                    setValues((prevValues) => {
+                      return {
+                        ...prevValues,
+                        assignees: data.value,
+                      };
+                    });
+                  }}
+                />
+              )}
             </div>
             <SecondInput>
               <Header
                 size="tiny"
                 style={{ margin: 0, marginBottom: '0.25rem' }}
               >
-                {t('details.editTicket.inputs.deadline.label')}
+                <React.Fragment>
+                  {t('details.editTicket.inputs.deadline.label')}
+                </React.Fragment>
               </Header>
               <SemanticDatepicker
                 name="deadline"
@@ -340,7 +358,9 @@ const Edit = ({
             </SecondInput>
           </Section>
           <Header size="tiny" style={{ margin: 0, marginBottom: '0.25rem' }}>
-            {t('details.editTicket.inputs.description.label')}
+            <React.Fragment>
+              {t('details.editTicket.inputs.description.label')}
+            </React.Fragment>
           </Header>
           <TextArea
             name="description"

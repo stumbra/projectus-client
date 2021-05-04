@@ -61,14 +61,14 @@ const Chart = ({
     <Container>
       {type === 'Bar' && (
         <React.Fragment>
-          <ChartInfo>{title}</ChartInfo>
+          <ChartInfo data-testid="chart.bar.title">{title}</ChartInfo>
           <BarChart
             data={data}
             height={height / 3}
             width={width > 600 ? width / 3 : width / 1.5}
             margin={{ left: -20 }}
           >
-            <CartesianGrid strokeDasharray="3 3" />
+            <CartesianGrid strokeDasharray="3 3" data-testid="chart.bar" />
             <XAxis dataKey={dataKeys && dataKeys.x} />
             <YAxis />
             <Tooltip />
@@ -78,7 +78,7 @@ const Chart = ({
       )}
       {type === 'Pie' && (
         <React.Fragment>
-          <ChartInfo>{title}</ChartInfo>
+          <ChartInfo data-testid="chart.pie.title">{title}</ChartInfo>
           <PieChart
             height={height / 3}
             width={width > 600 ? width / 3 : width / 1.5}

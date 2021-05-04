@@ -42,7 +42,7 @@ const Header = (): React.ReactElement => {
 
   return (
     <React.Fragment>
-      <Wrapper secondary>
+      <Wrapper secondary data-testid="header.wrapper">
         <Button
           toggle
           active={visible}
@@ -69,7 +69,9 @@ const Header = (): React.ReactElement => {
         open={isVisible}
         size="mini"
       >
-        <Modal.Header>{t('language.primary')}</Modal.Header>
+        <Modal.Header>
+          <React.Fragment>{t('language.primary')}</React.Fragment>
+        </Modal.Header>
         <Modal.Content>
           <Modal.Description>
             <p>{t('language.secondary')}</p>
