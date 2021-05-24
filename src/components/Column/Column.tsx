@@ -178,7 +178,6 @@ const Column = ({
         }}
         refetch={refetch}
         section={column.id}
-        testId="column.create.ticket.modal"
       />
     </React.Fragment>
   );
