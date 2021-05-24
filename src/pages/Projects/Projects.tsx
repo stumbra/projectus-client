@@ -37,7 +37,10 @@ const Projects = (): React.ReactElement => {
   const history = useHistory();
 
   const { loading, data: { getAssignedProjects } = {}, refetch } = useQuery(
-    GET_ASSIGNED_PROJECTS_QUERY
+    GET_ASSIGNED_PROJECTS_QUERY,
+    {
+      fetchPolicy: 'no-cache',
+    }
   );
 
   const { user } = React.useContext(AuthContext);

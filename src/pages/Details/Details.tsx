@@ -78,6 +78,7 @@ const Details = (): React.ReactElement => {
     LOG_HOURS_MUTATION,
     {
       update: () => {
+        setHours('');
         refetch();
       },
       onError(err) {
