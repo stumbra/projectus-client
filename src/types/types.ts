@@ -12,6 +12,7 @@ export type PersonType = {
   avatar?: string;
   confirmed?: boolean;
   email?: string;
+  status?: string;
 };
 
 export type SectionType = {
